@@ -66,9 +66,18 @@ with Session(engine) as session:
 
 # Add Organizations
 with Session(engine) as session:
-    from ..entities import OrganizationEntity
     from .dev_data import organizations
     to_entity = entities.OrganizationEntity.from_model
     session.add_all([to_entity(model) for model in organizations.models])
     session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {len(organizations.models) + 1}'))
+    session.commit()
+
+# Add Users to Organizations
+with Session(engine) as session:
+    from ..entities import UserEntity, OrganizationEntity
+    from .dev_data import user_organizations
+    for user, organization in user_organizations.pairs:
+        user_entity = session.get(UserEntity, user.id)
+        organization_entity = session.get(OrganizationEntity, organization.id)
+        user_entity.organizations.append(organization_entity)
     session.commit()
