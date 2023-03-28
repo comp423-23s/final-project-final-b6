@@ -21,7 +21,7 @@ org2 = Organization(id=2,
                 description="Ackland description",
                image="https://se-images.campuslabs.com/clink/images/ee0bc303-002e-4aca-aaba-81ad270d3901c0ac95ac-7e47-4ee6-95bf-c6f9598dd2fd.jpg?preset=med-sq")
 
-org3 = Organization(id=2, 
+org3 = Organization(id=3, 
                 name="Active Minds at Carolina", 
                 overview="Active Minds at Carolina overview", 
                 description="Active Minds at Carolina overview",

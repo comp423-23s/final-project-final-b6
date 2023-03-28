@@ -25,14 +25,6 @@ entities.EntityBase.metadata.create_all(engine)
 
 
 # Insert Dev Data from `script.dev_data`
-# Add Organizations
-with Session(engine) as session:
-    from ..entities import OrganizationEntity
-    from .dev_data import organizations
-    to_entity = entities.OrganizationEntity.from_model
-    session.add_all([to_entity(model) for model in organizations.models])
-    session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {len(organizations.models) + 1}'))
-    session.commit()
     
 # Add Users
 with Session(engine) as session:
@@ -72,3 +64,11 @@ with Session(engine) as session:
     session.execute(text(f'ALTER SEQUENCE permission_id_seq RESTART WITH {len(permissions.pairs) + 1}'))
     session.commit()
 
+# Add Organizations
+with Session(engine) as session:
+    from ..entities import OrganizationEntity
+    from .dev_data import organizations
+    to_entity = entities.OrganizationEntity.from_model
+    session.add_all([to_entity(model) for model in organizations.models])
+    session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {len(organizations.models) + 1}'))
+    session.commit()
