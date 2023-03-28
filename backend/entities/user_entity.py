@@ -6,6 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import Self
 from .entity_base import EntityBase
 from .user_role_entity import user_role_table
+from .user_organization_entity import user_organization_table
 from ..models import User
 
 
@@ -31,6 +32,7 @@ class UserEntity(EntityBase):
         String(32), nullable=False, default='')
 
     roles: Mapped[list['RoleEntity']] = relationship(secondary=user_role_table, back_populates='users')
+    organizations: Mapped[list['OrganizationEntity']] = relationship(secondary=user_organization_table, back_populates='users')
     permissions: Mapped['PermissionEntity'] = relationship(back_populates='user')
 
     @classmethod
