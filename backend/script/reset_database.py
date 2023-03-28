@@ -60,7 +60,6 @@ with Session(engine) as session:
         entity = PermissionEntity.from_model(permission)
         entity.role = session.get(RoleEntity, role.id)
         session.add(entity)
-        print(1)
     session.execute(text(f'ALTER SEQUENCE permission_id_seq RESTART WITH {len(permissions.pairs) + 1}'))
     session.commit()
 
@@ -80,4 +79,13 @@ with Session(engine) as session:
         user_entity = session.get(UserEntity, user.id)
         organization_entity = session.get(OrganizationEntity, organization.id)
         user_entity.organizations.append(organization_entity)
+    session.commit()
+
+# Add events to organizations
+with Session(engine) as session:
+    from .dev_data import events
+    from ..entities import EventEntity, OrganizationEntity
+    to_entity = entities.EventEntity.from_model
+    session.add_all([to_entity(model) for model in events.models])
+    session.execute(text(f'ALTER SEQUENCE {entities.EventEntity.__table__}_id_seq RESTART WITH {len(events.models) + 1}'))
     session.commit()

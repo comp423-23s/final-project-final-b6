@@ -1,6 +1,5 @@
 '''Organizations in the application.'''
 
-
 from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import Self
@@ -23,7 +22,8 @@ class OrganizationEntity(EntityBase):
     description: Mapped[str] = mapped_column(String(100000), nullable=False, default='')
     image: Mapped[str] = mapped_column(String(3000), nullable=False, default='')
     users: Mapped[list['UserEntity']] = relationship(secondary=user_organization_table, back_populates='organizations')
-    # TODO Add events to model
+    events = relationship("EventEntity", back_populates="organization")
+
     
     @classmethod
     def from_model(cls, model: Organization) -> Self:

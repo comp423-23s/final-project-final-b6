@@ -15,6 +15,7 @@ global to a module are available for import from other modules."""
 
 from .entity_base import EntityBase
 from .organization_entity import OrganizationEntity
+from .event_entity import EventEntity
 from .user_entity import UserEntity
 from .role_entity import RoleEntity
 from .permission_entity import PermissionEntity
