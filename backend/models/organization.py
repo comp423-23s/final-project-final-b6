@@ -3,7 +3,11 @@
 from pydantic import BaseModel
 
 
+<<<<<<< HEAD
 __authors__ = ["Kris Jordan", "Jackson Davis"]
+=======
+__authors__ = ["Jackson Davis"]
+>>>>>>> b98fd39427300e541a0a95583b25bce101ebaabb
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
