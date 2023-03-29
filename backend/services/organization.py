@@ -34,3 +34,16 @@ class OrganizationService:
         else:
             model = organization_entity.to_model()
             return model
+
+    # This method will add an org to the db based on the passed in params.
+    # Might need to clean up the variable names a little, but as of now, the api works with test data
+    def create_organization(self, organization_name: OrganizationEntity) -> Organization | None: #org_name of type OrgEnt or str?
+        query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name.name)
+        organization_entity: OrganizationEntity = self._session.scalar(query)
+        if organization_entity is None:
+            orgToAdd = OrganizationEntity.from_model(organization_name)
+            self._session.add(orgToAdd)
+            self._session.commit()
+            return organization_name
+        else:
+            raise Exception("An organization with this name already exists!")
