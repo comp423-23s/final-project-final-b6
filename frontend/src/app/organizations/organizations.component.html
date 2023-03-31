@@ -1,0 +1,17 @@
+<div class="container">
+  <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
+    <div class="orgCardContainer">
+      <div>
+        <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
+      </div>
+      <div>
+        <mat-card-header>
+          <mat-card-content>
+            <mat-card-title>{{organization.name}}</mat-card-title>
+            <mat-card-subtitle>{{organization.overview}}</mat-card-subtitle>
+          </mat-card-content>
+        </mat-card-header>
+      </div>
+    </div>
+  </mat-card>
+</div>
