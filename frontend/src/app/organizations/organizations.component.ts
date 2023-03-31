@@ -16,14 +16,10 @@ export class OrganizationsComponent {
     title: 'Organizations', 
   };
   public organizations$: Observable<Organizations[]>;
-
   
   constructor(
     private organizationService: OrganizationsService
   ) {
     this.organizations$=organizationService.getOrganizations()
   }
-
 }
-
-
