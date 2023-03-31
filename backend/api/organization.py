@@ -17,7 +17,7 @@ def get(organization_name, organization_svc: OrganizationService = Depends()):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@api.post("/{organization_name}", response_model=Organization, tags=['Organization'])
+@api.post("", response_model=Organization, tags=['Organization'])
 def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends()):
     try:
         return organizaton_svc.create_organization(organization)

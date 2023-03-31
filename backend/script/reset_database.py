@@ -60,7 +60,6 @@ with Session(engine) as session:
         entity = PermissionEntity.from_model(permission)
         entity.role = session.get(RoleEntity, role.id)
         session.add(entity)
-        print(1)
     session.execute(text(f'ALTER SEQUENCE permission_id_seq RESTART WITH {len(permissions.pairs) + 1}'))
     session.commit()
 
