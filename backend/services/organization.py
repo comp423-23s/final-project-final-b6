@@ -36,8 +36,7 @@ class OrganizationService:
             return model
 
     # This method will add an org to the db based on the passed in params.
-    # Might need to clean up the variable names a little, but as of now, the api works with test data
-    def create_organization(self, organization: OrganizationEntity) -> Organization | None: #org_name of type OrgEnt or str?
+    def create_organization(self, organization: OrganizationEntity) -> Organization | None:
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
