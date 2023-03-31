@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Route } from '@angular/router';
 import { Observable } from 'rxjs';
-import { isAuthenticated } from 'src/app/gate/gate.guard';
-import { Organizations, OrganizationsService } from '../organizations.service';
+import { isAuthenticated } from 'src/app/organizations/gate.guard';
+import { Organizations, OrganizationsService } from './organizations.service';
 
 @Component({
   selector: 'app-organizations',

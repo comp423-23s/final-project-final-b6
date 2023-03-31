@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Profile } from '../profile/profile.service';
 import { profileResolver } from '../profile/profile.resolver';
-import { isAuthenticated } from './gate.guard';
+import { isAuthenticated } from '../organizations/gate.guard';
 
 @Component({ template: '' })
 export class GateComponent {
