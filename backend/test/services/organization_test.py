@@ -1,17 +1,13 @@
 import pytest
 
 from sqlalchemy import text
-from fastapi import Depends
 from sqlalchemy.orm import Session
-from ...database import engine, db_session
-from ...models.organization import Organization
-from ...models.permission import Permission
-from ...entities.organization_entity import OrganizationEntity
+from ...database import engine
+
 from ...services.organization import OrganizationService
-from ...services.permission import PermissionService
 from ...script.reset_database import reset_database
 from ... import entities
-from ...api.organization import get_all_organizations
+
 
 
 with Session(engine) as session:
@@ -35,7 +31,7 @@ def test_number_of_organizations_with_models():
     
 def test_organization_get_id_valid(organization: OrganizationService):
     assert(organization.get("ACM at Carolina").id == 1)
-    
+
 
 # This test makes sure that an invalid club name, i.e, one that does not exist, raises an exception (as it should as thats how we handle it in the OrganizationService class)
 def test_organization_get_id_invalid(organization: OrganizationService):
@@ -43,20 +39,7 @@ def test_organization_get_id_invalid(organization: OrganizationService):
         organization.get("Nonexistent Club")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 # Leaving here for now to show what didnt work
 # TODO: REMOVE THIS BEFORE PUSHING TO STAGE JUST HERE TO LOOK THROUGH FOR BETTER IMPLIMENTATIONS DURING REVIEW!
@@ -86,12 +69,6 @@ def test_organization_get_id_invalid(organization: OrganizationService):
 # @pytest.fixture()
 # def organization(session: Session):
 #     return OrganizationService(session).get_all_organizations()
-
-
-
-
-
-
 
 # def test_number_of_organizaitons_with_api(organization: OrganizationService):
 #     assert(len(organization) == 15)
