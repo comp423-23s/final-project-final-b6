@@ -52,17 +52,16 @@ def reset_database():
             user_entity.roles.append(role_entity)
         session.commit()
 
-    # Add Permissions to Users/Roles
-    with Session(engine) as session:
-        from ..entities import PermissionEntity
-        from .dev_data import permissions
-        for role, permission in permissions.pairs:
-            entity = PermissionEntity.from_model(permission)
-            entity.role = session.get(RoleEntity, role.id)
-            session.add(entity)
-            print(1)
-        session.execute(text(f'ALTER SEQUENCE permission_id_seq RESTART WITH {len(permissions.pairs) + 1}'))
-        session.commit()
+# Add Permissions to Users/Roles
+with Session(engine) as session:
+    from ..entities import PermissionEntity
+    from .dev_data import permissions
+    for role, permission in permissions.pairs:
+        entity = PermissionEntity.from_model(permission)
+        entity.role = session.get(RoleEntity, role.id)
+        session.add(entity)
+    session.execute(text(f'ALTER SEQUENCE permission_id_seq RESTART WITH {len(permissions.pairs) + 1}'))
+    session.commit()
 
     # Add Organizations
     with Session(engine) as session:
