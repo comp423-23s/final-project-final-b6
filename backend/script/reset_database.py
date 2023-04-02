@@ -89,3 +89,5 @@ def reset_database():
         session.add_all([to_entity(model) for model in events.models])
         session.execute(text(f'ALTER SEQUENCE {entities.EventEntity.__table__}_id_seq RESTART WITH {len(events.models) + 1}'))
         session.commit()
+
+reset_database()
