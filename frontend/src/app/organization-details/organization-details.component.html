@@ -1,0 +1,14 @@
+<div class="container">
+  <div *ngIf="organization$ | async as organization">
+    <div class="organizationDetailsContainer">
+      <div class="titleAndImageContainer">
+        <img mat-card-image src="{{organization.image}}" style="border-radius: 50px; margin-right: 30px;"
+          class="orgImg">
+        <mat-card-title style="font-size: 40px;">{{ organization.name }}</mat-card-title>
+      </div>
+      <div class="descriptionContainer">
+        <h2 style="margin: 30px;"> {{ organization.description }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
