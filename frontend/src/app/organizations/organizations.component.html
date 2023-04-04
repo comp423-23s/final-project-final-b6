@@ -1,6 +1,6 @@
 <div class="container">
-  <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
-    <div class="orgCardContainer">
+  <mat-card *ngFor="let organization of organizations$ | async" class="orgCard" >
+    <div class="orgCardContainer" routerLink="/organizations/{{organization.name}}">
       <div>
         <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
       </div>

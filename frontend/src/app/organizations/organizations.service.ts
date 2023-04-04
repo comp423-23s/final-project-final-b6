@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { ReturnStatement } from '@angular/compiler';
 
-export interface Organizations {
+export interface Organization {
   id: number;
   name: string;
   overview: string;
@@ -14,13 +14,15 @@ export interface Organizations {
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationsService {
-
+export class OrganizationService {
   constructor(private http: HttpClient) { }
 
+  getOrganizations() : Observable<Organization[]> {
+    return this.http.get<Organization[]>("/api/organizations");
+  }
 
-  getOrganizations() : Observable<Organizations[]> {
-    return this.http.get<Organizations[]>("/api/organizations");
+  getOrganization(organizationName: string): Observable<Organization>{
+    return this.http.get<Organization>(`api/organizations/${organizationName}`)
   }
 
 }

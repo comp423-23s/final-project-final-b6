@@ -1,0 +1,41 @@
+.container{
+    background-image: url("/assets/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 60% 120%;
+    background-position: center;
+    background-position-x: 400px;
+    background-position-y: -50px;
+    min-height: 800px;
+}
+
+.organizationDetailsContainer{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.descriptionContainer {
+    align-items: center;
+    display:flex;
+    margin-left: 60px;
+    margin-right: 40px;
+    border-radius: 30px;
+    border-width: 5px;
+    background-color: #3e3e3e;
+}
+
+.titleAndImageContainer{
+    margin: 10px;
+    margin-top: -5px;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.orgImg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}

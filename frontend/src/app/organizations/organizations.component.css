@@ -4,12 +4,22 @@
     flex-direction: column;
     margin-left: 10px;
     margin-right: 5px;
+    background-image: url("/assets/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 60% 120%;
+    background-position: center;
+    background-position-x: 400px;
 }
 
 .orgCardContainer {
     display: flex;
     align-items: center;
     flex-direction: row;
+}
+
+.orgCardContainer:hover{
+    cursor: pointer;
 }
 
 .orgCard {
