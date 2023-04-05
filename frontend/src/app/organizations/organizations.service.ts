@@ -21,7 +21,7 @@ export class OrganizationService {
     return this.http.get<Organization[]>("/api/organizations");
   }
 
-  getOrganization(organizationName: string): Observable<Organization>{
+  getOrganizationDetails(organizationName: string): Observable<Organization>{
     return this.http.get<Organization>(`api/organizations/${organizationName}`)
   }
 
