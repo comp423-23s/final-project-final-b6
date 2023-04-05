@@ -24,6 +24,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule} from '@angular/material/menu';
 
 /* Application Specific */
 import { AppRoutingModule } from './app-routing.module';
@@ -68,6 +69,7 @@ import { OrganizationDetailsComponent } from './organization-details/organizatio
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
+    MatMenuModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
