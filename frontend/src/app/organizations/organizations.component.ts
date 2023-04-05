@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { isAuthenticated } from 'src/app/organizations/gate.guard';
 import { Organization, OrganizationService } from './organizations.service';
 
+
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
@@ -21,5 +22,10 @@ export class OrganizationsComponent {
     private organizationService: OrganizationService
   ) {
     this.organizations$=organizationService.getOrganizations()
+  }
+  deleteOrganization(organization: Organization) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.organizationService.deleteOrganization(organization);
+    }
   }
 }
