@@ -22,7 +22,7 @@ export class OrganizationDetailsComponent {
       // First get organization name from the current route.
       const routeParams = this.route.snapshot.paramMap;
       // call API route to get specific info of organization
-      this.organization$ = this.organizationService.getOrganization(String(routeParams.get('organizationName')))
+      this.organization$ = this.organizationService.getOrganizationDetails(String(routeParams.get('organizationName')))
     }
 
 }
