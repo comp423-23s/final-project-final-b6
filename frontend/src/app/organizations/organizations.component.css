@@ -15,8 +15,12 @@
 .orgCardContainer {
     display: flex;
     align-items: center;
-    flex-direction: row;
     justify-content: space-between; 
+    flex-direction: row;
+}
+
+.manu{
+    margin-left: auto;
 }
 
 .orgCardContainer:hover{
