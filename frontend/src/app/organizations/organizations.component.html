@@ -17,12 +17,12 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item >
+          <button mat-menu-item *ngIf="adminPermission$ | async">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
 
-          <button mat-menu-item (click)="deleteOrganization(organization)">
+          <button mat-menu-item (click)="deleteOrganization(organization)" *ngIf="adminPermission$ | async">
             <mat-icon> delete_outline</mat-icon>
             <span>Delete</span>
           </button>

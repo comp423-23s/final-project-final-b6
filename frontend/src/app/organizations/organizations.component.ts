@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isAuthenticated } from 'src/app/organizations/gate.guard';
 import { Organization, OrganizationService } from './organizations.service';
+import { PermissionService } from '../permission.service';
 
 
 @Component({
@@ -17,11 +18,14 @@ export class OrganizationsComponent {
     title: 'Organizations', 
   };
   public organizations$: Observable<Organization[]>;
+  public adminPermission$: Observable<boolean>;
   
   constructor(
+    private permission: PermissionService,
     private organizationService: OrganizationService
   ) {
     this.organizations$=organizationService.getOrganizations()
+    this.adminPermission$ = this.permission.check('admin.view', 'admin/')
   }
   deleteOrganization(organization: Organization) {
     if (confirm('Are you sure you want to delete?')) {
