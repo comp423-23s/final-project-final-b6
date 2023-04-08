@@ -1,5 +1,6 @@
 from fastapi import Depends
 from sqlalchemy import select, or_, func, update
+from ..entities.entity_base import EntityBase
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models.organization import Organization
@@ -47,7 +48,9 @@ class OrganizationService:
         else:
             raise Exception("An organization with this name already exists!")
 
-    def edit_organization(self, organization: Organization) -> OrganizationEntity | None:
+
+    #insert(Base.metadata.tables[Product.__tablename__]).values(...)
+    def edit_organization(self, organization: OrganizationEntity) -> Organization | None:
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
@@ -55,12 +58,43 @@ class OrganizationService:
         else:
             # the error message says: "detail": "subject table for an INSERT, UPDATE or DELETE expected, 
             # got Organization(id=6, name='1789', overview='string', description='string', image='string').", but im passing in the organization table?
-            update(organization).where(OrganizationEntity.name == organization.name).values(OrganizationEntity.id == OrganizationEntity.id,
-                                                                                             OrganizationEntity.name == OrganizationEntity.name,
-                                                                                             OrganizationEntity.overview == organization.overview,
-                                                                                             OrganizationEntity.description == organization.description,
-                                                                                             OrganizationEntity.image == organization.description)
+            # do I need to pass in a list of fields for the second argument below?
+            # note that the update function below is not the one from sqlalchemy, but its from the organization_entity class           
+            OrganizationEntity.update(EntityBase.metadata.tables[OrganizationEntity.__tablename__], organization)
             self._session.commit()
+            return organization
+
+
+
+
+    # def edit_organization(self, organization: Organization) -> OrganizationEntity | None:
+    #     query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
+    #     organization_entity: OrganizationEntity = self._session.scalar(query)
+    #     if organization_entity is None:
+    #         raise Exception("No organization with that name was found! (must be exact)")
+    #     else:
+    #         # the error message says: "detail": "subject table for an INSERT, UPDATE or DELETE expected, 
+    #         # got Organization(id=6, name='1789', overview='string', description='string', image='string').", but im passing in the organization table?
+    #         update(EntityBase.metadata.tables[OrganizationEntity.__tablename__]).where(OrganizationEntity.name == organization.name).values(OrganizationEntity.id == OrganizationEntity.id,
+    #                                                                                          OrganizationEntity.name == OrganizationEntity.name,
+    #                                                                                          OrganizationEntity.overview == organization.overview,
+    #                                                                                          OrganizationEntity.description == organization.description,
+    #                                                                                          OrganizationEntity.image == organization.description)
+    #         self._session.commit()
+    #         return organization
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         # def edit_organization(self, organization: Organization) -> Organization | None:
