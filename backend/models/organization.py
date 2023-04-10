@@ -14,10 +14,3 @@ class Organization(BaseModel):
     overview: str
     description: str
     image: str
-
-#Added this to try and model the user profile update method, but could not get it to work
-# class OrganizationForm(BaseModel):
-#     name: str
-#     overview: str
-#     description: str
-#     image: str
