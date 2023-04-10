@@ -12,10 +12,15 @@
     background-position-x: 400px;
 }
 
-.orgCardContainer {
+.orgCardAdminContainer {
     display: flex;
     align-items: center;
     justify-content: space-between; 
+    flex-direction: row;
+}
+.orgCardContainer {
+    display: flex;
+    align-items: center;
     flex-direction: row;
 }
 

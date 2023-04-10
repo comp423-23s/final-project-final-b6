@@ -29,6 +29,7 @@ export class OrganizationService {
   }
 
   deleteOrganization(organization: Organization) {
+    console.log(organization);
     const index = this.organizations.indexOf(organization);
     if (index >= 0) {
       this.organizations.splice(index, 1);

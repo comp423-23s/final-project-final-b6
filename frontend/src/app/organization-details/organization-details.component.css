@@ -3,10 +3,9 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 60% 120%;
-    background-position: center;
     background-position-x: 70%;
-    background-position-y: 15%;
-    min-height: 80vh
+    background-position-y: 7.5vh;
+    min-height: 90vh
 }
 
 .organizationDetailsContainer{

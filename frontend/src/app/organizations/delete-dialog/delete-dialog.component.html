@@ -1,0 +1,10 @@
+<div>
+    <h2 mat-dialog-title>Are you sure you want to delete <h2> {{this.data.organization.name}}? </h2>
+    </h2>
+</div>
+<div style="justify-content: center">
+    <mat-dialog-content class="mat-typography" style="margin-top:-10%;">
+        <button mat-raised-button style="background-color: red"
+            (click)="deleteOrganization(this.data.organization)">Delete Organization</button>
+    </mat-dialog-content>
+</div>
