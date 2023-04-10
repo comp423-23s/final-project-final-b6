@@ -49,18 +49,15 @@ class OrganizationService:
             raise Exception("An organization with this name already exists!")
 
 
-    #insert(Base.metadata.tables[Product.__tablename__]).values(...)
-    def edit_organization(self, organization: OrganizationEntity) -> Organization | None:
+    def edit_organization(self, organization: Organization) -> Organization | None:
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
             raise Exception("No organization with that name was found! (must be exact)")
         else:
-            # the error message says: "detail": "subject table for an INSERT, UPDATE or DELETE expected, 
-            # got Organization(id=6, name='1789', overview='string', description='string', image='string').", but im passing in the organization table?
-            # do I need to pass in a list of fields for the second argument below?
-            # note that the update function below is not the one from sqlalchemy, but its from the organization_entity class           
-            OrganizationEntity.update(EntityBase.metadata.tables[OrganizationEntity.__tablename__], organization)
+            organization_entity.overview = organization.overview
+            organization_entity.description = organization.description
+            organization_entity.image = organization.image
             self._session.commit()
             return organization
 
