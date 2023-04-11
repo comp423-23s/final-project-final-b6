@@ -32,6 +32,10 @@
     cursor: pointer;
 }
 
+.orgCardAdminContainer:hover{
+    cursor: pointer;
+}
+
 .orgCard {
     margin-right: 20px;
     border-radius: 20px;
