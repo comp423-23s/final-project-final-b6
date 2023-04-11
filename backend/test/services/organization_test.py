@@ -1,15 +1,11 @@
 import pytest
 
-#from sqlalchemy import text
 from sqlalchemy.orm import Session
 from ...database import engine
 
 from ...services.organization import OrganizationService
 from ...entities.organization_entity import OrganizationEntity
 from ...models.organization import Organization
-#from ...script.reset_database import reset_database
-#from ... import entities
-
 
 __authors__ = ['Antonio Tudela']
 __copyright__ = 'Copyright 2023'
