@@ -79,3 +79,23 @@ def test_edit_organization_invalid(organization: OrganizationService):
     with pytest.raises(Exception) as e:
         org: Organization = Organization()
         organization.edit_organization(org)
+        
+
+def test_create_organization_valid(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then create a new one
+    org: Organization = Organization(id=999, name="999th Club", overview="The overview for the 999th club", description="The description for the 999th club", image="The image of the 999th club")
+    organization.create_organization(org)
+    #we create the org, and then create it, then check that the number of orgs went up
+    assert(len(organization.get_all_organizations()) == 4)
+
+
+def test_create_organization_invalid(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    with pytest.raises(Exception) as e:
+        org: Organization = Organization() #faulty organization
+        organization.create_organization(org)
+    #check no new organization was added
+    assert(len(organization.get_all_organizations()) == 3)
