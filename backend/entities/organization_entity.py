@@ -44,7 +44,7 @@ class OrganizationEntity(EntityBase):
             image=self.image
         )
 
-    def update(self, model: Organization) -> Organization:
+    def update(self, model: Organization) -> None:
         self.name = model.name
         self.overview = model.overview
         self.description = model.description
