@@ -1,5 +1,6 @@
 from fastapi import Depends
-from sqlalchemy import select, or_, func
+from sqlalchemy import select, or_, func, update
+from ..entities.entity_base import EntityBase
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models.organization import Organization
@@ -46,3 +47,16 @@ class OrganizationService:
             return organization
         else:
             raise Exception("An organization with this name already exists!")
+
+
+    def edit_organization(self, organization: Organization) -> Organization | None:
+        query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
+        organization_entity: OrganizationEntity = self._session.scalar(query)
+        if organization_entity is None:
+            raise Exception("No organization with that name was found! (must be exact)")
+        else:
+            organization_entity.overview = organization.overview
+            organization_entity.description = organization.description
+            organization_entity.image = organization.image
+            self._session.commit()
+            return organization
