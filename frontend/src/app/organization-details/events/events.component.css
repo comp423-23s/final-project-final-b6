@@ -40,7 +40,7 @@
 .eventCard {
     margin-right: 20px;
     border-radius: 20px;
-    min-width: 45vw;
+    min-width: 60vw;
     transition: all .5s ease;
 }
 
