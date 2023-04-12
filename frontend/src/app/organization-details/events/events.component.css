@@ -1,12 +1,56 @@
-.eventsContainer{
-    display: grid;
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 10px;
+    margin-right: 5px;
     margin-top: 2%;
-    grid-template-columns: 1fr 1fr 1fr;
-
 }
+
+.eventCardContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.eventCardAdminContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    flex-direction: row;
+}
+.eventCardContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.manu{
+    margin-left: auto;
+}
+
+.eventCardContainer:hover{
+    cursor: pointer;
+}
+
+.eventCardAdminContainer:hover{
+    cursor: pointer;
+}
+
 .eventCard {
     margin-right: 20px;
     border-radius: 20px;
-    width: 100%;
+    min-width: 60vw;
     transition: all .5s ease;
+}
+
+.eventCard:hover {
+    background-color: #4a4a4a;
+    transform: translate3D(0, -1px, 0) scale(1.01);
+}
+
+.eventImg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
 }

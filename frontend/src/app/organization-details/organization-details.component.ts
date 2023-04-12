@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { OrganizationService } from '../organizations/organizations.service';
 import { Organization } from '../organizations/organizations.service';
 import {FormControl} from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { EventsComponent } from './events/events.component';
 
 @Component({
   selector: 'app-organization-details',
@@ -33,7 +31,4 @@ export class OrganizationDetailsComponent {
       // set the default tab to the details/registration page
       this.tab = "Details/Registration";
     }
-
-
-
 }

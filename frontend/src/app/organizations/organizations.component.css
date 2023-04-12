@@ -4,9 +4,6 @@
     flex-direction: column;
     padding-left: 10px;
     margin-right: 5px;
-
-
-
 }
 
 .orgCardAdminContainer {
@@ -56,5 +53,4 @@
     background-repeat: repeat-y;
     background-position: center;
     background-attachment: fixed;
-
 }
