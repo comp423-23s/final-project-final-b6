@@ -1,0 +1,9 @@
+.descriptionContainer {
+    align-items: center;
+    text-align:left;
+    display:flex;
+    margin-top: 2%;
+    border-radius: 30px;
+    border-width: 5px;
+    background-color: #3e3e3e;
+}

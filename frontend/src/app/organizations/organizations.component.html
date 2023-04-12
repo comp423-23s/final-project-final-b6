@@ -1,35 +1,7 @@
 <div class="container">
-  <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
-    <div class="orgCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
-      <div routerLink="/organizations/{{organization.name}}">
-        <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
-      </div>
-      <div>
-        <mat-card-header routerLink="/organizations/{{organization.name}}">
-          <mat-card-content>
-            <mat-card-title>{{organization.name}}</mat-card-title>
-            <mat-card-subtitle>{{organization.overview}}</mat-card-subtitle>
-          </mat-card-content>
-        </mat-card-header>
-      </div>
-      <div class="manu">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="adminPermission$ | async">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item (click)="deleteOrganization(organization)" *ngIf="adminPermission$ | async">
-            <mat-icon> delete_outline</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
-    <ng-template #not_admin>
-      <div class="orgCardContainer">
+  <div class="orgCardsContainer">
+    <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
+      <div class="orgCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
         <div routerLink="/organizations/{{organization.name}}">
           <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
         </div>
@@ -41,7 +13,37 @@
             </mat-card-content>
           </mat-card-header>
         </div>
+        <div class="manu">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="adminPermission$ | async">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteOrganization(organization)" *ngIf="adminPermission$ | async">
+              <mat-icon> delete_outline</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
-    </ng-template>
-  </mat-card>
+      <ng-template #not_admin>
+        <div class="orgCardContainer">
+          <div routerLink="/organizations/{{organization.name}}">
+            <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
+          </div>
+          <div>
+            <mat-card-header routerLink="/organizations/{{organization.name}}">
+              <mat-card-content>
+                <mat-card-title>{{organization.name}}</mat-card-title>
+                <mat-card-subtitle>{{organization.overview}}</mat-card-subtitle>
+              </mat-card-content>
+            </mat-card-header>
+          </div>
+        </div>
+      </ng-template>
+    </mat-card>
+  </div>
 </div>
