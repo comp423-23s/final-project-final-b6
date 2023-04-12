@@ -30,3 +30,10 @@ def edit_organization(organization: Organization, organization_svc: Organization
         return organization_svc.edit_organization(organization)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
+
+@api.delete("/{organization_name}", response_model=None, tags=['Organization'])
+def delete_organizaiton(organization_name: str, organization_svc: OrganizationService = Depends()): #may also need to add authorization here so that only admins can delete organizations, unless that will be handled on the frontend
+    try:
+        return organization_svc.delete_organization(organization_name)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))

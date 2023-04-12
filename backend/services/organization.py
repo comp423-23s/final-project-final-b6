@@ -17,6 +17,7 @@ class OrganizationService:
         self._session = session
         self._permission = permission
 
+    # This method returns a list of all organizaitons in the DB
     def get_all_organizations(self) -> list[Organization]:
         query = select(OrganizationEntity)
         organizations = self._session.scalars(query)
@@ -27,6 +28,7 @@ class OrganizationService:
                 organization_models.append(model)
         return organization_models
 
+    # This method takes in an organization name, and returns details about the organization
     def get(self, organization_name: str) -> Organization | None:
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
@@ -48,7 +50,7 @@ class OrganizationService:
         else:
             raise Exception("An organization with this name already exists!")
 
-
+    # This method takes in an organization object, and updates the correlating organization already in the DB with updated info
     def edit_organization(self, organization: Organization) -> Organization | None:
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
@@ -60,3 +62,13 @@ class OrganizationService:
             organization_entity.image = organization.image
             self._session.commit()
             return organization
+
+    # This method takes in the name of an organization to be deleted and then deletes it from the DB
+    def delete_organization(self, organization_name: str) -> None: 
+        query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
+        organization_entity: OrganizationEntity = self._session.scalar(query)
+        if organization_entity is None:
+            raise Exception("No organization with that name was found! (must be exact)")
+        else:
+            self._session.delete(organization_entity)
+            self._session.commit()
