@@ -14,4 +14,3 @@ class Organization(BaseModel):
     overview: str
     description: str
     image: str
-    

@@ -12,20 +12,18 @@ __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
 
-if getenv("MODE") != "development":
-    print("This script can only be run in development mode.", file=sys.stderr)
-    print("Add MODE=development to your .env file in workspace's `backend/` directory")
-    exit(1)
-
-
-
-# Reset Tables
-entities.EntityBase.metadata.drop_all(engine)
-entities.EntityBase.metadata.create_all(engine)
-
-
 # Insert Dev Data from `script.dev_data`
 def reset_database():
+    if getenv("MODE") != "development":
+        print("This script can only be run in development mode.", file=sys.stderr)
+        print("Add MODE=development to your .env file in workspace's `backend/` directory")
+        exit(1)
+
+    # Reset Tables
+    entities.EntityBase.metadata.drop_all(engine)
+    entities.EntityBase.metadata.create_all(engine)
+
+
     # Add Users
     with Session(engine) as session:
         from .dev_data import users

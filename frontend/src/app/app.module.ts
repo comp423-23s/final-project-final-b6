@@ -25,6 +25,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NgModel } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
 
 /* Application Specific */
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +39,12 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
-import { AddClubFormComponent } from './add-club-form/add-club-form.component';
+import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { EventsComponent } from './organization-details/events/events.component';
+import { DetailsAndRegistrationComponent } from './organization-details/details-and-registration/details-and-registration.component';
+import { MembersComponent } from './organization-details/members/members.component';
+import { DeleteDialogEventComponent } from './organization-details/events/delete-dialog-event/delete-dialog-event.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +56,11 @@ import { AddClubFormComponent } from './add-club-form/add-club-form.component';
     ProfileEditorComponent,
     OrganizationsComponent,
     OrganizationDetailsComponent,
-    AddClubFormComponent
+    DeleteDialogComponent,
+    EventsComponent,
+    DetailsAndRegistrationComponent,
+    MembersComponent,
+    DeleteDialogEventComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +71,7 @@ import { AddClubFormComponent } from './add-club-form/add-club-form.component';
     LayoutModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -72,6 +85,8 @@ import { AddClubFormComponent } from './add-club-form/add-club-form.component';
     MatTabsModule,
     MatToolbarModule,
     MatMenuModule,
+    MatTableModule,
+    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
