@@ -4,7 +4,7 @@
       <div>
         <img mat-card-image src="{{event.image}}" style="border-radius: 50px;" class="eventImg">
       </div>
-      <div style="min-width: 32%; max-width:32%;">
+      <div style="width: 40%;">
         <mat-card-header>
           <mat-card-content>
             <mat-card-title>{{event.name}}</mat-card-title>
@@ -12,7 +12,7 @@
           </mat-card-content>
         </mat-card-header>
       </div>
-      <div style="display:flex; flex-direction: column; margin-left: 5%; min-width: 35%; max-width: 35%;">
+      <div style="display:flex; flex-direction: column; margin-left: 5%;">
         <div style="margin-bottom: 1%"><mat-card-title>Location</mat-card-title></div>
         <div><mat-card-subtitle>{{event.location}}</mat-card-subtitle></div>
       </div>
@@ -29,7 +29,7 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button mat-menu-item *ngIf="adminPermission$ | async">
+          <button mat-menu-item *ngIf="adminPermission$ | async" (click)="deleteEvent(event)">
             <mat-icon> delete_outline</mat-icon>
             <span>Delete</span>
           </button>
@@ -41,7 +41,7 @@
         <div>
           <img mat-card-image src="{{event.image}}" style="border-radius: 50px;" class="eventImg">
         </div>
-        <div style="min-width: 32%; max-width:32%;">
+        <div style="width: 40%;">
           <mat-card-header>
             <mat-card-content>
               <mat-card-title>{{event.name}}</mat-card-title>
@@ -49,7 +49,7 @@
             </mat-card-content>
           </mat-card-header>
         </div>
-        <div style="display:flex; flex-direction: column; margin-left: 5%; min-width: 40%; max-width: 40%;">
+        <div style="display:flex; flex-direction: column;">
           <div style="margin-bottom: 1%"><mat-card-title>Location</mat-card-title></div>
           <div><mat-card-subtitle>{{event.location}}</mat-card-subtitle></div>
         </div>

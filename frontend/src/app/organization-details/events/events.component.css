@@ -40,7 +40,7 @@
 .eventCard {
     margin-right: 20px;
     border-radius: 20px;
-    min-width: 60vw;
+    min-width: 45vw;
     transition: all .5s ease;
 }
 
@@ -53,4 +53,11 @@
     width: 100px;
     height: 100px;
     margin: 20px;
+}
+
+.locationDateContainer{
+    display: flex;
+    align-items: right;
+    flex-direction: row;
+    margin-left: 10%;
 }

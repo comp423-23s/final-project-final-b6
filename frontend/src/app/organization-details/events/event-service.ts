@@ -21,6 +21,8 @@ export class EventService {
   getOrganizationEvents(organizationName: string): Observable<Event[]>{
     return this.http.get<Event[]>(`api/${organizationName}/events`)
   }
+
+  deleteEvent(eventID: number){
+    // TODO Implement once the backend API exists
+  }
 }
-
-
