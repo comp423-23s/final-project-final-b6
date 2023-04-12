@@ -14,8 +14,7 @@ const routes: Routes = [
   OrganizationsComponent.Route,
   GateComponent.Route,
   OrganizationDetailsComponent.Route, 
-  AddClubFormComponent.Route,
-  { path: 'organizations/add-club-form', component: AddClubFormComponent },
+  { path: 'add-club-form', component: AddClubFormComponent },
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 

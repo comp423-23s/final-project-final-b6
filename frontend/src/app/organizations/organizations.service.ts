@@ -35,6 +35,10 @@ export class OrganizationService {
       this.organizations.splice(index, 1);
     }
   }
+  createOrganization(id: number, name: string, overview: string, description: string, image: string): Observable<Organization> {
+    let organization: Organization = {id, name, overview, description, image};
+    return this.http.post<Organization>('/api/organizations', organization)
+  }
 }
 
 
