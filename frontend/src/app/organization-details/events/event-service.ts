@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { ReturnStatement } from '@angular/compiler';
+import { Observable} from 'rxjs';
 
 export interface Event {
   id: number;
@@ -12,13 +11,11 @@ export interface Event {
   image: string;
   organization_id: number;
 }
-
 @Injectable({
   providedIn: 'root'
 })
 
-export class OrganizationDetailsService {
-  datasource: Event[] = [];
+export class EventService {
   constructor(private http: HttpClient) { }
 
   getOrganizationEvents(organizationName: string): Observable<Event[]>{
