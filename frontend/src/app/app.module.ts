@@ -41,6 +41,9 @@ import { OrganizationsComponent } from './organizations/organizations.component'
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
 import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { EventsComponent } from './organization-details/events/events.component';
+import { DetailsAndRegistrationComponent } from './organization-details/details-and-registration/details-and-registration.component';
+import { MembersComponent } from './organization-details/members/members.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { FormsModule } from '@angular/forms';
     ProfileEditorComponent,
     OrganizationsComponent,
     OrganizationDetailsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    EventsComponent,
+    DetailsAndRegistrationComponent,
+    MembersComponent
   ],
   imports: [
     BrowserModule,

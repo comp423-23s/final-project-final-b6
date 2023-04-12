@@ -27,7 +27,7 @@ export class OrganizationsComponent {
     private organizationService: OrganizationService,
     protected deleteDialog: MatDialog
   ) {
-    this.organizations$=organizationService.getOrganizations()
+    this.organizations$=organizationService.getOrganizations();
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
   }
   deleteOrganization(organization: Organization) {
