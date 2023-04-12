@@ -1,4 +1,8 @@
 <div class="container">
+  <button mat-raised-button color="primary" style="background-color: #494242; margin-right: 10px;" routerLink="/add-club-form" *ngIf="adminPermission$ | async">
+    <mat-icon>add</mat-icon>
+    <span>Add Club</span>
+  </button>
   <div class="orgCardsContainer">
     <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
       <div class="orgCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
