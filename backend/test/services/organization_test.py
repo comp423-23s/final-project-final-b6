@@ -99,3 +99,21 @@ def test_create_organization_invalid(organization: OrganizationService):
         organization.create_organization(org)
     #check no new organization was added
     assert(len(organization.get_all_organizations()) == 3)
+
+
+def test_delete_organization_valid(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then we delete one and check the length to make sure its gone down by one
+    organization.delete_organization("1789")
+    assert(len(organization.get_all_organizations()) == 2)
+
+
+def test_delete_organization_invalid(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then we and organization that doesnt exist so it should raise an exception
+    with pytest.raises(Exception) as e:
+        organization.delete_organization("Club No Name")
+    #check that nothing was deleted
+    assert(len(organization.get_all_organizations()) == 3)
