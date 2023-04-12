@@ -22,7 +22,7 @@ class OrganizationEntity(EntityBase):
     description: Mapped[str] = mapped_column(String(100000), nullable=False, default='')
     image: Mapped[str] = mapped_column(String(3000), nullable=False, default='')
     users: Mapped[list['UserEntity']] = relationship(secondary=user_organization_table, back_populates='organizations')
-    events = relationship("EventEntity", back_populates="organization")
+    events = relationship("EventEntity", back_populates="organization", cascade="all, delete-orphan")
 
     
     @classmethod
