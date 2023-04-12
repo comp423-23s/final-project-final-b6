@@ -36,6 +36,7 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
+import { AddClubFormComponent } from './add-club-form/add-club-form.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { OrganizationDetailsComponent } from './organization-details/organizatio
     GateComponent,
     ProfileEditorComponent,
     OrganizationsComponent,
-    OrganizationDetailsComponent
+    OrganizationDetailsComponent,
+    AddClubFormComponent
   ],
   imports: [
     BrowserModule,

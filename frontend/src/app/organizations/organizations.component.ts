@@ -6,6 +6,7 @@ import { Organization, OrganizationService } from './organizations.service';
 import { PermissionService } from '../permission.service';
 
 
+
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
@@ -33,3 +34,4 @@ export class OrganizationsComponent {
     }
   }
 }
+

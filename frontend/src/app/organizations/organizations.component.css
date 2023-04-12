@@ -12,6 +12,13 @@
     background-position-x: 400px;
 }
 
+.addClubButton {
+    margin-bottom: 10px; /* adds some spacing between the button and the cards */
+    background-color: #353333; /* sets the background color to gray */
+    margin-left: 10px; /* aligns the button to the left */
+  }
+  
+
 .orgCardContainer {
     display: flex;
     align-items: center;

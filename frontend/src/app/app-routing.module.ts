@@ -6,14 +6,16 @@ import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
-
+import { AddClubFormComponent } from './add-club-form/add-club-form.component';
 
 const routes: Routes = [
   HomeComponent.Route,
   ProfileEditorComponent.Route,
   OrganizationsComponent.Route,
   GateComponent.Route,
-  OrganizationDetailsComponent.Route,
+  OrganizationDetailsComponent.Route, 
+  AddClubFormComponent.Route,
+  { path: 'organizations/add-club-form', component: AddClubFormComponent },
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
