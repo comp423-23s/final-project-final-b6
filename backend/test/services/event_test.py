@@ -90,7 +90,7 @@ def test_delete_event_valid(event: EventService):
     #check default # of events
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
     #then we delete and check it went down
-    event.delete_event(2) # i think this works as intended but may need some more eyes on it, im dead
+    event.delete_event(2)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
 
 def test_delete_event_invalid(event: EventService):
