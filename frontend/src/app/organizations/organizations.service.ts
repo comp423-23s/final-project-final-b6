@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ReturnStatement } from '@angular/compiler';
 
@@ -34,6 +34,17 @@ export class OrganizationService {
     if (index >= 0) {
       this.organizations.splice(index, 1);
     }
+  }
+
+  editOrganization(organization: Organization): Observable<Organization>{
+    const body = {
+        id: organization.id,
+        name: organization.name,
+        overview: organization.overview,
+        description: organization.description,
+        image: organization.image
+      }
+    return this.http.patch<Organization>(`/api/organizations/${organization.name}`, body);
   }
 }
 

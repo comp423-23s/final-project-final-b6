@@ -18,7 +18,8 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="adminPermission$ | async">
+            <button mat-menu-item *ngIf="adminPermission$ | async"
+              routerLink="/organizations/{{organization.name}}/edit">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
