@@ -45,6 +45,7 @@ import { EventsComponent } from './organization-details/events/events.component'
 import { DetailsAndRegistrationComponent } from './organization-details/details-and-registration/details-and-registration.component';
 import { MembersComponent } from './organization-details/members/members.component';
 import { DeleteDialogEventComponent } from './organization-details/events/delete-dialog-event/delete-dialog-event.component';
+import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DeleteDialogEventComponent } from './organization-details/events/delete
     EventsComponent,
     DetailsAndRegistrationComponent,
     MembersComponent,
-    DeleteDialogEventComponent
+    DeleteDialogEventComponent,
+    OrganizationEditComponent
   ],
   imports: [
     BrowserModule,
