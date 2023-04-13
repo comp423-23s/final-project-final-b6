@@ -37,20 +37,14 @@ export class OrganizationService {
   }
 
   editOrganization(organization: Organization): Observable<Organization>{
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
-      }),
-      body: {
+    const body = {
         id: organization.id,
         name: organization.name,
         overview: organization.overview,
         description: organization.description,
         image: organization.image
-      },
-    };
-    return this.http.patch<Organization>(`/api/organizations/${organization.name}`, options.body);
+      }
+    return this.http.patch<Organization>(`/api/organizations/${organization.name}`, body);
   }
 }
 
