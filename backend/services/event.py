@@ -42,3 +42,12 @@ class EventService:
                 model = ev.to_model()
                 event_models.append(model)
         return event_models
+
+    def delete_event(self, event_id: int) -> None:
+        query = select(EventEntity).where(EventEntity.id == event_id)
+        event_entity = self._session.scalar(query)
+        if event_entity is None:
+            raise Exception("No event with that event id was found! Please try again")
+        else:
+            self._session.delete(event_entity)
+            self._session.commit()

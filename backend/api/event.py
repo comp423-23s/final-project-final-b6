@@ -12,3 +12,11 @@ def get(organization_name: str, event_svc: EventService = Depends()):
         return event_svc.get_organization_events(organization_name)  
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@api.delete("/{event_id}", response_model=None, tags=['Event'])
+def delete_event(event_id: int, event_svc: EventService = Depends()):
+    try:
+        return event_svc.delete_event(event_id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))

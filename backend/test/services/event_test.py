@@ -85,3 +85,19 @@ def tet_get_events_exact_fields(event: EventService):
     assert(events[1].description == event3.description)
     assert(events[1].date_time == event3.Date_time)
     assert(events[1].location == event3.location)
+
+def test_delete_event_valid(event: EventService):
+    #check default # of events
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #then we delete and check it went down
+    event.delete_event(2)
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
+
+def test_delete_event_invalid(event: EventService):
+    #check default # of events
+    assert(len(event.get_all_events()) == 3)
+    #delete non existant event and raise exception
+    with pytest.raises(Exception) as e:
+        event.delete_event(999)
+    #check that nothing was deleted 
+    assert(len(event.get_all_events()) == 3)
