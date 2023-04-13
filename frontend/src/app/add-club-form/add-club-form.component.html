@@ -1,23 +1,26 @@
 <div class="container">
-    <h2>Add Club</h2>
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Title:</label>
-        <input type="text" id="title" name="title" class="form-control" formControlName ="name">
-      </div>
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" class="form-control" formControlName = "overview" ></textarea>
-      </div>
-      <div class="form-group">
-        <label for="mission">Mission Statement:</label>
-        <textarea id="mission" name="mission" class="form-control" formControlName = "description" ></textarea>
-      </div>
-      <div class="form-group">
-        <label for="photoUrl">Photo URL:</label>
-        <input type="url" id="photoUrl" name="photoUrl" class="form-control" formControlName = "image">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-  
+  <h2>Add Club</h2>
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">name</label>
+      <input type="text" id="name" name="name" class="form-control" formControlName="name">
+    </div>
+
+    <div class="form-group">
+      <label for="overview">overview</label>
+      <input id="overview" name="overview" class="form-control" formControlName="overview">
+    </div>
+
+    <div class="form-group">
+      <label for="description">description</label>
+      <input id="description" name="description" class="form-control" formControlName="description">
+    </div>
+
+    <div class="form-group">
+      <label for="image">image</label>
+      <input type="url" id="image" name="image" class="form-control" formControlName="image">
+    </div>
+
+    <button type="submit" class="btn btn-primary">submit</button>
+  </form>
+</div>
