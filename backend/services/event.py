@@ -16,6 +16,16 @@ class EventService:
         self._session = session
         self._permission = permission
 
+    # This method takes in an event id, and returns details about the event
+    def get_event_details(self, event_id: int) -> Event | None:
+        query = select(EventEntity).where(EventEntity.id == event_id)
+        event_entity = self._session.scalar(query)
+        if event_entity is None:
+            raise Exception("No event with that event id was found! Please try again")
+        else:
+            model = event_entity.to_model()
+            return model
+
     def get_all_events(self) -> list[Event]:
         query = select(EventEntity)
         events = self._session.scalars(query)
