@@ -20,3 +20,11 @@ def delete_event(event_id: int, event_svc: EventService = Depends()):
         return event_svc.delete_event(event_id)
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+@api.patch("/{event_id}", response_model=Event, tags=['Event'])
+def edit_event(event: Event, event_svc: EventService = Depends()):
+    try:
+        return event_svc.edit_event(event)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))

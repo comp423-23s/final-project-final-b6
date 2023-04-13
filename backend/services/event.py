@@ -51,3 +51,17 @@ class EventService:
         else:
             self._session.delete(event_entity)
             self._session.commit()
+
+    def edit_event(self, event: Event) -> Event | None:
+        query = select(EventEntity).where(EventEntity.id == event.id)
+        event_entity: EventEntity = self._session.scalar(query)
+        if(event_entity is None):
+            raise Exception("An event with that ID cannot be found! Please try again.")
+        else:
+            event_entity.name = event.name
+            event_entity.description = event.description
+            event_entity.date_time = event.date_time
+            event_entity.location = event.location
+            event_entity.image = event.image
+            self._session.commit()
+            return event

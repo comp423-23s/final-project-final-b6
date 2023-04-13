@@ -101,3 +101,28 @@ def test_delete_event_invalid(event: EventService):
         event.delete_event(999)
     #check that nothing was deleted 
     assert(len(event.get_all_events()) == 3)
+
+def test_edit_event_valid(event: EventService):
+    #check normal name
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting") # this is because this event was added to ACM instead of aCc, but this still ensures its working correctly 
+    #now we make "new" event with desired values
+    ev: Event = Event(  id=1,
+                        name="test name",
+                        description="test desc",
+                        date_time=datetime.strptime('04/06/23 14:59', '%m/%d/%y %H:%M'),
+                        location="test location",
+                        image="test image",
+                        organization_id=1)   
+    event.edit_event(ev)
+    #check that the event is edited
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "test name")
+
+def test_edit_event_invalid(event: EventService):
+    #check normal name
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting")
+    #fake event
+    with pytest.raises(Exception) as e:
+        ev: Event = Event()
+        event.edit_event(ev)
+    #check nothing changed
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting")
