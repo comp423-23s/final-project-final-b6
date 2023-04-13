@@ -95,9 +95,9 @@ def test_delete_event_valid(event: EventService):
 
 def test_delete_event_invalid(event: EventService):
     #check default # of events
-    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2) #may make more sense to check # of all events but thats a task for tomorrow
+    assert(len(event.get_all_events()) == 3)
     #delete non existant event and raise exception
     with pytest.raises(Exception) as e:
         event.delete_event(999)
     #check that nothing was deleted 
-    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    assert(len(event.get_all_events()) == 3)
