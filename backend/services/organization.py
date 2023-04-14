@@ -19,7 +19,7 @@ class OrganizationService:
 
     # This method returns a list of all organizaitons in the DB
     def get_all_organizations(self) -> list[Organization]:
-        query = select(OrganizationEntity)
+        query = select(OrganizationEntity).order_by(OrganizationEntity.id.desc())
         organizations = self._session.scalars(query)
         organization_models = []
         for org in organizations:
