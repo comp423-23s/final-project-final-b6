@@ -17,8 +17,9 @@ export class DeleteDialogComponent implements OnInit {
 
   ngOnInit(): void {}
   deleteOrganization(organization: Organization){
-    this.organizationService.deleteOrganization(organization);
-    this.dialogRef.close();
+    this.organizationService.deleteOrganization(organization).subscribe(()=>{
+      this.dialogRef.close();
+    });
   }
 
 }

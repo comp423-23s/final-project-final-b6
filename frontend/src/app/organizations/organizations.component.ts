@@ -31,7 +31,8 @@ export class OrganizationsComponent {
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
   }
   deleteOrganization(organization: Organization) {
-    this.deleteDialog.open(DeleteDialogComponent, { data: { "organization": organization} });
+    let dialogRef = this.deleteDialog.open(DeleteDialogComponent, { data: { "organization": organization} });
+    dialogRef.afterClosed().subscribe(() => { this.organizations$=this.organizationService.getOrganizations();})
   }
 
 }
