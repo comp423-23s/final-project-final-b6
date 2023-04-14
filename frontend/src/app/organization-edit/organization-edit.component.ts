@@ -25,7 +25,7 @@ export class OrganizationEditComponent {
   static Route: Route = {
     path: 'organizations/:organizationName/edit',
     component: OrganizationEditComponent,
-    title: 'Organization Edit',
+    title: 'Edit Organization',
     canActivate: [isAuthenticated]
   };
   constructor(

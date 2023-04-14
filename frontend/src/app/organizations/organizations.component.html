@@ -1,7 +1,12 @@
 <div class="container">
   <div class="orgCardsContainer">
+    <div class="createOrgContainer" *ngIf="(adminPermission$ | async)">
+      <button mat-raised-button type="submit"style="margin-right: 30px; margin-top: 20px;"
+      routerLink="/create/organization">Create New<mat-icon> add_circle</mat-icon></button>
+    </div>
     <mat-card *ngFor="let organization of organizations$ | async" class="orgCard">
       <div class="orgCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
+        
         <div routerLink="/organizations/{{organization.name}}">
           <img mat-card-image src="{{organization.image}}" style="border-radius: 50px;" class="orgImg">
         </div>
