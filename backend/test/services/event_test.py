@@ -68,24 +68,27 @@ def setup_teardown(test_session: Session):
 def event(test_session: Session):
     return EventService(test_session)
 
+# this test checks that the ACM organization has only one event
 def test_get_events_length_one(event: EventService):
-    print(event.get_organization_events("ACM at Carolina"))
     assert(len(event.get_organization_events("ACM at Carolina")) == 1)
 
+# this test chekcs that the aCc organization has two events 
 def test_get_events_length_two(event: EventService):
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
 
-def tet_get_events_exact_fields(event: EventService):
+# this test checks the get organization events method properly returns the correct event with the correct corresponding event fields
+def test_get_events_exact_fields(event: EventService):
     events = event.get_organization_events("(aCc) - a Culture club")
     assert(events[0].name == event2.name)
     assert(events[0].description == event2.description)
-    assert(events[0].date_time == event2.Date_time)
+    assert(events[0].date_time == event2.date_time)
     assert(events[0].location == event2.location)
     assert(events[1].name == event3.name)
     assert(events[1].description == event3.description)
-    assert(events[1].date_time == event3.Date_time)
+    assert(events[1].date_time == event3.date_time)
     assert(events[1].location == event3.location)
 
+# this test checks that the delete event method actually deletes the event
 def test_delete_event_valid(event: EventService):
     #check default # of events
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
@@ -93,6 +96,7 @@ def test_delete_event_valid(event: EventService):
     event.delete_event(2)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
 
+# this test makes sure that the deleve event method correctly raises an exception when passed in an invalid event id
 def test_delete_event_invalid(event: EventService):
     #check default # of events
     assert(len(event.get_all_events()) == 3)
@@ -102,6 +106,7 @@ def test_delete_event_invalid(event: EventService):
     #check that nothing was deleted 
     assert(len(event.get_all_events()) == 3)
 
+# this test checks that the edit event method actually edits the events fields
 def test_edit_event_valid(event: EventService):
     #check normal name
     assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting") # this is because this event was added to ACM instead of aCc, but this still ensures its working correctly 
@@ -109,14 +114,19 @@ def test_edit_event_valid(event: EventService):
     ev: Event = Event(  id=1,
                         name="test name",
                         description="test desc",
-                        date_time=datetime.strptime('04/06/23 14:59', '%m/%d/%y %H:%M'),
+                        date_time=datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'),
                         location="test location",
                         image="test image",
                         organization_id=1)   
     event.edit_event(ev)
     #check that the event is edited
     assert(event.get_organization_events("ACM at Carolina")[0].name == "test name")
+    assert(event.get_organization_events("ACM at Carolina")[0].description == "test desc")
+    assert(event.get_organization_events("ACM at Carolina")[0].date_time == datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'))
+    assert(event.get_organization_events("ACM at Carolina")[0].location == "test location")
+    assert(event.get_organization_events("ACM at Carolina")[0].image == "test image")
 
+# this test checks that the edit event method raises an exception when passed in a faulty event
 def test_edit_event_invalid(event: EventService):
     #check normal name
     assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting")
@@ -126,3 +136,29 @@ def test_edit_event_invalid(event: EventService):
         event.edit_event(ev)
     #check nothing changed
     assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting")
+
+#this test checks that the get event details method correctly returns the correct fields 
+def test_get_event_details_valid(event: EventService):
+    #here is the event details for reference that we will be testing correctness for:
+    # event3 = Event(
+    #             name="Active Minds Get Together!",
+    #             description="Come join us for a get together of our Active Minds! >:)",
+    #             date_time = datetime.strptime('04/05/23 14:59', '%m/%d/%y %H:%M'),
+    #             location="Fetzer Gym",
+    #             organization_id=3,
+    #             image="https://se-images.campuslabs.com/clink/images/074a951c-704c-4b35-9e81-f16da39f9f3ed291f0dd-d7c7-47c5-9ba9-e014a2a1dc04.jpg?preset=med-sq")
+
+    #now check that the values returned from the service method are the actual expected values 
+    assert(event.get_event_details(3)).name == "Active Minds Get Together!"
+    assert(event.get_event_details(3)).description == "Come join us for a get together of our Active Minds! >:)"
+    assert(event.get_event_details(3)).date_time == datetime.strptime('04/05/23 14:59', '%m/%d/%y %H:%M')
+    assert(event.get_event_details(3)).location == "Fetzer Gym"
+    assert(event.get_event_details(3)).image == "https://se-images.campuslabs.com/clink/images/074a951c-704c-4b35-9e81-f16da39f9f3ed291f0dd-d7c7-47c5-9ba9-e014a2a1dc04.jpg?preset=med-sq"
+    
+# this test checks that the get evetn details method raises an exception when passed in an invalid event id
+def test_get_event_details_invalid(event: EventService):
+    with pytest.raises(Exception) as e:
+        #make faulty fake event
+        event4 = Event()
+        #make sure the method raises an exception
+        event.get_event_details(event4.id)
