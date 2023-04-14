@@ -42,6 +42,32 @@ export class OrganizationService {
       }
     return this.http.patch<Organization>(`/api/organizations/${organization.name}`, body);
   }
+
+  createOrganization(id: number, name: string, overview: string, description: string, image: string): Observable<Organization> {
+    let errors: string[] = [];
+    if (name === "") {
+      errors.push(`name required.`);
+    }
+
+    if (overview === "") {
+      errors.push(`overview required.`)
+    }
+
+    if (description === "") {
+      errors.push(`description required.`)
+    }
+
+    if (image === "") {
+      errors.push(`image required.`)
+    }
+
+    if (errors.length > 0) {
+      return throwError(() => { return new Error(errors.join("\n")) });
+    }
+
+    let organization: Organization = {id, name, overview, description, image};
+    return this.http.post<Organization>('/api/organizations', organization);
+  }
 }
 
 
