@@ -28,6 +28,8 @@ import { MatMenuModule} from '@angular/material/menu';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { NgModel } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 /* Application Specific */
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +46,8 @@ import { FormsModule } from '@angular/forms';
 import { EventsComponent } from './organization-details/events/events.component';
 import { DetailsAndRegistrationComponent } from './organization-details/details-and-registration/details-and-registration.component';
 import { MembersComponent } from './organization-details/members/members.component';
+import { EventEditComponent } from './organization-details/events/event-edit/event-edit.component';
+import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogEventComponent } from './organization-details/events/delete-dialog-event/delete-dialog-event.component';
 import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
 
@@ -62,6 +66,7 @@ import { OrganizationEditComponent } from './organization-edit/organization-edit
     DetailsAndRegistrationComponent,
     MembersComponent,
     DeleteDialogEventComponent,
+    EventEditComponent,
     OrganizationEditComponent
   ],
   imports: [
@@ -88,6 +93,9 @@ import { OrganizationEditComponent } from './organization-edit/organization-edit
     MatToolbarModule,
     MatMenuModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
     FormsModule,
     JwtModule.forRoot({
       config: {

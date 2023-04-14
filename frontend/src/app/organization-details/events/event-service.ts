@@ -25,4 +25,21 @@ export class EventService {
   deleteEvent(eventID: number){
     // TODO Implement once the backend API exists
   }
+
+  getEvent(organizationName: string, eventID: number): Observable<Event>{
+    return this.http.get<Event>(`api/${organizationName}/events/${eventID}`)
+  }
+
+  editEvent(organizationName: string, event: Event): Observable<Event>{
+    const body = {
+        id: event.id,
+        name: event.name,
+        description: event.description,
+        date_time: event.date_time,
+        location: event.location,
+        image: event.image,
+        organization_id: event.organization_id
+      }
+    return this.http.patch<Event>(`api/${organizationName}/events/${event.id}`, body);
+  }
 }

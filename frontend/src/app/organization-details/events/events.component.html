@@ -1,43 +1,7 @@
 <div class="container">
   <mat-card *ngFor="let event of events$ | async" class="eventCard">
-    <div class="eventCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
-      <div>
-        <img mat-card-image src="{{event.image}}" style="border-radius: 50px;" class="eventImg">
-      </div>
-      <div style="width: 40%;">
-        <mat-card-header>
-          <mat-card-content>
-            <mat-card-title>{{event.name}}</mat-card-title>
-            <mat-card-subtitle>{{event.description}}</mat-card-subtitle>
-          </mat-card-content>
-        </mat-card-header>
-      </div>
-      <div style="display:flex; flex-direction: column; margin-left: 5%;">
-        <div style="margin-bottom: 1%"><mat-card-title>Location</mat-card-title></div>
-        <div><mat-card-subtitle>{{event.location}}</mat-card-subtitle></div>
-      </div>
-      <div style="display:flex; flex-direction: column; margin-left: 5%;">
-        <div style="margin-bottom: 1%"><mat-card-title>Date & Time</mat-card-title></div>
-        <div><mat-card-subtitle>{{event.date_time | date: 'MMM c @ hh:mm aaa'}}</mat-card-subtitle></div>
-      </div>
-      <div class="manu">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="adminPermission$ | async">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item *ngIf="adminPermission$ | async" (click)="deleteEvent(event)">
-            <mat-icon> delete_outline</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
-    <ng-template #not_admin>
-      <div class="eventCardContainer">
+    <div *ngIf="organization$ | async as organization">
+      <div class="eventCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
         <div>
           <img mat-card-image src="{{event.image}}" style="border-radius: 50px;" class="eventImg">
         </div>
@@ -49,15 +13,53 @@
             </mat-card-content>
           </mat-card-header>
         </div>
-        <div style="display:flex; flex-direction: column;">
+        <div style="display:flex; flex-direction: column; margin-left: 5%;">
           <div style="margin-bottom: 1%"><mat-card-title>Location</mat-card-title></div>
           <div><mat-card-subtitle>{{event.location}}</mat-card-subtitle></div>
         </div>
         <div style="display:flex; flex-direction: column; margin-left: 5%;">
           <div style="margin-bottom: 1%"><mat-card-title>Date & Time</mat-card-title></div>
-          <div><mat-card-subtitle>{{event.date_time | date: 'MMM c @ hh:mm aaa'}}</mat-card-subtitle></div>
+          <div><mat-card-subtitle>{{event.date_time | date: 'MMM d @ hh:mm aa'}}</mat-card-subtitle></div>
+        </div>
+        <div class="manu">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="adminPermission$ | async" routerLink="/organizations/{{organization.name}}/events/{{event.id}}/edit">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item *ngIf="adminPermission$ | async" (click)="deleteEvent(event)">
+              <mat-icon> delete_outline</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
-    </ng-template>
+      <ng-template #not_admin>
+        <div class="eventCardContainer">
+          <div>
+            <img mat-card-image src="{{event.image}}" style="border-radius: 50px;" class="eventImg">
+          </div>
+          <div style="width: 40%;">
+            <mat-card-header>
+              <mat-card-content>
+                <mat-card-title>{{event.name}}</mat-card-title>
+                <mat-card-subtitle>{{event.description}}</mat-card-subtitle>
+              </mat-card-content>
+            </mat-card-header>
+          </div>
+          <div style="display:flex; flex-direction: column;">
+            <div style="margin-bottom: 1%"><mat-card-title>Location</mat-card-title></div>
+            <div><mat-card-subtitle>{{event.location}}</mat-card-subtitle></div>
+          </div>
+          <div style="display:flex; flex-direction: column; margin-left: 5%;">
+            <div style="margin-bottom: 1%"><mat-card-title>Date & Time</mat-card-title></div>
+            <div><mat-card-subtitle>{{event.date_time | date: 'MMM d @ hh:mm aaa'}}</mat-card-subtitle></div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
   </mat-card>
 </div>
