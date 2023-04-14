@@ -25,6 +25,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule} from '@angular/material/menu';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NgModel } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 /* Application Specific */
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +42,14 @@ import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
 import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { EventsComponent } from './organization-details/events/events.component';
+import { DetailsAndRegistrationComponent } from './organization-details/details-and-registration/details-and-registration.component';
+import { MembersComponent } from './organization-details/members/members.component';
+import { EventEditComponent } from './organization-details/events/event-edit/event-edit.component';
+import { MatSelectModule } from '@angular/material/select';
+import { DeleteDialogEventComponent } from './organization-details/events/delete-dialog-event/delete-dialog-event.component';
+import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +61,13 @@ import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dial
     ProfileEditorComponent,
     OrganizationsComponent,
     OrganizationDetailsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    EventsComponent,
+    DetailsAndRegistrationComponent,
+    MembersComponent,
+    DeleteDialogEventComponent,
+    EventEditComponent,
+    OrganizationEditComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +78,7 @@ import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dial
     LayoutModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -72,6 +92,11 @@ import { DeleteDialogComponent } from './organizations/delete-dialog/delete-dial
     MatTabsModule,
     MatToolbarModule,
     MatMenuModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

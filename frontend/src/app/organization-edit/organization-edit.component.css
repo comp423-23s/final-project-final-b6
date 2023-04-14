@@ -1,0 +1,23 @@
+
+.orgImg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}
+.mat-mdc-card {
+    margin: 1em;
+    max-width: 640px;
+}
+
+.mat-mdc-form-field {
+    width: stretch;
+    /* margin-left: 1em; */
+}
+
+.mat-mdc-card-actions .mdc-button {
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
+.imageContainer{
+    text-align: center;
+}
