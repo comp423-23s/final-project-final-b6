@@ -26,6 +26,8 @@ class EventService:
             model = event_entity.to_model()
             return model
 
+    # this method returns all the events in the db for the frontend to display
+    # this method is currently unused, but could be used in a stretch goal
     def get_all_events(self) -> list[Event]:
         query = select(EventEntity)
         events = self._session.scalars(query)
@@ -36,6 +38,7 @@ class EventService:
                 event_models.append(model)
         return event_models
 
+    # this method returns a list of events pertaining to a given organization in order by the first occuring
     def get_organization_events(self, organization_name: str) -> list[Event] | None:
         # get the associated organization entity to find its id
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
@@ -44,7 +47,7 @@ class EventService:
             raise Exception("No organization with that name was found! (must be exact)")
         organization_id = organization_entity.id
         # get the event entities using the organization id 
-        events_query = select(EventEntity).where(EventEntity.organization_id == organization_id)
+        events_query = select(EventEntity).where(EventEntity.organization_id == organization_id).order_by(EventEntity.date_time.asc())
         events = self._session.scalars(events_query)
         event_models = []
         for ev in events:
@@ -53,6 +56,7 @@ class EventService:
                 event_models.append(model)
         return event_models
 
+    # this method deletes an event
     def delete_event(self, event_id: int) -> None:
         query = select(EventEntity).where(EventEntity.id == event_id)
         event_entity = self._session.scalar(query)
@@ -62,6 +66,7 @@ class EventService:
             self._session.delete(event_entity)
             self._session.commit()
 
+    # this method edits an events fields to reflect the fields of the event object that is passed as an argument
     def edit_event(self, event: Event) -> Event | None:
         query = select(EventEntity).where(EventEntity.id == event.id)
         event_entity: EventEntity = self._session.scalar(query)
