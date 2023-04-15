@@ -61,3 +61,10 @@
     flex-direction: row;
     margin-left: 10%;
 }
+.createEventContainer{
+    text-align: right;
+    overflow: hidden;
+}
+mat-raised-button{
+    height: auto !important;
+  } 
