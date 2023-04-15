@@ -23,7 +23,7 @@ event2 = Event(id=2,
                 date_time = datetime.strptime('04/16/23 14:30', '%m/%d/%y %H:%M'),
                 location="Lenoir",
                 organization_id=2,
-                image="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdeviniti.com%2Fblog%2Fproject-work-management%2Fhow-to-organize-event-step-by-step%2F&psig=AOvVaw2qY2qTIwSLPCQDhcMmgg7z&ust=1680128412233000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCNiCuZvU__0CFQAAAAAdAAAAABAE",
+                image="https://i0.pickpik.com/photos/772/182/331/ice-cream-waffles-food-ice-cream-flavors-preview.jpg", # this image was taken from google under a free use, no copyright, Creative Commons License
                 )
 
 event3 = Event(id=3,
