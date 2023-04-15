@@ -48,7 +48,7 @@ org6 = Organization(id=6,
 org7 = Organization(id=7,
                     name="180 Degrees Consulting UNC-Chapel Hill",
                     overview="Operating in over 100 branches around the world, 180 DC provides consulting services for nonprofits, social enterprises, and socially minded companies in an entirely student-led manner.",
-                    description="", # this is left empty on purpose as the club has no desc :(
+                    description="No description given", # modified this to reflect no description
                     image="https://se-images.campuslabs.com/clink/images/5c8242e0-b2fd-4e75-bc35-384976b0b86cc9a6e5cb-bb57-4aba-9d83-e40139997863.png?preset=small-sq")                  
 
 org8 = Organization(id=8,
@@ -73,8 +73,7 @@ org11 = Organization(id=11, #CS
                     name="Department of Computer Science",
                     overview="The Department of Computer Science offers instruction and performs research in the essential areas of computer science. ",
                     description="The Department of Computer Science offers instruction and performs research in the essential areas of computer science. Majors receive rigorous training in the foundations of computer science and the relevant mathematics, then have ample opportunity to specialize in advanced courses.",
-                    image="") # empty as no image present
-
+                    image="https://csxl.unc.edu/assets/lil-logo.png") # replaced with CSXL logo 
 org12 = Organization(id=12, #CS
                     name="Black in Technology",
                     overview="Black in Technology (BiT) is a student and technology-based organization, that dedicates itself to the development of intensive programs for increasing Black and other ethnic participation in the field of technology and Computer Science.",
