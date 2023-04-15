@@ -74,6 +74,7 @@ org11 = Organization(id=11, #CS
                     overview="The Department of Computer Science offers instruction and performs research in the essential areas of computer science. ",
                     description="The Department of Computer Science offers instruction and performs research in the essential areas of computer science. Majors receive rigorous training in the foundations of computer science and the relevant mathematics, then have ample opportunity to specialize in advanced courses.",
                     image="https://csxl.unc.edu/assets/lil-logo.png") # replaced with CSXL logo 
+                    
 org12 = Organization(id=12, #CS
                     name="Black in Technology",
                     overview="Black in Technology (BiT) is a student and technology-based organization, that dedicates itself to the development of intensive programs for increasing Black and other ethnic participation in the field of technology and Computer Science.",
