@@ -81,7 +81,7 @@ class EventService:
             self._session.commit()
             return event
         
-    # This method will add an ebent to the db based on the passed in params.
+    # This method will add an event to the db based on the passed in params.
     def create_event(self, event: EventEntity) -> Event | None:
         event_to_add = EventEntity.from_model(event)
         self._session.add(event_to_add)

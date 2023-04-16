@@ -79,14 +79,14 @@ def test_get_events_length_two(event: EventService):
 # this test checks the get organization events method properly returns the correct event with the correct corresponding event fields
 def test_get_events_exact_fields(event: EventService):
     events = event.get_organization_events("(aCc) - a Culture club")
-    assert(events[0].name == event2.name)
-    assert(events[0].description == event2.description)
-    assert(events[0].date_time == event2.date_time)
-    assert(events[0].location == event2.location)
-    assert(events[1].name == event3.name)
-    assert(events[1].description == event3.description)
-    assert(events[1].date_time == event3.date_time)
-    assert(events[1].location == event3.location)
+    assert(events[1].name == event2.name)
+    assert(events[1].description == event2.description)
+    assert(events[1].date_time == event2.date_time)
+    assert(events[1].location == event2.location)
+    assert(events[0].name == event3.name)
+    assert(events[0].description == event3.description)
+    assert(events[0].date_time == event3.date_time)
+    assert(events[0].location == event3.location)
 
 # this test checks that the delete event method actually deletes the event
 def test_delete_event_valid(event: EventService):
@@ -162,3 +162,22 @@ def test_get_event_details_invalid(event: EventService):
         event4 = Event()
         #make sure the method raises an exception
         event.get_event_details(event4.id)
+
+def test_create_event_valid(event: EventService):
+    #first we check the default number of event for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #then create a new one
+    ev: Event = Event(name="New org meeting",description="The new org is meeting!",date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),location="The Quad",organization_id=2,image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
+    event.create_event(ev)
+    # we create an event object, then check that the number of events went up
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 3)
+
+
+def test_create_organization_invalid(event: EventService):
+    #first we check the default number of events for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    with pytest.raises(Exception) as e:
+        ev: Event = Event() #faulty event
+        event.create_event(ev)
+    #check no new event was added
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
