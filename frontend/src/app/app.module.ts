@@ -50,6 +50,7 @@ import { EventEditComponent } from './organization-details/events/event-edit/eve
 import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogEventComponent } from './organization-details/events/delete-dialog-event/delete-dialog-event.component';
 import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
+import { OrganizationCreateComponent } from './organization-create/organization-create.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { OrganizationEditComponent } from './organization-edit/organization-edit
     MembersComponent,
     DeleteDialogEventComponent,
     EventEditComponent,
-    OrganizationEditComponent
+    OrganizationEditComponent,
+    OrganizationCreateComponent
   ],
   imports: [
     BrowserModule,

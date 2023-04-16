@@ -28,7 +28,6 @@ class OrganizationEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Organization) -> Self:
         return cls(
-            id=model.id,
             name=model.name,
             overview=model.overview,
             description=model.description,

@@ -8,6 +8,7 @@ import { OrganizationsComponent } from './organizations/organizations.component'
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
 import {EventEditComponent} from './organization-details/events/event-edit/event-edit.component'
 import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
+import { OrganizationCreateComponent } from './organization-create/organization-create.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   OrganizationDetailsComponent.Route,
   EventEditComponent.Route,
   OrganizationEditComponent.Route,
+  OrganizationCreateComponent.Route,
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 

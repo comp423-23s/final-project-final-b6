@@ -54,3 +54,11 @@
     background-position: center;
     background-attachment: fixed;
 }
+
+.createOrgContainer{
+    text-align: right;
+}
+mat-raised-button{
+    height: auto !important;
+    background-color: red;
+  } 
