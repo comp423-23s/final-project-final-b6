@@ -20,7 +20,6 @@ class EventEntity(EntityBase):
     @classmethod
     def from_model(cls, model: Event) -> Self:
         return cls(
-            id=model.id,
             name=model.name,
             description=model.description,
             date_time=model.date_time,

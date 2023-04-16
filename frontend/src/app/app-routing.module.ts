@@ -6,10 +6,10 @@ import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationDetailsComponent } from './organization-details/organization-details.component';
-import {EventEditComponent} from './organization-details/events/event-edit/event-edit.component'
 import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
 import { OrganizationCreateComponent } from './organization-create/organization-create.component';
-
+import { EventEditComponent } from './organization-details/events/event-edit/event-edit.component'
+import { EventCreateComponent } from './organization-details/events/event-create/event-create.component'
 
 const routes: Routes = [
   HomeComponent.Route,
@@ -17,9 +17,10 @@ const routes: Routes = [
   OrganizationsComponent.Route,
   GateComponent.Route,
   OrganizationDetailsComponent.Route,
-  EventEditComponent.Route,
   OrganizationEditComponent.Route,
   OrganizationCreateComponent.Route,
+  EventEditComponent.Route,
+  EventCreateComponent.Route,
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
@@ -31,4 +32,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AppTitleStrategy.Provider]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
