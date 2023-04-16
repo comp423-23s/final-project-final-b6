@@ -51,7 +51,6 @@ export class OrganizationCreateComponent {
     );
   }
   private onSuccess(organization: Organization) {
-    console.log("wooooooooo");
     this.snackBar.open("Organization Created", "", { duration: 2000 });
     this.router.navigate(['/organizations']);
   }
