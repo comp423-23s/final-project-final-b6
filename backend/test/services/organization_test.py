@@ -1,4 +1,8 @@
-"""These tests are used to ensure that the methods in ...services/organization are functioning as intended."""
+"""These tests are used to ensure that the methods in ...services/organization are functioning as intended.
+
+Each method contains detialed inline comments to help developers understand what is being tested, as well as why.
+
+"""
 
 import pytest
 from sqlalchemy.orm import Session
