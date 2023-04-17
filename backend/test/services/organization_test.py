@@ -11,6 +11,7 @@ from ...services.organization import OrganizationService
 from ...entities.organization_entity import OrganizationEntity
 from ...models.organization import Organization
 
+
 __authors__ = ['Antonio Tudela']
 __copyright__ = 'Copyright 2023'
 __license__ = 'MIT'
