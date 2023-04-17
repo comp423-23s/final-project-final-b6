@@ -22,8 +22,16 @@ class OrganizationService:
         self._session = session
         self._permission = permission
 
-    # This method returns a list of all organizaitons in the DB
     def get_all_organizations(self) -> list[Organization]:
+        """Fetches all the organizations in the database.
+        
+        Args:
+            None.
+        
+        Returns:
+            A list of all the organizations in the database.
+        """
+
         query = select(OrganizationEntity).order_by(OrganizationEntity.id.desc())
         organizations = self._session.scalars(query)
         organization_models = []
@@ -33,8 +41,19 @@ class OrganizationService:
                 organization_models.append(model)
         return organization_models
 
-    # This method takes in an organization name, and returns details about the organization
     def get(self, organization_name: str) -> Organization | None:
+        """Fetches a specified organization from the database.
+        
+        Args:
+            organization_name: A string of an organization name that the caller is searching for.
+            
+        Returns:
+            The specified organizaiton, or none if it cannot be found.
+        
+        Raises:
+            Exception: An error occured when trying to find the organization name supplied.
+        """
+
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
@@ -43,8 +62,19 @@ class OrganizationService:
             model = organization_entity.to_model()
             return model
 
-    # This method will add an org to the db based on the passed in params.
     def create_organization(self, organization: OrganizationEntity) -> Organization | None:
+        """Creates an organization and adds it to the database.
+        
+        Args:
+            organization: An organization entity that the caller wants added to the database.
+            
+        Returns: 
+            The passed in organization, or none if an error occurs.
+        
+        Raises:
+            Exception: An error occured when trying to add the organization to the database.
+        """
+
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
@@ -55,8 +85,19 @@ class OrganizationService:
         else:
             raise Exception("An organization with this name already exists!")
 
-    # This method takes in an organization object, and updates the correlating organization already in the DB with updated info
     def edit_organization(self, organization: Organization) -> Organization | None:
+        """Edits an organization row in the database.
+        
+        Args:
+            organizaiton: An organization model with the desired fields the caller wants updated in the database.
+        
+        Returns: 
+            The passed in organization, or nothing if an error occurs.
+            
+        Raises:
+            Exception: An error occured when trying to edit the organization.
+        """
+
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
@@ -70,6 +111,18 @@ class OrganizationService:
 
     # This method takes in the name of an organization to be deleted and then deletes it from the DB
     def delete_organization(self, organization_name: str) -> None: 
+        """Deletes an organizaiton row from the database.
+        
+        Args: 
+            organization_name: A string of the organization the caller wants deleted from the database.
+            
+        Returns:
+            Nothing.
+
+        Raises:
+            Exception: An error occured when trying to delete the organization to the database.        
+        """
+        
         query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(query)
         if organization_entity is None:
