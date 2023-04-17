@@ -12,6 +12,12 @@ from ..entities import OrganizationEntity, EventEntity
 from ..entities import EventEntity
 from .permission import PermissionService
 
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
+
 class EventService:
 
     _session: Session

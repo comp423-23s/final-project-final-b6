@@ -22,6 +22,12 @@ from ..models.event import Event
 from .organization_entity import OrganizationEntity
 from datetime import datetime
 
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
+
 class EventEntity(EntityBase):
     __tablename__ = 'event'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

@@ -13,6 +13,11 @@ from ..entities import OrganizationEntity
 from .permission import PermissionService
 
 
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
+
 class OrganizationService:
 
     _session: Session

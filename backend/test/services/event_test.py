@@ -11,6 +11,12 @@ from ...models.organization import Organization
 from ...entities import OrganizationEntity, EventEntity
 from datetime import datetime
 
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
+
 # mock events
 event1 = Event(
                 name="Culture Club Meeting",

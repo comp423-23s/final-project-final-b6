@@ -2,13 +2,21 @@
 
 The application mainly interacts with the functions in this file by the way of get requests used to display events,
 a delete request to delete a given event from an organization, a patch request to edit an organization, and a 
-post request to create an event for an organization. 
+post request to create an event for an organization.
+
+Routes in this file are pre-fixed with an endpoint of: "/api/{organization_name}/events".
 """
 
 from fastapi import APIRouter, Depends, HTTPException
 from ..services import UserService, EventService
 from ..models.event import Event
 from .authentication import registered_user
+
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
 
 api = APIRouter(prefix="/api/{organization_name}/events")
 

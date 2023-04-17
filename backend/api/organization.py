@@ -3,12 +3,20 @@
 The application mainly interacts with the functions in this file by the way of get requests used to
 display organizations, a post request to create an organization, a patch request to edit an existing 
 organization, and a delete request to delete a specified organiztion.
+
+Routes in this file are pre-fixed with an endpoint of: "/api/organizations".
 """
 
 from fastapi import APIRouter, Depends, HTTPException
 from ..services import UserService, OrganizationService
 from ..models.organization import Organization
 from .authentication import registered_user
+
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
 
 api = APIRouter(prefix="/api/organizations")
 
