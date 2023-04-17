@@ -39,7 +39,10 @@ export class EventsComponent {
       this.events$ = this.eventService.getOrganizationEvents(String(routeParams.get('organizationName')));
     }
 
-    deleteEvent(event: Event) {
-      this.deleteDialog.open(DeleteDialogEventComponent, { data: { "event": event} });
+    deleteEvent(organization: Organization,event: Event) {
+      let dialogRef = this.deleteDialog.open(DeleteDialogEventComponent, { data: {"organization":organization, "event": event} });
+      dialogRef.afterClosed().subscribe(() => {
+        this.events$ = this.eventService.getOrganizationEvents(String(this.route.snapshot.paramMap.get('organizationName')));
+      })
     }
   }

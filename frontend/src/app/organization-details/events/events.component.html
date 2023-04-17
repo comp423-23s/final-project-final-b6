@@ -36,7 +36,7 @@
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
               </button>
-              <button mat-menu-item *ngIf="adminPermission$ | async" (click)="deleteEvent(event)">
+              <button mat-menu-item *ngIf="adminPermission$ | async" (click)="deleteEvent(organization,event)">
                 <mat-icon> delete_outline</mat-icon>
                 <span>Delete</span>
               </button>
