@@ -23,7 +23,6 @@ export class EventService {
   }
 
   deleteEvent(organizationName: string,eventID: number){
-    // TODO Implement once the backend API exists
     return this.http.delete<Event>(`api/${organizationName}/events/${eventID}`)
   }
 
