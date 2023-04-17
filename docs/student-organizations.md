@@ -133,7 +133,3 @@ We chose to order organization events in the order of soonest occuring first in 
 ## Future Work
 
 With more time, our feature could be slightly expanded.  One idea is to add a way to filter and or sort organizations.
-
-
-
-

@@ -1,4 +1,8 @@
-"""Users associated with a given organizaiton in the applicaiton."""
+"""Users associated with a given organizaiton in the applicaiton.
+
+This file contains the relationship between a user and an organizaiton.
+
+It should not be directly accessable."""
 
 from sqlalchemy import Table, Column, ForeignKey
 from .entity_base import EntityBase

@@ -1,4 +1,19 @@
-"""Events associated with an organization in the application."""
+"""Events associated with an organization in the application.
+
+This file includes the columns associated with an event, two methods to return an event model and an event entity, 
+and a method to update an event.
+
+Typical usage:
+
+event1 = Event(id=1, 
+                name="ACM Meet and Greet", 
+                description="Meet your fellow ACMers!",
+                date_time = datetime.strptime('01/06/24 14:15', '%m/%d/%y %H:%M'),
+                location="Student Union",
+                organization_id=1,
+                image="https://se-images.campuslabs.com/clink/images/b8ab1d8e-ee34-449f-ae5f-e843896455c704688f5b-d1b0-411e-9f69-14c063114d55.jpg?preset=med-sq",
+                )
+"""
 
 from sqlalchemy import Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
