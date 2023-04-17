@@ -1,3 +1,7 @@
+"""Basic model for fields of the role model.
+
+This file contains the fields representing role details."""
+
 from pydantic import BaseModel
 from . import User, Permission
 

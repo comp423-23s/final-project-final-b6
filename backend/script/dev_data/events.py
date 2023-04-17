@@ -4,6 +4,7 @@ These were intially designed to be used by the `script.reset_database` module.""
 
 from ...models.event import Event
 from datetime import datetime
+
 __authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"

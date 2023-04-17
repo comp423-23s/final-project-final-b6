@@ -1,3 +1,8 @@
+"""These tests are used to ensure that the methods in ...services/event are functioning as intended.
+
+Each method contains detialed inline comments to help developers understand what is being tested, as well as why.
+"""
+
 import pytest
 from sqlalchemy.orm import Session
 from ...services.event import EventService
@@ -5,6 +10,12 @@ from ...models.event import Event
 from ...models.organization import Organization
 from ...entities import OrganizationEntity, EventEntity
 from datetime import datetime
+
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
 
 # mock events
 event1 = Event(

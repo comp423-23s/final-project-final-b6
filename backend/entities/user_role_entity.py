@@ -1,3 +1,9 @@
+"""User roles in the application.
+
+This file contains the relationship between a user and their role.
+
+It should not be directly accessable."""
+
 from sqlalchemy import Table, Column, ForeignKey
 from .entity_base import EntityBase
 

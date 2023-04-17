@@ -1,3 +1,8 @@
+"""Event services are used by the applicaiton to provide the functionality for the application to manipulate the database accordingly.
+
+Please see .api/event for more details.
+"""
+
 from fastapi import Depends
 from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
@@ -6,6 +11,12 @@ from ..models.event import Event
 from ..entities import OrganizationEntity, EventEntity
 from ..entities import EventEntity
 from .permission import PermissionService
+
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
+__copyright__ = "Copyright 2023"
+__license__ = "MIT"
+
 
 class EventService:
 
@@ -16,8 +27,20 @@ class EventService:
         self._session = session
         self._permission = permission
 
-    # This method takes in an event id, and returns details about the event
     def get_event_details(self, event_id: int) -> Event | None:
+        """Fetches event details from the database.
+    
+        Args:
+            event_id: The id for a given event that the caller wants details from.
+
+        Returns:
+            A model of an event entity for the frontend to display details about,
+            or, nothing in the event of an exception.
+
+        Raises:
+            Exception: An error occured when trying to find an event with the given event it.
+        """
+        
         query = select(EventEntity).where(EventEntity.id == event_id)
         event_entity = self._session.scalar(query)
         if event_entity is None:
@@ -26,9 +49,16 @@ class EventService:
             model = event_entity.to_model()
             return model
 
-    # this method returns all the events in the db for the frontend to display
-    # this method is currently unused, but could be used in a stretch goal
     def get_all_events(self) -> list[Event]:
+        """Fetches all the events from the database.
+        
+        Args:
+            None
+        
+        Returns:
+            A list of event models of event entities to be used at some point in the future.
+        """
+
         query = select(EventEntity)
         events = self._session.scalars(query)
         event_models = []
@@ -38,8 +68,19 @@ class EventService:
                 event_models.append(model)
         return event_models
 
-    # this method returns a list of events pertaining to a given organization in order by the first occuring
     def get_organization_events(self, organization_name: str) -> list[Event] | None:
+        """Fetches all events associated with an organization from the database.
+        
+        Args:  
+            organization_name: A name of an organization that the caller is trying to grab events for.
+            
+        Returns:
+            A list of event models of event entities to be displayed for an organizaiton.
+            
+        Raises:
+            Exception: An error occured when trying to grab the organizaiton name from the database.
+        """
+
         # get the associated organization entity to find its id
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity = self._session.scalar(organization_query)
@@ -56,8 +97,19 @@ class EventService:
                 event_models.append(model)
         return event_models
 
-    # this method deletes an event
     def delete_event(self, event_id: int) -> None:
+        """Deletes an event from the database.
+        
+        Args:
+            event_id: The id of an event that the caller wants to delete.
+            
+        Returns:
+            Nothing.
+        
+        Raises:
+            Exception: An error occured when trying to find an event with the given event id.
+        """
+
         query = select(EventEntity).where(EventEntity.id == event_id)
         event_entity = self._session.scalar(query)
         if event_entity is None:
@@ -66,8 +118,19 @@ class EventService:
             self._session.delete(event_entity)
             self._session.commit()
 
-    # this method edits an events fields to reflect the fields of the event object that is passed as an argument
     def edit_event(self, event: Event) -> Event | None:
+        """Edits an event in the database.
+        
+        Args:
+            An event model that contains the updated fields the caller wants to use.
+            
+        Returns:
+            The event that was passed in with updated fields.
+            
+        Raises:
+            Exception: An error occured when trying to find the an event with the supplied event's id field.
+        """
+
         query = select(EventEntity).where(EventEntity.id == event.id)
         event_entity: EventEntity = self._session.scalar(query)
         if(event_entity is None):
@@ -81,8 +144,16 @@ class EventService:
             self._session.commit()
             return event
         
-    # This method will add an event to the db based on the passed in params.
     def create_event(self, event: EventEntity) -> Event | None:
+        """Creates an event and adds it to the database.
+        
+        Args:
+            An event entity that the caller wants added to the database.
+            
+        Returns:
+            An event model of the desired event to add.
+        """
+
         event_to_add = EventEntity.from_model(event)
         self._session.add(event_to_add)
         self._session.commit()

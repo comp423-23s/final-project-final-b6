@@ -4,7 +4,8 @@ These were intially designed to be used by the `script.reset_database` module.""
 
 from ...models.organization import Organization
 
-__authors__ = ["Kris Jordan, Jackson Davis, Antonio Tudela"]
+
+__authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
@@ -100,8 +101,6 @@ org15 = Organization(id=15, #CS
                     image="https://se-images.campuslabs.com/clink/images/9bb27e74-fd00-4c7a-92bf-feb32e1d0aebaad4b06d-ea9b-454b-aee3-de5943ae2613.png?preset=med-sq")
 
 
-
-#This is pretty ugly, would be better to use a loop... but like laterrr
 models = [
     org1,
     org2,

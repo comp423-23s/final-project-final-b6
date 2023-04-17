@@ -1,4 +1,8 @@
-"""Model representing events."""
+"""Model representing events.
+
+This file contains the fields representing an event.
+"""
+
 from pydantic import BaseModel
 from datetime import datetime
 

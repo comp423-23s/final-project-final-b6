@@ -1,4 +1,7 @@
-"""Organization is the data object representing organizations and their associated events/users."""
+"""Organization is the data object representing organizations and their associated events/users.
+
+This file contains the fields representing an organization.
+"""
 
 from pydantic import BaseModel
 

@@ -1,11 +1,16 @@
-import pytest
+"""These tests are used to ensure that the methods in ...services/organization are functioning as intended.
 
+Each method contains detialed inline comments to help developers understand what is being tested, as well as why.
+
+"""
+
+import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
-
 from ...services.organization import OrganizationService
 from ...entities.organization_entity import OrganizationEntity
 from ...models.organization import Organization
+
 
 __authors__ = ['Antonio Tudela']
 __copyright__ = 'Copyright 2023'
