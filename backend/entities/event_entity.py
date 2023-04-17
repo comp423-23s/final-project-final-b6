@@ -11,8 +11,7 @@ event1 = Event(id=1,
                 date_time = datetime.strptime('01/06/24 14:15', '%m/%d/%y %H:%M'),
                 location="Student Union",
                 organization_id=1,
-                image="https://se-images.campuslabs.com/clink/images/b8ab1d8e-ee34-449f-ae5f-e843896455c704688f5b-d1b0-411e-9f69-14c063114d55.jpg?preset=med-sq",
-                )
+                image="https://se-images.campuslabs.com/clink/images/b8ab1d8e-ee34-449f-ae5f-e843896455c704688f5b-d1b0-411e-9f69-14c063114d55.jpg?preset=med-sq")
 """
 
 from sqlalchemy import Integer, String, DateTime, ForeignKey
