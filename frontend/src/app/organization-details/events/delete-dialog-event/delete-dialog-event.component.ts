@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Event, EventService } from "../event-service";
+import { Organization } from 'src/app/organizations/organizations.service';
 
 
 @Component({
@@ -12,13 +13,14 @@ export class DeleteDialogEventComponent implements OnInit {
 
   constructor(private eventService: EventService,
     private dialogRef: MatDialogRef<DeleteDialogEventComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { event: Event }
+    @Inject(MAT_DIALOG_DATA) public data: { organization:Organization, event: Event }
   ) { }
 
   ngOnInit(): void { }
-  deleteEvent(event: Event) {
-    this.eventService.deleteEvent(event.id);
-    this.dialogRef.close();
+  deleteEvent( organization:Organization,event: Event) {
+    this.eventService.deleteEvent(organization.name,event.id).subscribe(()=>{
+      this.dialogRef.close();
+    });
   }
 
 }
