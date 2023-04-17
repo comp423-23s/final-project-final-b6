@@ -1,6 +1,5 @@
 """These tests are used to ensure that the methods in ...services/organization are functioning as intended."""
 
-
 import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
