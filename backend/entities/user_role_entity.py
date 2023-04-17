@@ -1,3 +1,5 @@
+"""User roles in the application."""
+
 from sqlalchemy import Table, Column, ForeignKey
 from .entity_base import EntityBase
 

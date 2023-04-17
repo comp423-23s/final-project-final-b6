@@ -1,8 +1,9 @@
-import pytest
+"""These tests are used to ensure that the methods in ...services/organization are functioning as intended."""
 
+
+import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
-
 from ...services.organization import OrganizationService
 from ...entities.organization_entity import OrganizationEntity
 from ...models.organization import Organization

@@ -1,3 +1,5 @@
+"""Basic model for fields of the role model."""
+
 from pydantic import BaseModel
 from . import User, Permission
 

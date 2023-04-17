@@ -1,3 +1,8 @@
+"""Event services are used by the applicaiton to provide the functionality for the application to manipulate the database accordingly.
+
+Please see .api/event for more details.
+"""
+
 from fastapi import Depends
 from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session

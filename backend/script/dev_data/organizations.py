@@ -4,7 +4,7 @@ These were intially designed to be used by the `script.reset_database` module.""
 
 from ...models.organization import Organization
 
-__authors__ = ["Kris Jordan, Jackson Davis, Antonio Tudela"]
+__authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 

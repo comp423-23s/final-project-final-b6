@@ -1,3 +1,10 @@
+"""Event routes are used by the application to interact with events associated with a given organization.
+
+The application mainly interacts with the functions in this file by the way of get requests used to display events,
+a delete request to delete a given event from an organization, a patch request to edit an organization, and a 
+post request to create an event for an organization. 
+"""
+
 from fastapi import APIRouter, Depends, HTTPException
 from ..services import UserService, EventService
 from ..models.event import Event

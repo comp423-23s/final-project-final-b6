@@ -1,5 +1,8 @@
+"""Users associated with a given organizaiton in the applicaiton."""
+
 from sqlalchemy import Table, Column, ForeignKey
 from .entity_base import EntityBase
+
 user_organization_table = Table(
     "user_organization",
     EntityBase.metadata,

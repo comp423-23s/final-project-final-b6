@@ -1,5 +1,4 @@
-'''User accounts for all registered users in the application.'''
-
+"""User accounts for all registered users in the application."""
 
 from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
