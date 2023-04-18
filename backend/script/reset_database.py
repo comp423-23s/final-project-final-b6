@@ -77,8 +77,6 @@ def reset_database():
         from .dev_data import user_organizations
         for user, organization in user_organizations.pairs:
             user_entity = session.get(UserEntity, user.id)
-            print(organization.id)
-            print('-----------------------------------')
             organization_entity = session.get(OrganizationEntity, organization.id)
             user_entity.organizations.append(organization_entity)
         session.commit()
