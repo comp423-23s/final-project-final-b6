@@ -153,13 +153,11 @@ class OrganizationService:
     def get_organization_members(self, organization_name: str) -> any:
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
+        users = organization_entity.users
+        user_models = []
         if organization_entity is None:
             raise Exception("No organization with that name was found! (must be exact)")
         else:
-            user_models = []
-            for user in organization_entity.users:
-                if user:
-                    user_models.append(user)
-                else:
-                    return "No users found"
+            for user in users:
+                user_models.append(UserEntity.to_model(user))
         return user_models
