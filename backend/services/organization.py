@@ -136,8 +136,22 @@ class OrganizationService:
             self._session.delete(organization_entity)
             self._session.commit()
 
-    # i *think* that this is working correctly, i still need to fix the get organization members method tho
     def add_member_to_organization(self, organization_name: str, user: UserEntity) -> User | None:
+        """Adds a member to an organization in the database.
+        
+        Args:
+            organization_name: A string of the organization name the caller wants to add the user to
+            in order for them to become a member.
+            
+            user: A user entity model representing the desired user that the caller want to add to an organizaiton.
+
+        Returns:
+            The passed in user, or nothing if an error occurs.
+
+        Raises:
+            Exception:  An error occured trying to find the specified organization from the given organization_name.
+        """
+
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
         if organization_entity is None:
@@ -146,11 +160,21 @@ class OrganizationService:
             user_to_add = UserEntity.from_model(user)
             organization_entity.users.append(user_to_add)
             self._session.commit()
-        #print(organization_entity.users)
         return user
 
-    #this is not working, throwing error that the response is not a valid dict???
-    def get_organization_members(self, organization_name: str) -> any:
+    def get_organization_members(self, organization_name: str) -> list[User]:
+        """Fetches all the members that belong to a given organizaiton.
+        
+        Args:
+            organization_name: A string of the organization name the caller wants to retrieve the members of.
+            
+        Returns:
+            A list of the users that belong to a specific organization.
+            
+        Raises:
+            Exception: An error occured trying to find the specified organization from the given organization_name.
+        """
+        
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
         users = organization_entity.users
