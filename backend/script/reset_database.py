@@ -68,7 +68,7 @@ def reset_database():
         from .dev_data import organizations
         to_entity = entities.OrganizationEntity.from_model
         session.add_all([to_entity(model) for model in organizations.models])
-        session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {len(organizations.models) + 1}'))
+        session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {1}'))
         session.commit()
 
     # Add Users to Organizations
