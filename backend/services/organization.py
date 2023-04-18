@@ -174,7 +174,7 @@ class OrganizationService:
         Raises:
             Exception: An error occured trying to find the specified organization from the given organization_name.
         """
-        
+
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
         users = organization_entity.users

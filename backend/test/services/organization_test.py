@@ -10,6 +10,7 @@ from ...database import engine
 from ...services.organization import OrganizationService
 from ...entities.organization_entity import OrganizationEntity
 from ...models.organization import Organization
+from ...models.user import User
 
 
 __authors__ = ['Antonio Tudela']
@@ -122,3 +123,29 @@ def test_delete_organization_invalid(organization: OrganizationService):
         organization.delete_organization("Club No Name")
     #check that nothing was deleted
     assert(len(organization.get_all_organizations()) == 3)
+
+
+def test_add_user_valid(organization: OrganizationService):
+    #first we check that the organization has no members ( this also tests the get_organization_members method)
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+    #now we add a member
+    user: User = User(id=999,
+                      pid=123456789,
+                      onyen="tester",
+                      first_name="first",
+                      last_name="last",
+                      email="test@test.unc.edu",
+                      pronouns="he/him")
+    organization.add_member_to_organization("ACM at Carolina", user)
+    #then check if the members have increased
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
+
+def test_add_user_invalid(organization: OrganizationService):
+    #first we check that the organization has no members
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+    with pytest.raises(Exception) as e:
+        #add a faulty user
+        user: User = User()
+        organization.add_member_to_organization("ACM at Carolina", user)
+    #check that members have not increased
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
