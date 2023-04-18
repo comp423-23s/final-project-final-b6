@@ -124,7 +124,7 @@ We chose to order organization events in the order of soonest occuring first in 
 ##### We would advise them to look over this very markdown file.
 
 #### What files would you point them at?
-##### We would point them to the test files, the api folder, and the services folder to grasp a primary understanding of the backend and EXAMPLE1, EXAMPLE2, and EXAMPLE3 for them to understand the frontend.
+##### We would point them to the test files, the api folder, and the services folder to grasp a primary understanding of the backend and to look at the TS file in the organization-create component to understand how the frontend can communicate with the backend, and how it calls the relevant service methods.
 
 #### Is there anything special they would need to do to get started?
 ##### They would need to set up a development enviorment to work on and contribute to our feature.
