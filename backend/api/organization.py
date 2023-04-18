@@ -10,6 +10,7 @@ Routes in this file are pre-fixed with an endpoint of: "/api/organizations".
 from fastapi import APIRouter, Depends, HTTPException
 from ..services import UserService, OrganizationService
 from ..models.organization import Organization
+from ..models.user import User
 from .authentication import registered_user
 
 
