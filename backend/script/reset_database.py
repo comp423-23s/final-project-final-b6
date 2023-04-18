@@ -1,6 +1,6 @@
 """Reset the database by dropping all tables, creating tables, and inserting demo data.
 
-Usage: python3 -m script.reset_database"""
+Usage: python3 -m backend.script.reset_database"""
 
 import sys
 from sqlalchemy import text
