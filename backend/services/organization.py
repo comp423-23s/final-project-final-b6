@@ -9,7 +9,8 @@ from ..entities.entity_base import EntityBase
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models.organization import Organization
-from ..entities import OrganizationEntity
+from ..models.user import User
+from ..entities import OrganizationEntity, UserEntity
 from .permission import PermissionService
 
 
@@ -114,7 +115,6 @@ class OrganizationService:
             self._session.commit()
             return organization
 
-    # This method takes in the name of an organization to be deleted and then deletes it from the DB
     def delete_organization(self, organization_name: str) -> None: 
         """Deletes an organizaiton row from the database.
         
@@ -135,3 +135,31 @@ class OrganizationService:
         else:
             self._session.delete(organization_entity)
             self._session.commit()
+
+    # i *think* that this is working correctly, i still need to fix the get organization members method tho
+    def add_member_to_organization(self, organization_name: str, user: UserEntity) -> User | None:
+        organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
+        organization_entity: OrganizationEntity = self._session.scalar(organization_query)
+        if organization_entity is None:
+            raise Exception("No organization with that name was found! (must be exact)")
+        else:
+            user_to_add = UserEntity.from_model(user)
+            organization_entity.users.append(user_to_add)
+            self._session.commit()
+        #print(organization_entity.users)
+        return user
+
+    #this is not working, throwing error that the response is not a valid dict???
+    def get_organization_members(self, organization_name: str) -> any:
+        organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
+        organization_entity: OrganizationEntity = self._session.scalar(organization_query)
+        if organization_entity is None:
+            raise Exception("No organization with that name was found! (must be exact)")
+        else:
+            user_models = []
+            for user in organization_entity.users:
+                if user:
+                    user_models.append(user)
+                else:
+                    return "No users found"
+        return user_models
