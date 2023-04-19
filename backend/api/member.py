@@ -25,8 +25,15 @@ def add_member_to_organization(organization_name: str, user: User, organization_
     try:
         return organization_svc.add_member_to_organization(organization_name, user)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=422, detail=str(e))
 
 @api.get("", response_model=list[User], tags=['Organization'])
 def get_organization_members(organization_name: str, organization_svc: OrganizationService = Depends()):
     return organization_svc.get_organization_members(organization_name)
+
+@api.delete("/delete", response_model=None, tags=['Organization'])
+def delete_member_from_organization(organization_name: str, user: User, organization_svc: OrganizationService = Depends()):
+    try:
+        return organization_svc.delete_member_from_organization(organization_name, user)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=str(e))
