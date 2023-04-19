@@ -53,6 +53,7 @@ import { OrganizationEditComponent } from './organization-edit/organization-edit
 import { OrganizationCreateComponent } from './organization-create/organization-create.component';
 import { EventCreateComponent } from './organization-details/events/event-create/event-create.component';
 import { LeaveDialogComponent } from './organization-details/details-and-registration/leave-dialog/leave-dialog.component';
+import { MemberDeleteDialogComponent } from './organization-details/members/member-delete-dialog/member-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { LeaveDialogComponent } from './organization-details/details-and-registr
     OrganizationEditComponent,
     OrganizationCreateComponent,
     EventCreateComponent,
-    LeaveDialogComponent
+    LeaveDialogComponent,
+    MemberDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
