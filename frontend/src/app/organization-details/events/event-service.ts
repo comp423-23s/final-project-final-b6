@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable, throwError} from 'rxjs';
 
 export interface Event {
   id: number;
@@ -43,6 +43,30 @@ export class EventService {
     return this.http.patch<Event>(`api/${organizationName}/events/${event.id}`, body);
   }
   createEvent(organizationName: string, event: Event): Observable<Event>{
+    let errors: string[] = [];
+    if (event.name === "") {
+      errors.push(`name required.`);
+    }
+
+    if (event.description === "") {
+      errors.push(`description required.`)
+    }
+
+    if (event.date_time === null) {
+      errors.push(`date time required.`)
+    }
+
+    if (event.location === "") {
+      errors.push(`location required.`)
+    }
+
+    if (event.image === "") {
+      errors.push(`image required.`)
+    }
+
+    if (errors.length > 0) {
+      return throwError(() => { return new Error(errors.join("\n")) });
+    }
     const body = {
         id: event.id,
         name: event.name,
@@ -55,3 +79,4 @@ export class EventService {
     return this.http.post<Event>(`api/${organizationName}/events`, body);
   }
 }
+
