@@ -143,7 +143,7 @@ class OrganizationService:
             organization_name: A string of the organization name the caller wants to add the user to
             in order for them to become a member.
             
-            user: A user entity model representing the desired user that the caller want to add to an organizaiton.
+            user: A user entity model representing the desired user that the caller wants to add to an organizaiton.
 
         Returns:
             The passed in user, or nothing if an error occurs.
@@ -161,6 +161,32 @@ class OrganizationService:
             organization_entity.users.append(user_to_add)
             self._session.commit()
         return user
+
+    def delete_member_from_organization(self, organization_name: str, user: UserEntity) -> None:
+        """Deletes a member from a given organizaiton in the database.
+        
+        Args:
+            organization_name: A string of the organization name the caller wants to delete the user from.
+            
+            user: A user entity model representing the desired user that the caller wants to delete from an organizaiton.
+
+        Returns:
+            Nothing.
+
+        Raises:
+            Exception: An error occured trying to find the specified organization from the given organization_name.
+        """
+        
+        organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
+        organization_entity: OrganizationEntity = self._session.scalar(organization_query)
+        if organization_entity is None:
+            raise Exception("No organization with that name was found! (must be exact)")
+        else:
+            user_query = select(UserEntity).where(UserEntity.id == user.id)
+            user_entity: UserEntity = self._session.scalar(user_query)
+            organization_entity.users.remove(user_entity)
+            self._session.commit()
+
 
     def get_organization_members(self, organization_name: str) -> list[User]:
         """Fetches all the members that belong to a given organizaiton.

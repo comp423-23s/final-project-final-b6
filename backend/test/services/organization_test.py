@@ -140,6 +140,7 @@ def test_add_user_valid(organization: OrganizationService):
     #then check if the members have increased
     assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
 
+
 def test_add_user_invalid(organization: OrganizationService):
     #first we check that the organization has no members
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
@@ -148,4 +149,35 @@ def test_add_user_invalid(organization: OrganizationService):
         user: User = User()
         organization.add_member_to_organization("ACM at Carolina", user)
     #check that members have not increased
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+
+
+def test_delete_user_valid(organization: OrganizationService):
+    #first we check that the organization has no members
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+    #now we add a member
+    user: User = User(id=998,
+                      pid=123456788,
+                      onyen="tester2",
+                      first_name="first2",
+                      last_name="last2",
+                      email="test2@test.unc.edu",
+                      pronouns="he/him")
+    organization.add_member_to_organization("ACM at Carolina", user)
+    #make sure theres a member now 
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
+    #now we can delete
+    organization.delete_member_from_organization("ACM at Carolina", user)
+    #check that there are no members 
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+
+
+def test_delete_user_invalid(organization: OrganizationService):
+    #first we check that the organization has no members
+    assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+    with pytest.raises(Exception) as e:
+        #add a faulty user
+        user: User = User()
+        organization.delete_member_from_organization("ACM at Carolina", user)
+    #make sure it has not changed
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
