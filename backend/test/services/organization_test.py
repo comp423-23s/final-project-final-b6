@@ -181,11 +181,3 @@ def test_delete_user_invalid(organization: OrganizationService):
         organization.delete_member_from_organization("ACM at Carolina", user)
     #make sure it has not changed
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
-
-    
-
-
-
-
-
-    
