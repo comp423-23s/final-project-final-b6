@@ -12,7 +12,8 @@ from ..models.organization import Organization
 from ..models.user import User
 from ..entities import OrganizationEntity, UserEntity
 from .permission import PermissionService
-
+from .permission import UserPermissionError
+from .user import UserService
 
 __authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
@@ -68,7 +69,7 @@ class OrganizationService:
             model = organization_entity.to_model()
             return model
 
-    def create_organization(self, organization: OrganizationEntity) -> Organization | None:
+    def create_organization(self, organization: OrganizationEntity, user: UserEntity) -> Organization | None:
         """Creates an organization and adds it to the database.
         
         Args:
@@ -81,15 +82,24 @@ class OrganizationService:
             Exception: An error occured when trying to add the organization to the database.
         """
 
-        query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
-        organization_entity: OrganizationEntity = self._session.scalar(query)
-        if organization_entity is None:
-            organization_to_add = OrganizationEntity.from_model(organization)
-            self._session.add(organization_to_add)
-            self._session.commit()
-            return organization
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+
+        print(str(self._permission.check(user_entity, 'organization.create_organization', '/create')))
+        print("------------------------------------------------------------------")
+        if self._permission.check(user_entity, 'organization.create_organization', '/create'):
+            
+            query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
+            organization_entity: OrganizationEntity = self._session.scalar(query)
+            if organization_entity is None:
+                organization_to_add = OrganizationEntity.from_model(organization)
+                self._session.add(organization_to_add)
+                self._session.commit()
+                return organization
+            else:
+                raise Exception("An organization with this name already exists!")
         else:
-            raise Exception("An organization with this name already exists!")
+            raise UserPermissionError()
 
     def edit_organization(self, organization: Organization) -> Organization | None:
         """Edits an organization row in the database.

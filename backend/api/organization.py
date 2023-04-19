@@ -8,10 +8,11 @@ Routes in this file are pre-fixed with an endpoint of: "/api/organizations".
 """
 
 from fastapi import APIRouter, Depends, HTTPException
-from ..services import UserService, OrganizationService
+from ..services import UserService, OrganizationService, UserPermissionError
 from ..models.organization import Organization
 from ..models.user import User
 from .authentication import registered_user
+
 
 
 __authors__ = ["Jackson Davis, Antonio Tudela"]
@@ -37,8 +38,10 @@ def get(organization_name, organization_svc: OrganizationService = Depends()):
 def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends()):
     try:
         return organizaton_svc.create_organization(organization)
+    except UserPermissionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+        raise HTTPException(status_code=422, detail=str())
 
 @api.patch("/{organization_name}", response_model=Organization, tags=['Organization'])
 def edit_organization(organization: Organization, organization_svc: OrganizationService = Depends()):
