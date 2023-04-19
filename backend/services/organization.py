@@ -151,13 +151,12 @@ class OrganizationService:
         Raises:
             Exception:  An error occured trying to find the specified organization from the given organization_name.
         """
-
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
         if organization_entity is None:
             raise Exception("No organization with that name was found! (must be exact)")
         else:
-            user_to_add = UserEntity.from_model(user)
+            user_to_add = self._session.scalar(select(UserEntity).where(UserEntity.id == user.id))
             organization_entity.users.append(user_to_add)
             self._session.commit()
         return user

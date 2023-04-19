@@ -9,15 +9,21 @@
     <mat-tab-group [(ngModel)]="tab" aria-label="Font Style" class="tabContainer" animationDuration="0ms">
       <!-- Details and Registration Component -->
       <mat-tab label="Details/Registration" class="tab">
-        <app-details-and-registration></app-details-and-registration>
+        <ng-template matTabContent>
+          <app-details-and-registration></app-details-and-registration>
+        </ng-template>
       </mat-tab>
       <!-- Event Component -->
       <mat-tab label="Events" class="tab">
-        <app-events></app-events>
+        <ng-template matTabContent>
+          <app-events></app-events>
+        </ng-template>
       </mat-tab>
-      <!-- HTML for Members page -->
+      <!-- Member Component -->
       <mat-tab label="Members" class="tab">
-        <app-members></app-members>
+        <ng-template matTabContent>
+          <app-members></app-members>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </div>

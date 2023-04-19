@@ -1,7 +1,16 @@
-<div *ngIf="organization$ | async as organization">
+<div *ngIf="organization$ | async as organization" class="container">
     <div>
         <div class="descriptionContainer">
             <h2 style="margin: 30px;"> {{ organization.description }}</h2>
         </div>
     </div>
+    <div *ngIf="isMember; else notMember" class="joinContainer">
+        <button mat-raised-button type="submit" style="margin-right: 30px; margin-top: 20px;">Joined!</button>
+        <button mat-raised-button type="submit" (click)="deleteMember()"style="margin-right: 30px; margin-top: 20px;">Leave</button>
+    </div>
+    <ng-template #notMember class="joinedContainer">
+        <div class="joinedContainer">
+            <button mat-raised-button type="submit" (click)="handleJoin()"style="margin-right: 30px; margin-top: 20px;">Join</button>
+        </div>
+    </ng-template>
 </div>

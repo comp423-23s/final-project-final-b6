@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class MembersComponent {
   public members$: Observable<User[]>;
   public adminPermission$: Observable<boolean>;
+  public organizationName: String;
 
 
   constructor(
@@ -23,6 +24,8 @@ export class MembersComponent {
     protected deleteDialog: MatDialog,){
       this.adminPermission$ = this.permission.check('admin.view', 'admin/')
       const routeParams = this.route.snapshot.paramMap;
+      this.organizationName =String(routeParams.get('organizationName'));
       this.members$ = memberService.getMembers(String(routeParams.get('organizationName')));
     }
+    
 }
