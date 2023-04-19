@@ -1,1 +1,53 @@
-<p>members placeholder</p>
+<div class="container">
+    <mat-card *ngFor="let member of members$ | async" class="memberCard">
+        <div class="memberCardAdminContainer" *ngIf="(adminPermission$ | async); else not_admin">
+            <div style="width: 40%;">
+                <mat-card-header>
+                    <mat-card-content>
+                        <mat-card-title>{{member.first_name}} {{member.last_name}}</mat-card-title>
+                        <mat-card-subtitle>{{member.pronouns}}</mat-card-subtitle>
+                    </mat-card-content>
+                </mat-card-header>
+            </div>
+            <div style="display:flex; flex-direction: column; margin-left: 5%; min-width: 15%;">
+                <div style="margin-bottom: 1%"><mat-card-title>Email</mat-card-title></div>
+                <div><mat-card-subtitle>{{member.email}}</mat-card-subtitle></div>
+            </div>
+            <div style="display:flex; flex-direction: column; margin-left: 5%;">
+                <div style="margin-bottom: 1%"><mat-card-title>Role</mat-card-title></div>
+                <div><mat-card-subtitle>Role Placeholder</mat-card-subtitle></div>
+            </div>
+            <div class="manu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngIf="adminPermission$ | async">
+                        <mat-icon> delete_outline</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+        <ng-template #not_admin>
+            <div class="memberCardContainer">
+                <div style="width: 40%;">
+                    <mat-card-header>
+                        <mat-card-content>
+                            <mat-card-title>{{member.first_name}} {{member.last_name}}</mat-card-title>
+                            <mat-card-subtitle>{{member.pronouns}}</mat-card-subtitle>
+                        </mat-card-content>
+                    </mat-card-header>
+                </div>
+                <div style="display:flex; flex-direction: column; margin-left: 5%; min-width: 15%;">
+                    <div style="margin-bottom: 1%"><mat-card-title>Email</mat-card-title></div>
+                    <div><mat-card-subtitle>{{member.email}}</mat-card-subtitle></div>
+                </div>
+                <div style="display:flex; flex-direction: column; margin-left: 5%;">
+                    <div style="margin-bottom: 1%"><mat-card-title>Role</mat-card-title></div>
+                    <div><mat-card-subtitle>Role Placeholder</mat-card-subtitle></div>
+                </div>
+            </div>
+        </ng-template>
+    </mat-card>
+</div>
