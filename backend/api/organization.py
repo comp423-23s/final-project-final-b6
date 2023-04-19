@@ -35,13 +35,14 @@ def get(organization_name, organization_svc: OrganizationService = Depends()):
         raise HTTPException(status_code=400, detail=str(e))
 
 @api.post("", response_model=Organization, tags=['Organization'])
-def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends()):
+def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends(), subject: User = Depends(registered_user), user_svc: UserService = Depends()):
     try:
-        return organizaton_svc.create_organization(organization)
+        print(subject)
+        return organizaton_svc.create_organization(organization, subject)
     except UserPermissionError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=422, detail=str())
+        raise HTTPException(status_code=422, detail=str(e))
 
 @api.patch("/{organization_name}", response_model=Organization, tags=['Organization'])
 def edit_organization(organization: Organization, organization_svc: OrganizationService = Depends()):

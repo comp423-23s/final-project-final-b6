@@ -84,11 +84,9 @@ class OrganizationService:
 
         user_query = select(UserEntity).where(UserEntity.id == user.id)
         user_entity: UserEntity = self._session.scalar(user_query)
-
-        print(str(self._permission.check(user_entity, 'organization.create_organization', '/create')))
-        print("------------------------------------------------------------------")
-        if self._permission.check(user_entity, 'organization.create_organization', '/create'):
-            
+        action = 'organization.create_organization'
+        resource = '/create'
+        if self._permission.check(user_entity, action, resource):
             query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
             organization_entity: OrganizationEntity = self._session.scalar(query)
             if organization_entity is None:
@@ -99,7 +97,7 @@ class OrganizationService:
             else:
                 raise Exception("An organization with this name already exists!")
         else:
-            raise UserPermissionError()
+            raise UserPermissionError(action, resource)
 
     def edit_organization(self, organization: Organization) -> Organization | None:
         """Edits an organization row in the database.
