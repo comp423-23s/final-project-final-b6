@@ -7,3 +7,14 @@
     border-width: 5px;
     background-color: #3e3e3e;
 }
+
+.container{
+    overflow: hidden;
+}
+
+.joinContainer{
+    text-align: center;
+}
+.joinedContainer{
+    text-align: center;
+}
