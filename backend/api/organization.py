@@ -35,9 +35,8 @@ def get(organization_name, organization_svc: OrganizationService = Depends()):
         raise HTTPException(status_code=400, detail=str(e))
 
 @api.post("", response_model=Organization, tags=['Organization'])
-def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends(), subject: User = Depends(registered_user), user_svc: UserService = Depends()):
+def create_organization(organization: Organization, organizaton_svc: OrganizationService = Depends(), subject: User = Depends(registered_user)):
     try:
-        print(subject)
         return organizaton_svc.create_organization(organization, subject)
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
