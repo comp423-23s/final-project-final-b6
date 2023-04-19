@@ -22,7 +22,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item *ngIf="adminPermission$ | async">
+                    <button (click)="handleRemoveMember(member)" mat-menu-item *ngIf="adminPermission$ | async">
                         <mat-icon> delete_outline</mat-icon>
                         <span>Delete</span>
                     </button>

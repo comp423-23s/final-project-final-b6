@@ -69,7 +69,7 @@ export class DetailsAndRegistrationComponent {
     this.isMember = false;
   }
 
-  deleteMember() {
+  handleDeleteMember() {
     this.profile$.subscribe(
       (profile) => {
         if (profile) {
