@@ -8,9 +8,9 @@ from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models.event import Event
-from ..entities import OrganizationEntity, EventEntity
+from ..entities import OrganizationEntity, EventEntity, UserEntity
 from ..entities import EventEntity
-from .permission import PermissionService
+from .permission import PermissionService, UserPermissionError
 
 
 __authors__ = ["Jackson Davis, Antonio Tudela"]
@@ -97,64 +97,107 @@ class EventService:
                 event_models.append(model)
         return event_models
 
-    def delete_event(self, event_id: int) -> None:
+    def delete_event(self, event_id: int, user: UserEntity) -> None:
         """Deletes an event from the database.
         
         Args:
             event_id: The id of an event that the caller wants to delete.
+
+            user: A user entity that is passed in to check if the given user
+            has the needed permissions to be able to delete an event.
             
         Returns:
             Nothing.
         
         Raises:
             Exception: An error occured when trying to find an event with the given event id.
+
+            UserPermissionError: An error occured when trying to edit an organization due to 
+            improper user permissions.
         """
 
-        query = select(EventEntity).where(EventEntity.id == event_id)
-        event_entity = self._session.scalar(query)
-        if event_entity is None:
-            raise Exception("No event with that event id was found! Please try again")
-        else:
-            self._session.delete(event_entity)
-            self._session.commit()
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+        action = 'event.delete_event'
+        resource = '/{event_id}'
 
-    def edit_event(self, event: Event) -> Event | None:
+        if self._permission.check(user_entity, action, resource):
+            query = select(EventEntity).where(EventEntity.id == event_id)
+            event_entity = self._session.scalar(query)
+            if event_entity is None:
+                raise Exception("No event with that event id was found! Please try again")
+            else:
+                self._session.delete(event_entity)
+                self._session.commit()
+        else: 
+            raise UserPermissionError(action, resource)
+
+    def edit_event(self, event: Event, user: UserEntity) -> Event | None:
         """Edits an event in the database.
         
         Args:
-            An event model that contains the updated fields the caller wants to use.
+            event: An event model that contains the updated fields the caller wants to use.
+
+            user: A user entity that is passed in to check if the given user has the needed 
+            permissions to be able to edit an event.
             
         Returns:
             The event that was passed in with updated fields.
             
         Raises:
             Exception: An error occured when trying to find the an event with the supplied event's id field.
+
+            UserPermissionError: An error occured when trying to edit an organization due to improper user 
+            permissions.
         """
 
-        query = select(EventEntity).where(EventEntity.id == event.id)
-        event_entity: EventEntity = self._session.scalar(query)
-        if(event_entity is None):
-            raise Exception("An event with that ID cannot be found! Please try again.")
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+        action = 'event.edit_event'
+        resource = '/{event_id}/edit' # or event_id/edit?
+
+        if self._permission.check(user_entity, action, resource):
+            query = select(EventEntity).where(EventEntity.id == event.id)
+            event_entity: EventEntity = self._session.scalar(query)
+            if(event_entity is None):
+                raise Exception("An event with that ID cannot be found! Please try again.")
+            else:
+                event_entity.name = event.name
+                event_entity.description = event.description
+                event_entity.date_time = event.date_time
+                event_entity.location = event.location
+                event_entity.image = event.image
+                self._session.commit()
+                return event
         else:
-            event_entity.name = event.name
-            event_entity.description = event.description
-            event_entity.date_time = event.date_time
-            event_entity.location = event.location
-            event_entity.image = event.image
-            self._session.commit()
-            return event
+            raise UserPermissionError(action, resource)
         
-    def create_event(self, event: EventEntity) -> Event | None:
+    def create_event(self, event: EventEntity, user: UserEntity) -> Event | None:
         """Creates an event and adds it to the database.
         
         Args:
-            An event entity that the caller wants added to the database.
+            event: An event entity that the caller wants added to the database.
+
+            user: A user entity that is passed in to check if the given user has the needed 
+            permissions to be able to edit an event.
             
         Returns:
             An event model of the desired event to add.
+
+        Raises:
+            UserPermissionError: An error occured when trying to edit an organization due to improper user 
+            permissions.
         """
 
-        event_to_add = EventEntity.from_model(event)
-        self._session.add(event_to_add)
-        self._session.commit()
-        return event
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+        action = 'event.create_event'
+        resource = '/create'
+
+        if self._permission.check(user_entity, action, resource):
+            event_to_add = EventEntity.from_model(event)
+            self._session.add(event_to_add)
+            self._session.commit()
+            return event
+        else:
+            raise UserPermissionError(action, resource)

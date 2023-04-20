@@ -50,7 +50,7 @@ def edit_organization(organization: Organization, organization_svc: Organization
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e))
 
 @api.delete("/{organization_name}", response_model=None, tags=['Organization'])
 def delete_organizaiton(organization_name: str, organization_svc: OrganizationService = Depends(), subject: User = Depends(registered_user)): #may also need to add authorization here so that only admins can delete organizations, unless that will be handled on the frontend
