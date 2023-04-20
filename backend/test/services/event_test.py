@@ -4,17 +4,26 @@ Each method contains detialed inline comments to help developers understand what
 """
 
 import pytest
+from fastapi import Depends
 from sqlalchemy.orm import Session
 from ...services.event import EventService
+from ...services.permission import PermissionService, UserPermissionError
 from ...models.event import Event
 from ...models.organization import Organization
-from ...entities import OrganizationEntity, EventEntity
+from ...models.user import User
+from ...models.role import Role
+from ...entities import OrganizationEntity, EventEntity, UserEntity, RoleEntity, PermissionEntity
 from datetime import datetime
 
 
 __authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
+
+
+# mock user and role
+root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
+root_role = Role(id=1, name='root')
 
 
 # mock events
@@ -56,6 +65,15 @@ twoEventOrg = Organization(id=4,
 
 @pytest.fixture(autouse=True)
 def setup_teardown(test_session: Session):
+    # Bootstrap root User and Role
+    root_user_entity = UserEntity.from_model(root)
+    test_session.add(root_user_entity)
+    root_role_entity = RoleEntity.from_model(root_role)
+    root_role_entity.users.append(root_user_entity)
+    test_session.add(root_role_entity)
+    root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
+    test_session.add(root_permission_entity)
+    test_session.commit()
     # Bootstrap oneEventOrg and its events
     oneEventOrg_entity = OrganizationEntity.from_model(oneEventOrg)
     test_session.add(oneEventOrg_entity)
@@ -73,7 +91,11 @@ def setup_teardown(test_session: Session):
     test_session.add(twoEventOrg_entity)
     test_session.commit()
     yield
+    
 
+@pytest.fixture()
+def permission(test_session: Session):
+    return PermissionService(test_session)
 
 @pytest.fixture()
 def event(test_session: Session):
@@ -100,11 +122,11 @@ def test_get_events_exact_fields(event: EventService):
     assert(events[0].location == event3.location)
 
 # this test checks that the delete event method actually deletes the event
-def test_delete_event_valid(event: EventService):
+def test_delete_event_valid(event: EventService, permission: PermissionService):
     #check default # of events
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
     #then we delete and check it went down
-    event.delete_event(2)
+    event.delete_event(2, root)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
 
 # this test makes sure that the deleve event method correctly raises an exception when passed in an invalid event id
@@ -129,7 +151,7 @@ def test_edit_event_valid(event: EventService):
                         location="test location",
                         image="test image",
                         organization_id=1)   
-    event.edit_event(ev)
+    event.edit_event(ev, root)
     #check that the event is edited
     assert(event.get_organization_events("ACM at Carolina")[0].name == "test name")
     assert(event.get_organization_events("ACM at Carolina")[0].description == "test desc")
@@ -179,7 +201,7 @@ def test_create_event_valid(event: EventService):
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
     #then create a new one
     ev: Event = Event(name="New org meeting",description="The new org is meeting!",date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),location="The Quad",organization_id=2,image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
-    event.create_event(ev)
+    event.create_event(ev, root)
     # we create an event object, then check that the number of events went up
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 3)
 
