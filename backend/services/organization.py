@@ -144,8 +144,6 @@ class OrganizationService:
         else:
             raise UserPermissionError(action, resource)
 
-
-
     def delete_organization(self, organization_name: str, user: UserEntity) -> None: 
         """Deletes an organizaiton row from the database.
         
@@ -179,10 +177,8 @@ class OrganizationService:
                 self._session.delete(organization_entity)
                 self._session.commit()
         else:
-            raise UserPermissionError(action, resource)
-        
+            raise UserPermissionError(action, resource)        
 
-    #not sure if we should add auth to this method as students dont have any permissions but should be able to join orgs as they see fit
     def add_member_to_organization(self, organization_name: str, user: UserEntity) -> User | None:
         """Adds a member to an organization in the database.
         
@@ -197,6 +193,8 @@ class OrganizationService:
 
         Raises:
             Exception:  An error occured trying to find the specified organization from the given organization_name.
+
+            UserPermissionError: An error occured when trying to add a user that is not the current user.
         """
 
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
@@ -205,11 +203,13 @@ class OrganizationService:
             raise Exception("No organization with that name was found! (must be exact)")
         else:
             user_to_add = self._session.scalar(select(UserEntity).where(UserEntity.id == user.id))
-            organization_entity.users.append(user_to_add)
-            self._session.commit()
+            if user_to_add.pid != user.pid:
+                raise UserPermissionError("add", "other user")
+            else:
+                organization_entity.users.append(user_to_add)
+                self._session.commit()
         return user
 
-    #not sure if we should add auth to this method as students dont have any permissions but should be able to leave orgs as they see fit
     def delete_member_from_organization(self, organization_name: str, user: UserEntity) -> None:
         """Deletes a member from a given organizaiton in the database.
         
@@ -223,6 +223,9 @@ class OrganizationService:
 
         Raises:
             Exception: An error occured trying to find the specified organization from the given organization_name.
+
+            UserPermissionError: An error occured when trying to delete a user that is not the current user.
+
         """
         
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
@@ -232,9 +235,11 @@ class OrganizationService:
         else:
             user_query = select(UserEntity).where(UserEntity.id == user.id)
             user_entity: UserEntity = self._session.scalar(user_query)
-            organization_entity.users.remove(user_entity)
-            self._session.commit()
-
+            if user_entity.pid != user.pid:
+                raise UserPermissionError("delete", "other user")
+            else:
+                organization_entity.users.remove(user_entity)
+                self._session.commit()
 
     def get_organization_members(self, organization_name: str) -> list[User]:
         """Fetches all the members that belong to a given organizaiton.
