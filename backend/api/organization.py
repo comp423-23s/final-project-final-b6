@@ -44,15 +44,19 @@ def create_organization(organization: Organization, organizaton_svc: Organizatio
         raise HTTPException(status_code=422, detail=str(e))
 
 @api.patch("/{organization_name}", response_model=Organization, tags=['Organization'])
-def edit_organization(organization: Organization, organization_svc: OrganizationService = Depends()):
+def edit_organization(organization: Organization, organization_svc: OrganizationService = Depends(), subject: User = Depends(registered_user)):
     try:
-        return organization_svc.edit_organization(organization)
+        return organization_svc.edit_organization(organization, subject)
+    except UserPermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
 @api.delete("/{organization_name}", response_model=None, tags=['Organization'])
-def delete_organizaiton(organization_name: str, organization_svc: OrganizationService = Depends()): #may also need to add authorization here so that only admins can delete organizations, unless that will be handled on the frontend
+def delete_organizaiton(organization_name: str, organization_svc: OrganizationService = Depends(), subject: User = Depends(registered_user)): #may also need to add authorization here so that only admins can delete organizations, unless that will be handled on the frontend
     try:
-        return organization_svc.delete_organization(organization_name)
+        return organization_svc.delete_organization(organization_name, subject)
+    except UserPermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))

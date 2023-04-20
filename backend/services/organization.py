@@ -74,18 +74,25 @@ class OrganizationService:
         
         Args:
             organization: An organization entity that the caller wants added to the database.
-            
+
+            user: A user entity that is passed in to check if the given user has the needed 
+            permissions to be able to create an organizaiton.
+
         Returns: 
             The passed in organization, or none if an error occurs.
         
         Raises:
             Exception: An error occured when trying to add the organization to the database.
+
+            UserPermissionError: An error occured when trying to create an organization due to 
+            improper user permissions.
         """
 
         user_query = select(UserEntity).where(UserEntity.id == user.id)
         user_entity: UserEntity = self._session.scalar(user_query)
         action = 'organization.create_organization'
         resource = '/create'
+
         if self._permission.check(user_entity, action, resource):
             query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
             organization_entity: OrganizationEntity = self._session.scalar(query)
@@ -99,51 +106,83 @@ class OrganizationService:
         else:
             raise UserPermissionError(action, resource)
 
-    def edit_organization(self, organization: Organization) -> Organization | None:
+    def edit_organization(self, organization: Organization, user: UserEntity) -> Organization | None:
         """Edits an organization row in the database.
         
         Args:
             organizaiton: An organization model with the desired fields the caller wants updated in the database.
+
+            user: A user entity that is passed in to check if the given user has the needed permissions to be able to 
+            edit an organizaiton.
         
         Returns: 
             The passed in organization, or nothing if an error occurs.
             
         Raises:
             Exception: An error occured when trying to edit the organization.
+
+            UserPermissionError: An error occured when trying to edit an organization due to 
+            improper user permissions.
         """
 
-        query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
-        organization_entity: OrganizationEntity = self._session.scalar(query)
-        if organization_entity is None:
-            raise Exception("No organization with that name was found! (must be exact)")
-        else:
-            organization_entity.overview = organization.overview
-            organization_entity.description = organization.description
-            organization_entity.image = organization.image
-            self._session.commit()
-            return organization
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+        action = 'organization.edit_organization'
+        resource = '/{organization.name}/edit'
 
-    def delete_organization(self, organization_name: str) -> None: 
+        if self._permission.check(user_entity, action, resource):
+            query = select(OrganizationEntity).where(OrganizationEntity.name == organization.name)
+            organization_entity: OrganizationEntity = self._session.scalar(query)
+            if organization_entity is None:
+                raise Exception("No organization with that name was found! (must be exact)")
+            else:
+                organization_entity.overview = organization.overview
+                organization_entity.description = organization.description
+                organization_entity.image = organization.image
+                self._session.commit()
+                return organization
+        else:
+            raise UserPermissionError(action, resource)
+
+
+
+    def delete_organization(self, organization_name: str, user: UserEntity) -> None: 
         """Deletes an organizaiton row from the database.
         
         Args: 
             organization_name: A string of the organization the caller wants deleted from the database.
+
+            user: A user entity that is passed in to check if the given user has the needed permissions to 
+            be able to delete an organizaiton.
             
         Returns:
             Nothing.
 
         Raises:
             Exception: An error occured when trying to delete the organization to the database.        
-        """
-        
-        query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
-        organization_entity: OrganizationEntity = self._session.scalar(query)
-        if organization_entity is None:
-            raise Exception("No organization with that name was found! (must be exact)")
-        else:
-            self._session.delete(organization_entity)
-            self._session.commit()
 
+            UserPermissionError: An error occured when trying to edit an organization due to improper user 
+            permissions.
+        """
+
+        user_query = select(UserEntity).where(UserEntity.id == user.id)
+        user_entity: UserEntity = self._session.scalar(user_query)
+        action = 'organization.delete_organization'
+        resource = '/{organization.name}'
+        
+        if self._permission.check(user_entity, action, resource):
+            query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
+            organization_entity: OrganizationEntity = self._session.scalar(query)
+            if organization_entity is None:
+                raise Exception("No organization with that name was found! (must be exact)")
+            else:
+                self._session.delete(organization_entity)
+                self._session.commit()
+        else:
+            raise UserPermissionError(action, resource)
+        
+
+    #not sure if we should add auth to this method as students dont have any permissions but should be able to join orgs as they see fit
     def add_member_to_organization(self, organization_name: str, user: UserEntity) -> User | None:
         """Adds a member to an organization in the database.
         
@@ -159,6 +198,7 @@ class OrganizationService:
         Raises:
             Exception:  An error occured trying to find the specified organization from the given organization_name.
         """
+
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)
         organization_entity: OrganizationEntity = self._session.scalar(organization_query)
         if organization_entity is None:
@@ -169,6 +209,7 @@ class OrganizationService:
             self._session.commit()
         return user
 
+    #not sure if we should add auth to this method as students dont have any permissions but should be able to leave orgs as they see fit
     def delete_member_from_organization(self, organization_name: str, user: UserEntity) -> None:
         """Deletes a member from a given organizaiton in the database.
         
