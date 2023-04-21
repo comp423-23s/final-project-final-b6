@@ -77,7 +77,6 @@ export class OrganizationEditComponent {
     );
   }
   private onSuccess(organization: Organization) {
-    console.log(this)
     this.snackBar.open("Organization Saved", "", { duration: 2000 })
     this.router.navigate(['/organizations']);
   }
