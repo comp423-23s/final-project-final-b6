@@ -5,6 +5,7 @@ Each method contains detialed inline comments to help developers understand what
 
 import pytest
 from fastapi import Depends
+from ...database import db_session
 from sqlalchemy.orm import Session
 from ...services.event import EventService
 from ...services.permission import PermissionService, UserPermissionError
@@ -24,6 +25,7 @@ __license__ = "MIT"
 # mock user and role
 root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
 root_role = Role(id=1, name='root')
+root_user_entity = UserEntity.from_model(root)
 
 
 # mock events
@@ -94,7 +96,7 @@ def setup_teardown(test_session: Session):
     
 
 @pytest.fixture()
-def permission(test_session: Session):
+def permission(test_session: Session = Depends(db_session)):
     return PermissionService(test_session)
 
 @pytest.fixture()
@@ -122,11 +124,13 @@ def test_get_events_exact_fields(event: EventService):
     assert(events[0].location == event3.location)
 
 # this test checks that the delete event method actually deletes the event
-def test_delete_event_valid(event: EventService, permission: PermissionService):
+def test_delete_event_valid(event: EventService = Depends(db_session)):
     #check default # of events
-    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    assert(len(EventService.get_organization_events(event, "(aCc) - a Culture club")) == 2)
+
     #then we delete and check it went down
-    event.delete_event(2, root)
+    event.delete_event(2, root_user_entity)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
 
 # this test makes sure that the deleve event method correctly raises an exception when passed in an invalid event id

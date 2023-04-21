@@ -8,8 +8,10 @@ from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models.event import Event
-from ..entities import OrganizationEntity, EventEntity, UserEntity
-from ..entities import EventEntity
+from ..models.user import User
+from ..models.role import Role
+from ..script.dev_data import users
+from ..entities import OrganizationEntity, EventEntity, UserEntity, RoleEntity, PermissionEntity
 from .permission import PermissionService, UserPermissionError
 
 
@@ -26,6 +28,17 @@ class EventService:
     def __init__(self, session: Session = Depends(db_session), permission: PermissionService = Depends()):
         self._session = session
         self._permission = permission
+
+        # root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
+        # root_role = Role(id=1, name='root')
+        # root_user_entity = UserEntity.from_model(root)
+        # self._session.add(root_user_entity)
+        # root_role_entity = RoleEntity.from_model(root_role)
+        # root_role_entity.users.append(root_user_entity)
+        # self._session.add(root_role_entity)
+        # root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
+        # self._session.add(root_permission_entity)
+        # self._session.commit()
 
     def get_event_details(self, event_id: int) -> Event | None:
         """Fetches event details from the database.
@@ -97,7 +110,7 @@ class EventService:
                 event_models.append(model)
         return event_models
 
-    def delete_event(self, event_id: int, user: UserEntity) -> None:
+    def delete_event(self, event_id: int, user: UserEntity) -> None:# = users.root
         """Deletes an event from the database.
         
         Args:
