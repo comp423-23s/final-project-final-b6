@@ -110,7 +110,7 @@ class EventService:
                 event_models.append(model)
         return event_models
 
-    def delete_event(self, event_id: int, user: UserEntity) -> None:# = users.root
+    def delete_event(self, event_id: int, user: UserEntity) -> None:
         """Deletes an event from the database.
         
         Args:

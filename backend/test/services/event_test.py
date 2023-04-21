@@ -6,6 +6,7 @@ Each method contains detialed inline comments to help developers understand what
 import pytest
 from fastapi import Depends
 from ...database import db_session
+from ...api.authentication import registered_user
 from sqlalchemy.orm import Session
 from ...services.event import EventService
 from ...services.permission import PermissionService, UserPermissionError
@@ -68,6 +69,7 @@ twoEventOrg = Organization(id=4,
 @pytest.fixture(autouse=True)
 def setup_teardown(test_session: Session):
     # Bootstrap root User and Role
+    global root_user_entity
     root_user_entity = UserEntity.from_model(root)
     test_session.add(root_user_entity)
     root_role_entity = RoleEntity.from_model(root_role)
@@ -95,13 +97,11 @@ def setup_teardown(test_session: Session):
     yield
     
 
-@pytest.fixture()
-def permission(test_session: Session = Depends(db_session)):
-    return PermissionService(test_session)
+
 
 @pytest.fixture()
 def event(test_session: Session):
-    return EventService(test_session)
+    return EventService(test_session, PermissionService(test_session))
 
 # this test checks that the ACM organization has only one event
 def test_get_events_length_one(event: EventService):
@@ -124,11 +124,11 @@ def test_get_events_exact_fields(event: EventService):
     assert(events[0].location == event3.location)
 
 # this test checks that the delete event method actually deletes the event
-def test_delete_event_valid(event: EventService = Depends(db_session)):
+def test_delete_event_valid(event: EventService):
     #check default # of events
-    #assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
-    assert(len(EventService.get_organization_events(event, "(aCc) - a Culture club")) == 2)
-
+    #with pytest.raises(Exception) as e:
+    #assert(permission.check(root_user_entity, '*', '*' ))
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
     #then we delete and check it went down
     event.delete_event(2, root_user_entity)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
