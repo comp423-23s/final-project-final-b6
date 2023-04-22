@@ -11,7 +11,7 @@ from ..models.event import Event
 from ..models.user import User
 from ..models.role import Role
 from ..script.dev_data import users
-from ..entities import OrganizationEntity, EventEntity, UserEntity, RoleEntity, PermissionEntity
+from ..entities import OrganizationEntity, EventEntity, UserEntity, PermissionEntity
 from .permission import PermissionService, UserPermissionError
 
 
@@ -29,16 +29,6 @@ class EventService:
         self._session = session
         self._permission = permission
 
-        # root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
-        # root_role = Role(id=1, name='root')
-        # root_user_entity = UserEntity.from_model(root)
-        # self._session.add(root_user_entity)
-        # root_role_entity = RoleEntity.from_model(root_role)
-        # root_role_entity.users.append(root_user_entity)
-        # self._session.add(root_role_entity)
-        # root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
-        # self._session.add(root_permission_entity)
-        # self._session.commit()
 
     def get_event_details(self, event_id: int) -> Event | None:
         """Fetches event details from the database.

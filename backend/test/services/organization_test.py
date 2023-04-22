@@ -1,14 +1,13 @@
 """These tests are used to ensure that the methods in ...services/organization are functioning as intended.
 
 Each method contains detialed inline comments to help developers understand what is being tested, as well as why.
-
 """
 
 import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
 from ...services.organization import OrganizationService
-from ...services.permission import PermissionService, UserPermissionError, PermissionEntity
+from ...services.permission import PermissionService, PermissionEntity
 from ...entities.organization_entity import OrganizationEntity
 from ...entities.user_entity import UserEntity
 from ...entities.role_entity import RoleEntity, Role
@@ -47,7 +46,6 @@ org6 = Organization(id=6,
 
 @pytest.fixture(autouse=True)
 def setup_teardown(test_session: Session):
-
     # Bootstrap root User and Role
     global root_user_entity
     root_user_entity = UserEntity.from_model(root)
@@ -148,13 +146,6 @@ def test_add_user_valid(organization: OrganizationService):
     #first we check that the organization has no members ( this also tests the get_organization_members method)
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
     #now we add a member
-    user: User = User(id=999,
-                      pid=123456789,
-                      onyen="tester",
-                      first_name="first",
-                      last_name="last",
-                      email="test@test.unc.edu",
-                      pronouns="he/him")
     organization.add_member_to_organization("ACM at Carolina", root_user_entity)
     #then check if the members have increased
     assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
@@ -175,13 +166,6 @@ def test_delete_user_valid(organization: OrganizationService):
     #first we check that the organization has no members
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
     #now we add a member
-    user: User = User(id=998,
-                      pid=123456789,
-                      onyen="tester2",
-                      first_name="first2",
-                      last_name="last2",
-                      email="test2@test.unc.edu",
-                      pronouns="he/him")
     organization.add_member_to_organization("ACM at Carolina", root_user_entity)
     #make sure theres a member now 
     assert(len(organization.get_organization_members("ACM at Carolina")) == 1)

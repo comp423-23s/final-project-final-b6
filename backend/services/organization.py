@@ -13,7 +13,7 @@ from ..models.user import User
 from ..entities import OrganizationEntity, UserEntity
 from .permission import PermissionService
 from .permission import UserPermissionError
-from .user import UserService
+
 
 __authors__ = ["Jackson Davis, Antonio Tudela"]
 __copyright__ = "Copyright 2023"
@@ -224,8 +224,7 @@ class OrganizationService:
         Raises:
             Exception: An error occured trying to find the specified organization from the given organization_name.
 
-            UserPermissionError: An error occured when trying to delete a user that is not the current user.
-
+            UserPermissionError: An error occured when trying to delete a user that is not the current user
         """
         
         organization_query = select(OrganizationEntity).where(OrganizationEntity.name == organization_name)

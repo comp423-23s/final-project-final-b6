@@ -8,7 +8,7 @@ Routes in this file are pre-fixed with an endpoint of: "/api/{organization_name}
 """
 
 from fastapi import APIRouter, Depends, HTTPException
-from ..services import UserService, EventService, UserPermissionError
+from ..services import EventService, UserPermissionError
 from ..models.event import Event
 from ..models.user import User
 from .authentication import registered_user
@@ -36,7 +36,6 @@ def get(event_id: int, event_svc: EventService = Depends()):
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 
-
 @api.delete("/{event_id}", response_model=None, tags=['Event'])
 def delete_event(event_id: int, event_svc: EventService = Depends(), subject: User = Depends(registered_user)):
     try:
@@ -45,7 +44,6 @@ def delete_event(event_id: int, event_svc: EventService = Depends(), subject: Us
         raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))
-
 
 @api.patch("/{event_id}", response_model=Event, tags=['Event'])
 def edit_event(event: Event, event_svc: EventService = Depends(), subject: User = Depends(registered_user)):

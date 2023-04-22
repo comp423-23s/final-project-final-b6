@@ -4,12 +4,9 @@ Each method contains detialed inline comments to help developers understand what
 """
 
 import pytest
-from fastapi import Depends
-from ...database import db_session
-from ...api.authentication import registered_user
 from sqlalchemy.orm import Session
 from ...services.event import EventService
-from ...services.permission import PermissionService, UserPermissionError
+from ...services.permission import PermissionService
 from ...models.event import Event
 from ...models.organization import Organization
 from ...models.user import User
@@ -53,6 +50,7 @@ event3 = Event(
                 organization_id=3,
                 image="https://se-images.campuslabs.com/clink/images/074a951c-704c-4b35-9e81-f16da39f9f3ed291f0dd-d7c7-47c5-9ba9-e014a2a1dc04.jpg?preset=med-sq")
 
+
 # mock organizations
 oneEventOrg = Organization(id=1, 
                     name="ACM at Carolina", 
@@ -95,8 +93,6 @@ def setup_teardown(test_session: Session):
     test_session.add(twoEventOrg_entity)
     test_session.commit()
     yield
-    
-
 
 
 @pytest.fixture()
@@ -208,7 +204,6 @@ def test_create_event_valid(event: EventService):
     event.create_event(ev, root)
     # we create an event object, then check that the number of events went up
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 3)
-
 
 def test_create_organization_invalid(event: EventService):
     #first we check the default number of events for the organization
