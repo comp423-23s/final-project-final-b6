@@ -1,14 +1,16 @@
 """These tests are used to ensure that the methods in ...services/organization are functioning as intended.
 
 Each method contains detialed inline comments to help developers understand what is being tested, as well as why.
-
 """
 
 import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
 from ...services.organization import OrganizationService
+from ...services.permission import PermissionService, PermissionEntity
 from ...entities.organization_entity import OrganizationEntity
+from ...entities.user_entity import UserEntity
+from ...entities.role_entity import RoleEntity, Role
 from ...models.organization import Organization
 from ...models.user import User
 
@@ -17,6 +19,11 @@ __authors__ = ['Antonio Tudela']
 __copyright__ = 'Copyright 2023'
 __license__ = 'MIT'
 
+
+# mock user and role
+root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
+root_role = Role(id=1, name='root')
+root_user_entity = UserEntity.from_model(root)
 # Mock organizations
 org1 = Organization(id=1, #CS
                     name="ACM at Carolina", 
@@ -39,6 +46,16 @@ org6 = Organization(id=6,
 
 @pytest.fixture(autouse=True)
 def setup_teardown(test_session: Session):
+    # Bootstrap root User and Role
+    global root_user_entity
+    root_user_entity = UserEntity.from_model(root)
+    test_session.add(root_user_entity)
+    root_role_entity = RoleEntity.from_model(root_role)
+    root_role_entity.users.append(root_user_entity)
+    test_session.add(root_role_entity)
+    root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
+    test_session.add(root_permission_entity)
+    test_session.commit()
     # Bootstrap org1
     org_one_entity = OrganizationEntity.from_model(org1)
     test_session.add(org_one_entity)
@@ -56,7 +73,7 @@ def setup_teardown(test_session: Session):
 
 @pytest.fixture()
 def organization(test_session: Session):
-    return OrganizationService(test_session)
+    return OrganizationService(test_session, PermissionService(test_session))
 
     
 def test_organization_get_id_valid(organization: OrganizationService):
@@ -75,7 +92,7 @@ def test_edit_organization_valid(organization: OrganizationService):
     #then we make a "new org" with the desired values to be passed into the service method
     org: Organization = Organization(id=6, name="1789", overview="this is a test", description="test description", image="test image")
     #next we pass in the above org
-    organization.edit_organization(org)
+    organization.edit_organization(org, root_user_entity)
     #and finally we check if the service method did its job and changed the values
     assert(organization.get("1789").overview == "this is a test")
 
@@ -92,7 +109,7 @@ def test_create_organization_valid(organization: OrganizationService):
     assert(len(organization.get_all_organizations()) == 3)
     #then create a new one
     org: Organization = Organization(id=999, name="999th Club", overview="The overview for the 999th club", description="The description for the 999th club", image="The image of the 999th club")
-    organization.create_organization(org)
+    organization.create_organization(org, root_user_entity)
     #we create the org, and then create it, then check that the number of orgs went up
     assert(len(organization.get_all_organizations()) == 4)
 
@@ -111,7 +128,7 @@ def test_delete_organization_valid(organization: OrganizationService):
     #first we check the default number of organizations
     assert(len(organization.get_all_organizations()) == 3)
     #then we delete one and check the length to make sure its gone down by one
-    organization.delete_organization("1789")
+    organization.delete_organization("1789", root_user_entity)
     assert(len(organization.get_all_organizations()) == 2)
 
 
@@ -120,7 +137,7 @@ def test_delete_organization_invalid(organization: OrganizationService):
     assert(len(organization.get_all_organizations()) == 3)
     #then we and organization that doesnt exist so it should raise an exception
     with pytest.raises(Exception) as e:
-        organization.delete_organization("Club No Name")
+        organization.delete_organization("Club No Name", root_user_entity)
     #check that nothing was deleted
     assert(len(organization.get_all_organizations()) == 3)
 
@@ -129,14 +146,7 @@ def test_add_user_valid(organization: OrganizationService):
     #first we check that the organization has no members ( this also tests the get_organization_members method)
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
     #now we add a member
-    user: User = User(id=999,
-                      pid=123456789,
-                      onyen="tester",
-                      first_name="first",
-                      last_name="last",
-                      email="test@test.unc.edu",
-                      pronouns="he/him")
-    organization.add_member_to_organization("ACM at Carolina", user)
+    organization.add_member_to_organization("ACM at Carolina", root_user_entity)
     #then check if the members have increased
     assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
 
@@ -156,18 +166,11 @@ def test_delete_user_valid(organization: OrganizationService):
     #first we check that the organization has no members
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
     #now we add a member
-    user: User = User(id=998,
-                      pid=123456788,
-                      onyen="tester2",
-                      first_name="first2",
-                      last_name="last2",
-                      email="test2@test.unc.edu",
-                      pronouns="he/him")
-    organization.add_member_to_organization("ACM at Carolina", user)
+    organization.add_member_to_organization("ACM at Carolina", root_user_entity)
     #make sure theres a member now 
     assert(len(organization.get_organization_members("ACM at Carolina")) == 1)
     #now we can delete
-    organization.delete_member_from_organization("ACM at Carolina", user)
+    organization.delete_member_from_organization("ACM at Carolina", root_user_entity)
     #check that there are no members 
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
 
