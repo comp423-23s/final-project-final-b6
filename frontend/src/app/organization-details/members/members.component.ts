@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MemberDeleteDialogComponent } from './member-delete-dialog/member-delete-dialog.component'
 
 
+
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
@@ -47,6 +48,10 @@ export class MembersComponent {
         this.onRemoveSuccess(member);
       } 
     })
+  }
+
+  getRoll() {
+    
   }
 
 }
