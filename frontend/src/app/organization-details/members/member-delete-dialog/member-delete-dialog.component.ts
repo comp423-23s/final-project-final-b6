@@ -17,7 +17,7 @@ export class MemberDeleteDialogComponent {
   ngOnInit(): void { }
   deleteEvent() {
     this.memberService.deleteMember(this.data.organizationName, this.data.user).subscribe(() => {
-      this.dialogRef.close();
+      this.dialogRef.close({"option":"removed"});
     });
   }
 }

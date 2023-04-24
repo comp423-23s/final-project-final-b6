@@ -43,7 +43,11 @@ export class MembersComponent {
 
   handleRemoveMember(member: User) {
     let dialogRef = this.deleteDialog.open(MemberDeleteDialogComponent, { data: { "organizationName": this.organizationName, "user": member } });
-    dialogRef.afterClosed().subscribe(() => { this.onRemoveSuccess(member); })
+    dialogRef.afterClosed().subscribe((isRemoved)=>{
+      if(isRemoved['option']==="removed"){
+        this.onRemoveSuccess(member);
+      } 
+    })
   }
 
   getRoll() {
