@@ -124,4 +124,7 @@ export class EventCreateComponent {
     }
     return hours
   };
+  onReturn() {
+    this.router.navigate([`/organizations/${this.organizationName}`])
+    }
 }

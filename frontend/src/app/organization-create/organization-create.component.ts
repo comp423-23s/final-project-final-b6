@@ -54,5 +54,8 @@ export class OrganizationCreateComponent {
     this.snackBar.open("Organization Created", "", { duration: 2000 });
     this.router.navigate(['/organizations']);
   }
+  onReturn() {
+    this.router.navigate(['/organizations']);
+    }
 }
 
