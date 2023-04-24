@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OrganizationService } from '../organizations/organizations.service';
@@ -32,7 +32,8 @@ export class OrganizationEditComponent {
     private organizationService: OrganizationService,
     private route: ActivatedRoute,
     protected formBuilder: FormBuilder,
-    protected snackBar: MatSnackBar) {
+    protected snackBar: MatSnackBar,
+    private router: Router) {
     const form = this.organizationEditForm;
     form.get('overview');
     form.get('description');
@@ -77,9 +78,9 @@ export class OrganizationEditComponent {
   }
   private onSuccess(organization: Organization) {
     this.snackBar.open("Organization Saved", "", { duration: 2000 })
+    this.router.navigate(['/organizations']);
+  }
+  onReturn(): void {
+    this.router.navigate(['/organizations']);
   }
 }
-
-
-
-

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FormBuilder} from '@angular/forms';
 import { Event, EventService } from "../event-service";
@@ -42,7 +42,8 @@ export class EventEditComponent {
     private eventService: EventService,
     private route: ActivatedRoute,
     protected formBuilder: FormBuilder,
-    protected snackBar: MatSnackBar) {
+    protected snackBar: MatSnackBar,
+    private router: Router) {
     const form = this.eventEditForm;
     form.get('name');
     form.get('description');
@@ -118,6 +119,7 @@ export class EventEditComponent {
 
   private onSuccess(event: Event) {
     this.snackBar.open("Event Saved", "", { duration: 2000 })
+    this.router.navigate([`/organizations/${this.organizationName}`]);
   }
 
   public changeClientMinute(minute: string) {
@@ -138,4 +140,7 @@ export class EventEditComponent {
     }
     return hours
   };
+  onReturn() {
+    this.router.navigate([`/organizations/${this.organizationName}`])
+    }
 }
