@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MemberDeleteDialogComponent } from './member-delete-dialog/member-delete-dialog.component'
 
 
+
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
@@ -43,6 +44,10 @@ export class MembersComponent {
   handleRemoveMember(member: User) {
     let dialogRef = this.deleteDialog.open(MemberDeleteDialogComponent, { data: { "organizationName": this.organizationName, "user": member } });
     dialogRef.afterClosed().subscribe(() => { this.onRemoveSuccess(member); })
+  }
+
+  getRoll() {
+    
   }
 
 }
