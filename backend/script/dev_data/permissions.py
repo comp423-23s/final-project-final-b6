@@ -31,8 +31,8 @@ pairs = [
     (roles.ambassador, Permission(action="checkin.*", resource="*")),
     (roles.ambassador, Permission(action="organization.edit_organization", resource="*")),
     (roles.ambassador, Permission(action="event.edit_event", resource="*")),
-    (roles.ambassador, Permission(action="organization.create_organization", resource="*")),
-    (roles.ambassador, Permission(action="event.create_event", resource="*")),
+    #(roles.ambassador, Permission(action="organization.create_organization", resource="*")),
+    #(roles.ambassador, Permission(action="event.create_event", resource="*")),
 
 
 

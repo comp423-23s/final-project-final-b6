@@ -38,8 +38,7 @@ An ambassador should be able to:
 2. Checkin a user to the CSXL.
 4. Edit organization detials.
 5. Edit event details.
-6. Create an organization.
-7. Create an event for an organizaiton.
+
 
 An ambassador should *not* be able to:
 
@@ -48,6 +47,8 @@ An ambassador should *not* be able to:
 3. Change a user's role.
 4. Delete an organization,
 5. Delete an event.
+6. Create an organization.
+7. Create an event for an organizaiton.
 
 
 ### Uses for a *manager*
