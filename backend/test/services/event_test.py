@@ -6,7 +6,7 @@ Each method contains detialed inline comments to help developers understand what
 import pytest
 from sqlalchemy.orm import Session
 from ...services.event import EventService
-from ...services.permission import PermissionService
+from ...services.permission import PermissionService, UserPermissionError
 from ...models.event import Event
 from ...models.organization import Organization
 from ...models.user import User
@@ -20,10 +20,18 @@ __copyright__ = "Copyright 2023"
 __license__ = "MIT"
 
 
-# mock user and role
+# mock users and roles
 root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
 root_role = Role(id=1, name='root')
 root_user_entity = UserEntity.from_model(root)
+
+arden = User(id=3, pid=100000001, onyen='arden', email='arden@unc.edu')
+arden_role = Role(id=3, name='arden')
+arden_user_entity = UserEntity.from_model(arden)
+
+manager = User(id=4, pid=100000002, onyen='merritt', email='merritt@unc.edu')
+manager_role = Role(id=2, name='merritt')
+manager_user_entity = UserEntity.from_model(manager)
 
 
 # mock events
@@ -42,6 +50,7 @@ event2 = Event(
                 location="The Quad",
                 organization_id=4,
                 image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
+
 event3 = Event(
                 name="Active Minds Get Together!",
                 description="Come join us for a get together of our Active Minds! >:)",
@@ -57,6 +66,7 @@ oneEventOrg = Organization(id=1,
                     overview="ACM at Carolina is dedicated to helping encourage students find their passion in the computer science world and build a strong community of students, faculty, and professionals at Chapel Hill. Feel free to check out our page!", 
                     description="Mission Statement: ""We are a professional community of Tar Heels who study computing; we are dedicated to exploring our field, defining our interests, engaging with each other, discovering our strengths, and improving our skills."" If you are interested in joining, please visit this link: https://bit.ly/ACM-Sign-Up. Also, make sure to contact us with any questions!",
                     image="https://se-images.campuslabs.com/clink/images/b8ab1d8e-ee34-449f-ae5f-e843896455c704688f5b-d1b0-411e-9f69-14c063114d55.jpg?preset=med-sq")
+
 twoEventOrg = Organization(id=4,
                     name="(aCc) - a Culture club",
                     overview="Share, respect, and support all cultural identities.",
@@ -76,6 +86,29 @@ def setup_teardown(test_session: Session):
     root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
     test_session.add(root_permission_entity)
     test_session.commit()
+
+    # Bootstrap arden User and Role, this user should not be able to make /delete events/ orgs
+    global arden_user_entity
+    arden_user_entity = UserEntity.from_model(arden)
+    test_session.add(arden_user_entity)
+    arden_role_entity = RoleEntity.from_model(arden_role)
+    arden_role_entity.users.append(arden_user_entity)
+    test_session.add(arden_role_entity)
+    arden_permission_entity = PermissionEntity(action='event.edit_event', resource='*', role=arden_role_entity)
+    #arden_permission_entity2 = PermissionEntity(action='event.create_eventt', resource='*', role=arden_role_entity)
+    test_session.add(arden_permission_entity)
+    #test_session.add(arden_permission_entity2)
+
+    # Bootstrap manager user and role
+    global manager_user_entity
+    manager_user_entity = UserEntity.from_model(manager)
+    test_session.add(manager_user_entity)
+    manager_role_entity = RoleEntity.from_model(manager_role)
+    manager_role_entity.users.append(manager_user_entity)
+    test_session.add(manager_role_entity)
+    manager_permission_entity = PermissionEntity(action='event.*', resource='*', role=manager_role_entity)
+    test_session.add(manager_permission_entity)
+
     # Bootstrap oneEventOrg and its events
     oneEventOrg_entity = OrganizationEntity.from_model(oneEventOrg)
     test_session.add(oneEventOrg_entity)
@@ -83,6 +116,7 @@ def setup_teardown(test_session: Session):
     oneEventOrg_entity.events.append(event1_entity)
     test_session.add(oneEventOrg_entity)
     test_session.commit()
+
     # Bootstrap twoEventOrg and its events
     twoEventOrg_entity = OrganizationEntity.from_model(twoEventOrg)
     test_session.add(twoEventOrg_entity)
@@ -99,13 +133,16 @@ def setup_teardown(test_session: Session):
 def event(test_session: Session):
     return EventService(test_session, PermissionService(test_session))
 
+
 # this test checks that the ACM organization has only one event
 def test_get_events_length_one(event: EventService):
     assert(len(event.get_organization_events("ACM at Carolina")) == 1)
 
+
 # this test chekcs that the aCc organization has two events 
 def test_get_events_length_two(event: EventService):
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+
 
 # this test checks the get organization events method properly returns the correct event with the correct corresponding event fields
 def test_get_events_exact_fields(event: EventService):
@@ -119,6 +156,7 @@ def test_get_events_exact_fields(event: EventService):
     assert(events[0].date_time == event3.date_time)
     assert(events[0].location == event3.location)
 
+
 # this test checks that the delete event method actually deletes the event
 def test_delete_event_valid(event: EventService):
     #check default # of events
@@ -129,6 +167,7 @@ def test_delete_event_valid(event: EventService):
     event.delete_event(2, root_user_entity)
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
 
+
 # this test makes sure that the deleve event method correctly raises an exception when passed in an invalid event id
 def test_delete_event_invalid(event: EventService):
     #check default # of events
@@ -138,6 +177,7 @@ def test_delete_event_invalid(event: EventService):
         event.delete_event(999)
     #check that nothing was deleted 
     assert(len(event.get_all_events()) == 3)
+
 
 # this test checks that the edit event method actually edits the events fields
 def test_edit_event_valid(event: EventService):
@@ -159,6 +199,7 @@ def test_edit_event_valid(event: EventService):
     assert(event.get_organization_events("ACM at Carolina")[0].location == "test location")
     assert(event.get_organization_events("ACM at Carolina")[0].image == "test image")
 
+
 # this test checks that the edit event method raises an exception when passed in a faulty event
 def test_edit_event_invalid(event: EventService):
     #check normal name
@@ -169,6 +210,7 @@ def test_edit_event_invalid(event: EventService):
         event.edit_event(ev)
     #check nothing changed
     assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting")
+
 
 #this test checks that the get event details method correctly returns the correct fields 
 def test_get_event_details_valid(event: EventService):
@@ -187,6 +229,7 @@ def test_get_event_details_valid(event: EventService):
     assert(event.get_event_details(3)).date_time == datetime.strptime('04/05/23 14:59', '%m/%d/%y %H:%M')
     assert(event.get_event_details(3)).location == "Fetzer Gym"
     assert(event.get_event_details(3)).image == "https://se-images.campuslabs.com/clink/images/074a951c-704c-4b35-9e81-f16da39f9f3ed291f0dd-d7c7-47c5-9ba9-e014a2a1dc04.jpg?preset=med-sq"
+
     
 # this test checks that the get evetn details method raises an exception when passed in an invalid event id
 def test_get_event_details_invalid(event: EventService):
@@ -196,14 +239,21 @@ def test_get_event_details_invalid(event: EventService):
         #make sure the method raises an exception
         event.get_event_details(event4.id)
 
+
 def test_create_event_valid(event: EventService):
     #first we check the default number of event for the organization
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
     #then create a new one
-    ev: Event = Event(name="New org meeting",description="The new org is meeting!",date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),location="The Quad",organization_id=2,image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
+    ev: Event = Event(name="New org meeting",
+                      description="The new org is meeting!",
+                      date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),
+                      location="The Quad",
+                      organization_id=2,
+                      image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
     event.create_event(ev, root)
     # we create an event object, then check that the number of events went up
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 3)
+
 
 def test_create_organization_invalid(event: EventService):
     #first we check the default number of events for the organization
@@ -213,3 +263,98 @@ def test_create_organization_invalid(event: EventService):
         event.create_event(ev)
     #check no new event was added
     assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+
+
+#below are more tests for to make sure the permissions are all correct
+
+
+def test_ambassador_cannot_delete_event(event: EventService):
+    #first we check the default number of events for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #now we try and delete an aCc event as an ambassador who should not be able to delete events 
+    with pytest.raises(UserPermissionError) as e:
+        event.delete_event(2, arden_user_entity)
+    #make sure arden was not able to delete the event
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+
+
+def test_manager_can_delete_event(event: EventService):
+    #first we check the default number of events for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #now we delete an event as a manager
+    event.delete_event(2, manager_user_entity)
+    #check that an event was deleted
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 1)
+
+
+def test_ambassador_cannot_create_event(event: EventService):
+    #first we check the default number of event for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #then create a new one and check that arden cannot create
+    with pytest.raises(UserPermissionError) as e:
+        ev: Event = Event(name="New org meeting",
+                        description="The new org is meeting!",
+                        date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),
+                        location="The Quad",
+                        organization_id=2,
+                        image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
+        event.create_event(ev, arden_user_entity)
+    #check that no event was created
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+
+    
+def test_manager_can_create_event(event: EventService):
+    #first we check the default number of event for the organization
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 2)
+    #make an event and add it
+    ev: Event = Event(name="New org meeting",
+                    description="The new org is meeting!",
+                    date_time = datetime.strptime('04/06/23 17:00', '%m/%d/%y %H:%M'),
+                    location="The Quad",
+                    organization_id=2,
+                    image="https://se-images.campuslabs.com/clink/images/78a6be92-aa7f-46d3-b731-c3f92da37039571a72b6-5e51-48e9-b8a4-74ae42ac858d.JPG?preset=small-sq")
+    event.create_event(ev, manager_user_entity)
+    #check that an event was created
+    assert(len(event.get_organization_events("(aCc) - a Culture club")) == 3)
+
+
+def test_ambassador_can_edit_event(event: EventService):
+    #check normal name
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting") # this is because this event was added to ACM instead of aCc, but this still ensures its working correctly 
+    #now we make "new" event with desired values
+    ev: Event = Event(  id=1,
+                        name="test name",
+                        description="test desc",
+                        date_time=datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'),
+                        location="test location",
+                        image="test image",
+                        organization_id=1) 
+    #now check that arden can edit
+    event.edit_event(ev, arden_user_entity)
+    #check that the event is NOT edited
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "test name")
+    assert(event.get_organization_events("ACM at Carolina")[0].description == "test desc")
+    assert(event.get_organization_events("ACM at Carolina")[0].date_time == datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'))
+    assert(event.get_organization_events("ACM at Carolina")[0].location == "test location")
+    assert(event.get_organization_events("ACM at Carolina")[0].image == "test image")
+
+
+def test_manager_can_edit_event(event: EventService):
+    #check normal name
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "Culture Club Meeting") # this is because this event was added to ACM instead of aCc, but this still ensures its working correctly 
+    #now we make "new" event with desired values
+    ev: Event = Event(  id=1,
+                        name="test name",
+                        description="test desc",
+                        date_time=datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'),
+                        location="test location",
+                        image="test image",
+                        organization_id=1)  
+    #check that manager is able to edit 
+    event.edit_event(ev, manager_user_entity)
+    #check that the event is edited
+    assert(event.get_organization_events("ACM at Carolina")[0].name == "test name")
+    assert(event.get_organization_events("ACM at Carolina")[0].description == "test desc")
+    assert(event.get_organization_events("ACM at Carolina")[0].date_time == datetime.strptime('04/06/23 16:00', '%m/%d/%y %H:%M'))
+    assert(event.get_organization_events("ACM at Carolina")[0].location == "test location")
+    assert(event.get_organization_events("ACM at Carolina")[0].image == "test image")

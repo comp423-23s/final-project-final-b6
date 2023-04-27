@@ -7,7 +7,7 @@ import pytest
 from sqlalchemy.orm import Session
 from ...database import engine
 from ...services.organization import OrganizationService
-from ...services.permission import PermissionService, PermissionEntity
+from ...services.permission import PermissionService, PermissionEntity, UserPermissionError
 from ...entities.organization_entity import OrganizationEntity
 from ...entities.user_entity import UserEntity
 from ...entities.role_entity import RoleEntity, Role
@@ -24,6 +24,15 @@ __license__ = 'MIT'
 root = User(id=1, pid=999999999, onyen='root', email='root@unc.edu')
 root_role = Role(id=1, name='root')
 root_user_entity = UserEntity.from_model(root)
+
+arden = User(id=3, pid=100000001, onyen='arden', email='arden@unc.edu')
+arden_role = Role(id=3, name='arden')
+arden_user_entity = UserEntity.from_model(arden)
+
+manager = User(id=4, pid=100000002, onyen='merritt', email='merritt@unc.edu')
+manager_role = Role(id=2, name='merritt')
+manager_user_entity = UserEntity.from_model(manager)
+
 # Mock organizations
 org1 = Organization(id=1, #CS
                     name="ACM at Carolina", 
@@ -56,6 +65,27 @@ def setup_teardown(test_session: Session):
     root_permission_entity = PermissionEntity(action='*', resource='*', role=root_role_entity)
     test_session.add(root_permission_entity)
     test_session.commit()
+
+     # Bootstrap arden User and Role, this user should not be able to make /delete events/ orgs
+    global arden_user_entity
+    arden_user_entity = UserEntity.from_model(arden)
+    test_session.add(arden_user_entity)
+    arden_role_entity = RoleEntity.from_model(arden_role)
+    arden_role_entity.users.append(arden_user_entity)
+    test_session.add(arden_role_entity)
+    arden_permission_entity = PermissionEntity(action='organization.edit_organization', resource='*', role=arden_role_entity)
+    test_session.add(arden_permission_entity)
+
+    # Bootstrap manager user and role
+    global manager_user_entity
+    manager_user_entity = UserEntity.from_model(manager)
+    test_session.add(manager_user_entity)
+    manager_role_entity = RoleEntity.from_model(manager_role)
+    manager_role_entity.users.append(manager_user_entity)
+    test_session.add(manager_role_entity)
+    manager_permission_entity = PermissionEntity(action='*', resource='*', role=manager_role_entity)
+    test_session.add(manager_permission_entity)
+
     # Bootstrap org1
     org_one_entity = OrganizationEntity.from_model(org1)
     test_session.add(org_one_entity)
@@ -108,7 +138,11 @@ def test_create_organization_valid(organization: OrganizationService):
     #first we check the default number of organizations
     assert(len(organization.get_all_organizations()) == 3)
     #then create a new one
-    org: Organization = Organization(id=999, name="999th Club", overview="The overview for the 999th club", description="The description for the 999th club", image="The image of the 999th club")
+    org: Organization = Organization(id=999, 
+                                     name="999th Club", 
+                                     overview="The overview for the 999th club", 
+                                     description="The description for the 999th club", 
+                                     image="The image of the 999th club")
     organization.create_organization(org, root_user_entity)
     #we create the org, and then create it, then check that the number of orgs went up
     assert(len(organization.get_all_organizations()) == 4)
@@ -184,3 +218,74 @@ def test_delete_user_invalid(organization: OrganizationService):
         organization.delete_member_from_organization("ACM at Carolina", user)
     #make sure it has not changed
     assert(len(organization.get_organization_members("ACM at Carolina")) == 0)
+
+
+#the test below further test user permissions
+
+
+def test_ambassador_cannot_delete_organizaiton(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then we try to delete one as arden and make sure it does NOT get deleted
+    with pytest.raises(UserPermissionError) as e:
+        organization.delete_organization("1789", arden_user_entity)
+    assert(len(organization.get_all_organizations()) == 3)
+
+
+def test_manager_can_delete_organization(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then we delete one as a manager and check the length to make sure its gone down by one
+    organization.delete_organization("ACM at Carolina", manager_user_entity)
+    assert(len(organization.get_all_organizations()) == 2)
+
+
+def test_ambassador_cannot_create_organization(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then create a new one as arden
+    org: Organization = Organization(id=998, 
+                                     name="998th Club", 
+                                     overview="The overview for the 998th club", 
+                                     description="The description for the 998th club", 
+                                     image="The image of the 998th club")
+    with pytest.raises(UserPermissionError) as e:
+        organization.create_organization(org, arden_user_entity)
+        #try to create it, but should not be able to, and number of orgs should NOT increase
+    assert(len(organization.get_all_organizations()) == 3)
+
+
+def test_manager_can_create_organization(organization: OrganizationService):
+    #first we check the default number of organizations
+    assert(len(organization.get_all_organizations()) == 3)
+    #then create a new one as manager, and add it 
+    org: Organization = Organization(id=997, 
+                                     name="997th Club", 
+                                     overview="The overview for the 997th club", 
+                                     description="The description for the 997th club", 
+                                     image="The image of the 997th club")
+    organization.create_organization(org, manager_user_entity)
+    #check that an organization was added
+    assert(len(organization.get_all_organizations()) == 4)
+
+
+def test_ambassador_can_edit_organization(organization: OrganizationService):
+    #first check to make sure the normal overview is there
+    assert(organization.get("1789").overview == "1789, powered by Innovate Carolina,  is free a co-working space and venture lab designed for students to take their idea to the next level, meet other student entrepreneurs, connect to resources and grow a team. ")
+    #then we make a "new org" with the desired values to be passed into the service method
+    org: Organization = Organization(id=6, name="1789", overview="this is a test", description="test description", image="test image")
+    #next we pass in the above org
+    organization.edit_organization(org, arden_user_entity)
+    #and finally we check if the service method did its job and changed the values
+    assert(organization.get("1789").overview == "this is a test")
+
+
+def test_manager_can_edit_organization(organization: OrganizationService):
+    #first check to make sure the normal overview is there
+    assert(organization.get("1789").overview == "1789, powered by Innovate Carolina,  is free a co-working space and venture lab designed for students to take their idea to the next level, meet other student entrepreneurs, connect to resources and grow a team. ")
+    #then we make a "new org" with the desired values to be passed into the service method
+    org: Organization = Organization(id=6, name="1789", overview="this is a test", description="test description", image="test image")
+    #next we pass in the above org
+    organization.edit_organization(org, manager_user_entity)
+    #and finally we check if the service method did its job and changed the values
+    assert(organization.get("1789").overview == "this is a test")
