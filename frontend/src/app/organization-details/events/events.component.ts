@@ -22,7 +22,7 @@ export class EventsComponent {
 
   public adminPermission$: Observable<boolean>;
 
-
+  public eventPermission$: Observable<boolean>;
   constructor(
     private organizationService: OrganizationService,
     private route: ActivatedRoute,
@@ -37,6 +37,8 @@ export class EventsComponent {
       this.organization$ = this.organizationService.getOrganizationDetails(String(routeParams.get('organizationName')));
       // call API route to get events for organization
       this.events$ = this.eventService.getOrganizationEvents(String(routeParams.get('organizationName')));
+      let orgName = String(routeParams.get('organizationName'));
+      this.eventPermission$ = this.permission.check('event.edit_event', `organizations/${orgName}`)
     }
 
     deleteEvent(organization: Organization,event: Event) {

@@ -22,7 +22,7 @@
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
+          <mat-menu #menu="matMenu" >
             <button mat-menu-item *ngIf="adminPermission$ | async"
               routerLink="/organizations/{{organization.name}}/edit">
               <mat-icon>edit</mat-icon>
@@ -47,6 +47,18 @@
                 <mat-card-subtitle>{{organization.overview}}</mat-card-subtitle>
               </mat-card-content>
             </mat-card-header>
+          </div>
+          <div class="manu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="organizationPermission$ | async">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" >
+              <button mat-menu-item *ngIf="organizationPermission$ | async"
+                routerLink="/organizations/{{organization.name}}/edit">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+            </mat-menu>
           </div>
         </div>
       </ng-template>

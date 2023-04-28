@@ -8,6 +8,7 @@ import { ProfileService, Profile } from 'src/app/profile/profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { LeaveDialogComponent } from './leave-dialog/leave-dialog.component'
+import { PermissionService } from 'src/app/permission.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class DetailsAndRegistrationComponent {
     private profileService: ProfileService,
     private memberService: MemberService,
     protected deleteDialog: MatDialog,
-    protected snackBar: MatSnackBar) {
+    protected snackBar: MatSnackBar,
+    private permission: PermissionService,) {
     const routeParams = this.route.snapshot.paramMap;
     this.profile$ = profileService.profile$;
     this.organizationName = String(routeParams.get('organizationName'));
