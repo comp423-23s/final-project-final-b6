@@ -21,7 +21,7 @@ export class OrganizationsComponent {
   };
   public organizations$: Observable<Organization[]>;
   public adminPermission$: Observable<boolean>;
-  
+  public organizationPermission$: Observable<boolean>;
   constructor(
     private permission: PermissionService,
     private organizationService: OrganizationService,
@@ -29,6 +29,7 @@ export class OrganizationsComponent {
   ) {
     this.organizations$=organizationService.getOrganizations();
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
+    this.organizationPermission$ = this.permission.check('organization.edit_organization', 'organizations/')
   }
   deleteOrganization(organization: Organization) {
     let dialogRef = this.deleteDialog.open(DeleteDialogComponent, { data: { "organization": organization} });

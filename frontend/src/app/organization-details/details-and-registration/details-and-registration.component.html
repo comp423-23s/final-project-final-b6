@@ -10,7 +10,7 @@
     </div>
     <ng-template #notMember class="joinedContainer">
         <div class="joinedContainer">
-            <button mat-raised-button type="submit" (click)="handleJoin()"style="margin-right: 30px; margin-top: 20px;">Join</button>
+            <button mat-raised-button type="submit" (click)="handleJoin()"style="margin-right: 30px; margin-top: 20px;" *ngIf="(profile$ | async) !== undefined">Join</button>
         </div>
     </ng-template>
 </div>
