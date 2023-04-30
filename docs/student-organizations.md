@@ -45,13 +45,6 @@ Their permissions are outlined below.
     <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
   </tr>
-  <tr>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-  </tr>
 </tbody>
 </table>
 
@@ -107,13 +100,6 @@ Their permissions are outlined below.
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 12px;">-</img></td>
     <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
   </tr>
 </tbody>
 </table>
@@ -178,13 +164,6 @@ Their permissions are outlined below.
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
     <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
   </tr>
 </tbody>
 </table>
@@ -255,13 +234,6 @@ Their permissions are outlined below.
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
     <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
   </tr>
 </tbody>
 </table>
