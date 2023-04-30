@@ -1,13 +1,74 @@
 
-# **Organizations Feature**
+# **Feature Documentation - Organizations**
 
-## Overview
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#authors">Authors</a>
+    </li>
+    <li>
+      <a href="#overview">Overview</a>
+    </li>
+    <li>
+      <a href="#permissions--views">Permissions & Views</a>
+      <ul>
+        <li><a href="#student">Student</a></li>
+        <li><a href="#ambassador">Ambassador</a></li>
+        <li><a href="#manager">Manager</a></li>
+        <li><a href="#admin">Admin</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#entities">Entities</a>
+      <ul>
+        <li><a href="#organization">Organization</a></li>
+        <li><a href="#event">Event</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#design">Design</a>
+      <ul>
+        <li><a href="#frontend">Frontend</a></li>
+        <li><a href="#backend">Backend</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#development-concerns--notes">Development Concenrs & Notes</a>
+      <ul>
+        <li><a href="#frontend-1">Frontend</a></li>
+        <li><a href="#backend-1">Backend</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#future-work">Future Work</a>
+      <ul>
+        <li><a href="#frontend-2">Frontend</a></li>
+        <li><a href="#backend-2">Backend</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
 
+<br></br>
+
+## **Authors**
+#
+- [Jackson Davis](https://github.com/Jackson-Davis1)
+- [Yueun Kang](https://github.com/yueunkang)
+- [Antonio Tudela](https://github.com/antud)
+- [Binhang Li](https://github.com/libinhang)
+
+<br></br>
+
+## **Overview**
+#
 The Organizations page serves as the hub for students looking to explore new clubs. It consists of the '/organizations' page, and the '/organizations/:organizationName' pages. The former lists organizations along with a brief overview, and the latter shows much more detailed information, namely registration, events, and member details.
 
+The primary goal of the organizations feature is to serve a *student* of the University of North Carolina at Chapel Hill.
 
-### The primary goal of the organizations feature is to serve a *student* of the University of North Carolina at Chapel Hill. 
-#
+<br></br>
+
 # **Permissions & Views**
 # Student
 ## **Student** - Permissions
@@ -65,6 +126,7 @@ Note that the student has the ability to click join to become a member of the or
 ### Organization Members
 <img src='images/Student/Student-OrgMembers.png'><img>
 
+<br></br>
 # Ambassador
 ## **Ambassador** - Permissions
 The ambassador role is meant to act as an editor for an organization, with extra permissions beyond a student to edit organization details and organization events. \
@@ -105,7 +167,6 @@ Their permissions are outlined below.
 </table>
 
 ## **Ambassador** - Views
-
 ### Organizations
 <img src='images/Ambassador/Ambassador-Orgs.png'><img>
 Note that as opposed to the student view, the ambassador can see three dots which when clicked, allow for editing of an organization details. (For demo purposes it is present on all organizations, but in implementation it would be present for clubs the user has edit permissions)
@@ -128,6 +189,7 @@ Note that the Date field is entered using Angular's calendar material, and the M
 ### Organization Members
 [Identical to Student](#student---views)
 
+<br></br>
 
 # Manager
 ## **Manager** - Permissions
@@ -197,7 +259,7 @@ Event edit ([See ambassador views](#ambassador---views)) with the only differenc
 <img src='images/Manager/Manager-OrgMembers.png'><img>
 Note that as opposed to the Ambassador, the Manager has three dots, which when clicks allows for removal of members of the organization.
 
-
+<br></br>
 
 # Admin
 ## **Admin** - Permissions
@@ -268,8 +330,8 @@ Note that the functionality here is exactly like the organization details edit (
 ### Organization Members
 [Identical to Manager](#manager---views) 
 
-
 <br></br>
+
 # **Entities**
 The two main entities that were necessary to be created for the organizations feature specifically were the Organization entity and the Event entity. 
 ## **Organization**
@@ -292,14 +354,10 @@ The two main entities that were necessary to be created for the organizations fe
 | image           | string   | The image of the event (as a url)                                 |
 | organization_id | int      | The associated id with the organization the event is for (unique) |
 
-
-
-
+<br></br>
 
 # **Design**
-
 ## **Frontend**
-
 A unique feature of this implementation is that the permissions are simply baked into the features, rather than separated by a tab. The 'Admin' tab is not actually used for organization admin permissions, and it is instead baked into the same views that the students have. 
 
 This way it is a much more seemless experience for both students and admins alike. Another benefit is that this method allows much less repetitive code. For example, Only one component is needed to render organizations, instead of two (one for admin and one for students).
@@ -315,7 +373,7 @@ The ordering of organization events is in the order of soonest occuring first in
 
 The ordering of organizations is by created date, mainly for feedback for admins who create events.
 
-
+<br></br>
 
 # **Development Concerns & Notes**
 
@@ -332,6 +390,8 @@ Backend development is structured strictly into api endpoints, services, and tes
 Another important note is that dev data is nested into a folder with the same name, and the script to reset the database with that dev data is nested within a folder with the name 'scripts'.
 
 note: **The reset database script must be run for any dev data updates to be reflected.** This includes the **deployed site.** 
+
+<br></br>
 
 # **Future Work**
 There are many more improvements to the organizations feature that could be implemented, the most important of which are outlined below by stack and in decreasing order of importance. 
