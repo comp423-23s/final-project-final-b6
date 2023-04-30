@@ -34,7 +34,7 @@
       </ul>
     </li>
     <li>
-      <a href="#development-concerns--notes">Development Concenrs & Notes</a>
+      <a href="#development-concerns--notes">Development Concerns & Notes</a>
       <ul>
         <li><a href="#frontend-1">Frontend</a></li>
         <li><a href="#backend-1">Backend</a></li>
