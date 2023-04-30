@@ -1,120 +1,333 @@
-# Student Organiztions for the CSXL
+
+# **Organizations Feature**
 
 ## Overview
 
-Our feature focuses on displaying UNC organizations, displaying events associated with an organization, and in the next sprint, displaying members of an organization to those authorized to view those specific details.
+The Organizations page serves as the hub for students looking to explore new clubs. It consists of the '/organizations' page, and the '/organizations/:organizationName' pages. The former lists organizations along with a brief overview, and the latter shows much more detailed information, namely registration, events, and member details.
 
 
-### Our contributions are intended to primary serve a *student* of the University of North Carolina at Chapel Hill.
+### The primary goal of the organizations feature is to serve a *student* of the University of North Carolina at Chapel Hill. 
+#
+# **Permissions & Views**
+# Student
+## **Student** - Permissions
+The student role has the most basic permissions on the CSXL site, consisting of only viewing the three main entities: Organizations, Events, and Members. \
+Their permissions are outlined below.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax"></th>
+    <th class="tg-0lax"><span style="font-weight:bold">View</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Edit</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Delete</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Create</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Organizations</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Events</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Members</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 12px;">-</img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
 
-A student should be able to:
+One important note is that students(along with every other role) should be able to join and leave organizations at any time.
+## **Student** - Views
 
-1. View organiztaions/ organiztion details associated with the University.
-2. Have the ability to join or request to join a given organization.
-3. View events/ event details associated with an organization.
-4. Have the ability to go to events.
-5. Sign into a session using their Onyen.
-6. View their user profile.
-7. Update their user profile.
-8. Sign out of their session if they so desire.
+### Organizations
+<img src='images/Student/Student-Orgs.png'><img>
+Note that the student has only the ability to view and click on prospective organizations.
 
-A student should *not* be able to:
+### Organization Details
+<img src='images/Student/Student-OrgDetails.png'><img>
+Note that the student has the ability to click join to become a member of the organization.
 
-1. View other user profiles.
-2. Edit organiztion detials.
-4. Delete organizations.
-5. Create organizaitons.
-6. Edit event details.
-7. Delete events.
-8. Create events.
+### Organization Events
+<img src='images/Student/Student-OrgEvents.png'><img>
+
+### Organization Members
+<img src='images/Student/Student-OrgMembers.png'><img>
+
+# Ambassador
+## **Ambassador** - Permissions
+The ambassador role is meant to act as an editor for an organization, with extra permissions beyond a student to edit organization details and organization events. \
+Their permissions are outlined below.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax"></th>
+    <th class="tg-0lax"><span style="font-weight:bold">View</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Edit</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Delete</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Create</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Organizations</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Events</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Members</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 12px;">-</img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
+
+## **Ambassador** - Views
+
+### Organizations
+<img src='images/Ambassador/Ambassador-Orgs.png'><img>
+Note that as opposed to the student view, the ambassador can see three dots which when clicked, allow for editing of an organization details. (For demo purposes it is present on all organizations, but in implementation it would be present for clubs the user has edit permissions)
+
+### Organization Edit
+<img src='images/Ambassador/Ambassador-OrgEdit.png'><img>
+Note that roles with edit permission can only edit the details, not the organization name. Images are rendered from urls (as opposed to storing in a database).Clicking 'save' should save any updates, and clicking 'return' should return the user to the organizations page.
+
+### Organization Details
+[Identical to Student](#student---views)
+
+### Organization Events
+<img src='images/Ambassador/Ambassador-OrgEvents.png'><img>
+Note that just like the organzations page, the ambassador has the option to click the three dots to edit an event.
+
+### Event Edit
+<img src='images/Ambassador/Ambassador-OrgEventEdit.png'><img>
+Note that the Date field is entered using Angular's calendar material, and the Minutes field is limited to 00, 15, 30, and 45 for simplicity.
+
+### Organization Members
+[Identical to Student](#student---views)
 
 
-### Uses for an *ambassador*
+# Manager
+## **Manager** - Permissions
+The manager role is meant to act as both an editor, manager, and planner for an organization, with extra permissions beyond a ambassador to create events and remove members. \
+Their permissions are outlined below.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax"></th>
+    <th class="tg-0lax"><span style="font-weight:bold">View</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Edit</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Delete</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Create</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Organizations</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Events</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Members</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
 
-An ambassador should be able to:
+## **Manager** - Views
 
-1. Do everything a student is able to do.
-2. Search for users.
-2. Checkin a user to the CSXL.
-4. Edit organization detials.
-5. Edit event details.
+### Organizations
+[Identical to Ambassador](#ambassador---views)
+(with an extra delete option on clicking three dots for their organization)
 
-
-An ambassador should *not* be able to:
-
-1. Edit an organizaiton's name.
-2. Edit an event's name.
-3. Change a user's role.
-4. Delete an organization,
-5. Delete an event.
-6. Create an organization.
-7. Create an event for an organizaiton.
+### Organization Edit
+[Identical to Ambassador](#ambassador---views)
 
 
-### Uses for a *manager*
+### Organization Details
+[Identical to Student](#student---views)
 
-A manager should be able to:
+### Organization Events
+<img src='images/Manager/Manager-OrgEvents.png'><img>
+Note that the Manager, as opposed to the Ambassador, has the 'Create New' button, which will bring them to the create event page. They also have an extra delete option when clicking the three dots.
 
-1. Do everything an ambassador is able to do.
-2. Edit an organization's name.
-3. Edit an event's name.
-4. Delete an organization.
-5. Delete an event.
+### Event Create
+<img src='images/Manager/Manager-OrgEventCreate.png'><img>
+Note that this page functions almost identically to the 
+Event edit ([See ambassador views](#ambassador---views)) with the only difference in the 'Create' button instead of the 'Save'.
 
-A manager should *not* be able to:
+### Event Edit
+[Identical to Ambassador](#ambassador---views)
 
-1. Access developer mode.
-
-
-### Uses for an *admin*
-
-An admin should be able to:
-
-1. Do everything a manager is able to do.
-2. Access developer mode to peer into the inner workings of the applicaiton.
-
-An admin should *not* be able to do:
-
-1. Nothing.  They should be able to do anything possible within the applicaiton.
+### Organization Members
+<img src='images/Manager/Manager-OrgMembers.png'><img>
+Note that as opposed to the Ambassador, the Manager has three dots, which when clicks allows for removal of members of the organization.
 
 
-## Implementation Notes
 
-Our application includes entities for:
+# Admin
+## **Admin** - Permissions
+The admin role is meant to have the ability to perform all actions on the CSXL site. \
+Their permissions are outlined below.
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax"></th>
+    <th class="tg-0lax"><span style="font-weight:bold">View</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Edit</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Delete</span></th>
+    <th class="tg-0lax"><span style="font-weight:bold">Create</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">Organizations</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Events</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">Members</td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
+    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
 
-1. Events,
-2. Organizations,
-3. Permissions,
-4. Users,
-5. User roles,
-6. The relationship between a user and an organizaiton,
-7. The relationship between an organization and its events
+Note that the admin should have these permissions for *all* organizations.
 
-### A further elaboration on the entities that we created and modified
+## **Admin** - Views
 
-An event entity is composed of fields representing:
+### Organizations
+[Identical to Ambassador](#ambassador---views) 
+(with an extra delete option on clicking three dots for any organization)
 
-1. An event id,
-2. An event name,
-3. An event desctiption,
-4. An event time and date,
-5. An event location,
-6. An event image,
-7. And an organiztion id relating it to an existing organiztion
+### Organization Create
+<img src='images/Admin/Admin-OrgCreate.png'><img>
+Note that the functionality here is exactly like the organization details edit ([See Ambassador Views](#ambassador---views)), with a 'Create' instead of a 'Save'. 
+### Organization Edit
+[Identical to Ambassador](#ambassador---views)
 
-An organization entity is composed of fields representing:
 
-1. An organization id,
-2. An organization name,
-3. An organization overview,
-4. An organization description,
-5. An organization image,
-6. And a list of users
+### Organization Details
+[Identical to Student](#student---views)
+
+### Organization Events
+[Identical to Manager](#manager---views)
+
+### Event Create
+[Identical to Manager](#manager---views)
+
+### Event Edit
+[Identical to Ambassador](#ambassador---views)
+
+### Organization Members
+[Identical to Manager](#manager---views) 
+
+
+<br></br>
+# **Entities**
+The two main entities that were necessary to be created for the organizations feature specifically were the Organization entity and the Event entity. 
+## **Organization**
+| **Field**   | **Type** | **Notes**                                                                         |
+|-------------|----------|-----------------------------------------------------------------------------------|
+| id          | int      | The primary key (unique)                                                          |
+| name        | string   | The name of the organization (unique)                                                      |
+| overview    | string   | The short overview of the organization shown on the organizations page            |
+| description | string   | The longer description of the organization shown on the organization details page |
+| image       | string   | The image of the organization (as a url)                                          |
+## **Event**
+
+|    **Field**         | **Type** | **Notes**                                                         |
+|-----------------|----------|-------------------------------------------------------------------|
+| id              | int      | The primary key (unique)                                          |
+| name            | string   | The name of the event                                             |
+| description     | string   | The description of the event                                      |
+| date_time       | DateTime | The date & time of the event (in Postgres' Unix time)             |
+| location        | string   | The location of the event                                         |
+| image           | string   | The image of the event (as a url)                                 |
+| organization_id | int      | The associated id with the organization the event is for (unique) |
+
+
+
 
 
 ### Interesting design choices we made
 
-We chose to make event and organization names unique as we figured this would encourage creative organization/ event names and make it easier to find a specific organization/ event.  
+
+We chose to make organization names unique as we figured this would avoid any problems with duplicate names and make it ultimately easier to find a specific organization.  
 
 We chose to order organization events in the order of soonest occuring first in order to make it easier for students to view upcoming events and be able to adjust and plan accordingly.  We think this is a more convienient choice rather than ordering alphabetically as it is more intuitive to the end user.
 
