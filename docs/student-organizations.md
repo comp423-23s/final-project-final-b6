@@ -53,7 +53,6 @@
 <br></br>
 
 ## **Authors**
-#
 - [Jackson Davis](https://github.com/Jackson-Davis1)
 - [Yueun Kang](https://github.com/yueunkang)
 - [Antonio Tudela](https://github.com/antud)
@@ -62,7 +61,6 @@
 <br></br>
 
 ## **Overview**
-#
 The Organizations page serves as the hub for students looking to explore new clubs. It consists of the '/organizations' page, and the '/organizations/:organizationName' pages. The former lists organizations along with a brief overview, and the latter shows much more detailed information, namely registration, events, and member details.
 
 The primary goal of the organizations feature is to serve a *student* of the University of North Carolina at Chapel Hill.
