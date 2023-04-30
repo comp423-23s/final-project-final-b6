@@ -296,26 +296,51 @@ The two main entities that were necessary to be created for the organizations fe
 
 
 
-### Interesting design choices we made
+# **Design**
+
+## **Frontend**
+
+A unique feature of this implementation is that the permissions are simply baked into the features, rather than separated by a tab. The 'Admin' tab is not actually used for organization admin permissions, and it is instead baked into the same views that the students have. 
+
+This way it is a much more seemless experience for both students and admins alike. Another benefit is that this method allows much less repetitive code. For example, Only one component is needed to render organizations, instead of two (one for admin and one for students).
+
+One other noteworthy design choice is that the feature is entirely built out of angular materials, which is adhered to throughought the CSXL site as a whole.
 
 
-We chose to make organization names unique as we figured this would avoid any problems with duplicate names and make it ultimately easier to find a specific organization.  
+## **Backend**
 
-We chose to order organization events in the order of soonest occuring first in order to make it easier for students to view upcoming events and be able to adjust and plan accordingly.  We think this is a more convienient choice rather than ordering alphabetically as it is more intuitive to the end user.
+Organization names are unique, as to avoid duplicate names and confusing searches for students.
 
+The ordering of organization events is in the order of soonest occuring first in order to make it easier for students to view upcoming events and be able to adjust and plan accordingly. 
 
-## Development Concerns
-
-#### If a new developer wanted to start working on your feature, what kind of guidance or overview would you give them to get them started?
-##### We would advise them to look over this very markdown file.
-
-#### What files would you point them at?
-##### We would point them to the test files, the api folder, and the services folder to grasp a primary understanding of the backend and the organization-create TS file in the frontend src folder to understand how the frontend communicates with the backend through the use of calling its service methods.
-
-#### Is there anything special they would need to do to get started?
-##### They would need to set up a development enviorment to work on and contribute to our feature.
+The ordering of organizations is by created date, mainly for feedback for admins who create events.
 
 
-## Future Work
 
-With more time, our feature could be slightly expanded.  One idea is to add a way to filter and or sort organizations.
+# **Development Concerns & Notes**
+
+## **Frontend**
+
+Frontend development of this feature adheres to using only angular materials. Each individual view for organizations is within its own folder, and nested views within organizations have their own nested components. (i.e. the organization members folder is nested within the organization-details folder).
+
+Generally, components are merely for rendering data, and both logic, and calls to the api are delegated to services elsewhere. 
+
+## **Backend**
+
+Backend development is structured strictly into api endpoints, services, and testing. Every method has its own unique unit test, nested within a folder with the same name as the service.
+
+Another important note is that dev data is nested into a folder with the same name, and the script to reset the database with that dev data is nested within a folder with the name 'scripts'.
+
+note: **The reset database script must be run for any dev data updates to be reflected.** This includes the **deployed site.** 
+
+# **Future Work**
+There are many more improvements to the organizations feature that could be implemented, the most important of which are outlined below by stack and in decreasing order of importance. 
+## **Frontend**
+### **Pagination**
+As the scale of the site grows, pagination will ulimately be needed for organizations, events, and memebers. This could consist of a multipage selection at the bottom of the screen, with a 'next' and 'previous' button that shows the next 25 of whatever list the user is using.
+### **Search Function**
+One convenient addition to the frontend could be a search function, for organizations, members, and events. This could consist of a small search bar above the associated list, and when a user types it dynamically filters the list below.
+
+## **Backend**
+### **User Roles per Organization**
+One major functionality that is left out of the current implementation is mapping users to roles per organization. As shown in the views, a manager can effectively 'manage' all organizations. In reality, they should only be able to manage one organization, or organizations that they are a manager of. This is also equally true for ambassadors. This can be manually implemented by creating a manager/ambassdor role for every organization, however a much better solution would be to have users have different roles per organization. This would require some overhaul of the backend, but would enable a much more robust feature. This would allow, for example, promotions/demotions of members to different roles within an organization to be implementable.
