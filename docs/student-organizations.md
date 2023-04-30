@@ -85,23 +85,23 @@ Their permissions are outlined below.
 <tbody>
   <tr>
     <td class="tg-0lax">Organizations</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Events</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Members</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 12px;">-</img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
   </tr>
 </tbody>
@@ -111,18 +111,18 @@ One important note is that students(along with every other role) should be able 
 ## **Student** - Views
 
 ### Organizations
-<img src='images/Student/Student-Orgs.png'><img>
+<img src='https://i.imgur.com/XyNH7Ss.png'> <img>
 Note that the student has only the ability to view and click on prospective organizations.
 
 ### Organization Details
-<img src='images/Student/Student-OrgDetails.png'><img>
+<img src='https://i.imgur.com/1Fu423M.png'><img>
 Note that the student has the ability to click join to become a member of the organization.
 
 ### Organization Events
-<img src='images/Student/Student-OrgEvents.png'><img>
+<img src='https://i.imgur.com/ym5bpCy.png'><img>
 
 ### Organization Members
-<img src='images/Student/Student-OrgMembers.png'><img>
+<img src='https://i.imgur.com/vm4NDGI.png'><img>
 
 <br></br>
 # Ambassador
@@ -142,23 +142,23 @@ Their permissions are outlined below.
 <tbody>
   <tr>
     <td class="tg-0lax">Organizations</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Events</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Members</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 12px;">-</img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
   </tr>
 </tbody>
@@ -166,22 +166,22 @@ Their permissions are outlined below.
 
 ## **Ambassador** - Views
 ### Organizations
-<img src='images/Ambassador/Ambassador-Orgs.png'><img>
+<img src='https://i.imgur.com/dWETi1M.png'><img>
 Note that as opposed to the student view, the ambassador can see three dots which when clicked, allow for editing of an organization details. (For demo purposes it is present on all organizations, but in implementation it would be present for clubs the user has edit permissions)
 
 ### Organization Edit
-<img src='images/Ambassador/Ambassador-OrgEdit.png'><img>
+<img src='https://i.imgur.com/43daLsr.png'><img>
 Note that roles with edit permission can only edit the details, not the organization name. Images are rendered from urls (as opposed to storing in a database).Clicking 'save' should save any updates, and clicking 'return' should return the user to the organizations page.
 
 ### Organization Details
 [Identical to Student](#student---views)
 
 ### Organization Events
-<img src='images/Ambassador/Ambassador-OrgEvents.png'><img>
+<img src='https://i.imgur.com/m34gFTu.png'><img>
 Note that just like the organzations page, the ambassador has the option to click the three dots to edit an event.
 
 ### Event Edit
-<img src='images/Ambassador/Ambassador-OrgEventEdit.png'><img>
+<img src='https://i.imgur.com/M6Z0wYZ.png'><img>
 Note that the Date field is entered using Angular's calendar material, and the Minutes field is limited to 00, 15, 30, and 45 for simplicity.
 
 ### Organization Members
@@ -206,23 +206,23 @@ Their permissions are outlined below.
 <tbody>
   <tr>
     <td class="tg-0lax">Organizations</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/XMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/4GLkYkQ.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Events</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Members</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
   </tr>
 </tbody>
@@ -242,11 +242,11 @@ Their permissions are outlined below.
 [Identical to Student](#student---views)
 
 ### Organization Events
-<img src='images/Manager/Manager-OrgEvents.png'><img>
+<img src='https://i.imgur.com/mf82JOI.png'><img>
 Note that the Manager, as opposed to the Ambassador, has the 'Create New' button, which will bring them to the create event page. They also have an extra delete option when clicking the three dots.
 
 ### Event Create
-<img src='images/Manager/Manager-OrgEventCreate.png'><img>
+<img src='https://i.imgur.com/O2EGSyW.png'><img>
 Note that this page functions almost identically to the 
 Event edit ([See ambassador views](#ambassador---views)) with the only difference in the 'Create' button instead of the 'Save'.
 
@@ -254,7 +254,7 @@ Event edit ([See ambassador views](#ambassador---views)) with the only differenc
 [Identical to Ambassador](#ambassador---views)
 
 ### Organization Members
-<img src='images/Manager/Manager-OrgMembers.png'><img>
+<img src='https://i.imgur.com/VARyx8o.png'><img>
 Note that as opposed to the Ambassador, the Manager has three dots, which when clicks allows for removal of members of the organization.
 
 <br></br>
@@ -276,23 +276,23 @@ Their permissions are outlined below.
 <tbody>
   <tr>
     <td class="tg-0lax">Organizations</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Events</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 5px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 13px;"></img></td>
   </tr>
   <tr>
     <td class="tg-0lax">Members</td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-left: 10px;"><img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-left: 10px;"><img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 8px;">-</img></td>
-    <td class="tg-0lax"><img src='images/CheckMark.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
+    <td class="tg-0lax"><img src='https://i.imgur.com/DMbH6Mg.png' width=18px style="padding-top: 3.5px; padding-left: 14px;"></img></td>
     <td class="tg-0lax"><img  width=18px style="padding-top: 3.5px; padding-left: 18px;">-</img></td>
   </tr>
 </tbody>
@@ -304,10 +304,10 @@ Note that the admin should have these permissions for *all* organizations.
 
 ### Organizations
 [Identical to Ambassador](#ambassador---views) 
-(with an extra delete option on clicking three dots for any organization)
+(with an extra delete option on clicking three dots for any organization and create organization button)
 
 ### Organization Create
-<img src='images/Admin/Admin-OrgCreate.png'><img>
+<img src='https://i.imgur.com/WCBxiKK.png'><img>
 Note that the functionality here is exactly like the organization details edit ([See Ambassador Views](#ambassador---views)), with a 'Create' instead of a 'Save'. 
 ### Organization Edit
 [Identical to Ambassador](#ambassador---views)
